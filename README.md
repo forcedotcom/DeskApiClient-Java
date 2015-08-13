@@ -3,9 +3,20 @@
 The Desk API Client is a lightweight static library written in Java that wraps the [Desk.com API V2][1].
 
 ## Download
-Download the latest jar or grab via Gradle:
-```groovy
-compile ''
+Download the [latest JAR][2] or grab via Gradle.
+
+### Gradle integration
+
+Place code in your `build.gradle`
+
+```gradle
+repositories {
+  jcenter()
+}
+
+dependencies {
+  compile 'com.desk:api-client:1.0.0'
+}
 ```
 
 ## Usage
@@ -42,3 +53,4 @@ Redistribution and use in source and binary forms, with or without modification,
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 [1]: http://dev.desk.com
+[2]: https://github.com/forcedotcom/DeskApiClient-Java/releases/latest
