@@ -41,7 +41,7 @@
     <url>https://github.com/forcedotcom/DeskApiClient-Java</url>
 
     <modules>
-        <module>desk-api-client-java</module>
+        <module>api-client</module>
     </modules>
 
     <scm>
