@@ -26,26 +26,18 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
- * Created by Matt Kranzler on 7/28/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Unit tests for {@link SortDirection}
  */
-public enum SortDirection {
+public class SortDirectionTest {
 
-    @SerializedName("asc")
-    ASC,
-
-    @SerializedName("desc")
-    DESC;
-
-    /**
-     * Returns a lowercase toString() value
-     * @return the lowercase value
-     */
-    @Override
-    public String toString() {
-        return super.toString().toLowerCase();
+    @Test
+    public void toStringDoesLowerCaseString() throws Exception {
+        assertEquals(SortDirection.ASC.toString(), "asc");
+        assertEquals(SortDirection.DESC.toString(), "desc");
     }
 }
