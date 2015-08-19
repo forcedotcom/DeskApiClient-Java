@@ -3,7 +3,7 @@
 The Desk API Client is a lightweight static library written in Java that wraps the [Desk.com API V2][1].
 
 ## Download
-Download the [latest JAR][2] or grab via Gradle.
+[![Download](https://api.bintray.com/packages/desk/public/api-client/images/download.svg)](https://bintray.com/desk/public/api-client/_latestVersion)
 
 ### Gradle integration
 
@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.desk:api-client:1.0.0'
+  compile 'com.desk:api-client:1.0.1'
 }
 ```
 
