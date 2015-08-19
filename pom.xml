@@ -52,8 +52,8 @@
 
     <scm>
         <url>http://github.com/forcedotcom/DeskApiClient-Java</url>
-        <connection>scm:git:git://github.com/forcedotcom/DeskApiClient-Java.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/forcedotcom/DeskApiClient-Java.git</developerConnection>
+        <connection>scm:git:git@github.com:forcedotcom/DeskApiClient-Java.git</connection>
+        <developerConnection>scm:git:git@github.com:forcedotcom/DeskApiClient-Java.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
