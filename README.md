@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.desk:api-client:1.0.1'
+  compile 'com.desk:api-client:1.1.0'
 }
 ```
 

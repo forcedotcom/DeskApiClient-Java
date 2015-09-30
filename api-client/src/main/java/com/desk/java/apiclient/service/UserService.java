@@ -163,6 +163,24 @@ public interface UserService {
     MobileDevice createMobileDevice(@Body MobileDevice device);
 
     /**
+     * Deletes a mobile device for the current user
+     *
+     * @param id the device id to delete
+     * @return nothing
+     */
+    @DELETE(USERS_URI + "/current" + MOBILE_DEVICES_URI + "/{id}")
+    Void deleteMobileDevice(@Path("id") int id);
+
+    /**
+     * Deletes a mobile device for the current user
+     *
+     * @param id the device id to delete
+     * @param callback the callback upon success or failure
+     */
+    @DELETE(USERS_URI + "/current" + MOBILE_DEVICES_URI + "/{id}")
+    void deleteMobileDevice(@Path("id") int id, Callback<Void> callback);
+
+    /**
      * Retrieve a list of mobile device settings.
      * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-list">http://dev.desk.com/API/users/#mobile-devices-settings-list</a>
      *
