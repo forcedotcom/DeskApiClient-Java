@@ -115,7 +115,7 @@ public interface CaseService {
      * @see <a href="http://dev.desk.com/API/cases/#search">http://dev.desk.com/API/cases/#search</a>
      *
      * @param query the query to search for
-     * @param perPage the total filters per page
+     * @param perPage the total cases per page
      * @param page the page requested
      * @param sortField the field to sort on
      * @param sortDirection the direction to sort
@@ -133,7 +133,7 @@ public interface CaseService {
      * @see <a href="http://dev.desk.com/API/cases/#search">http://dev.desk.com/API/cases/#search</a>
      *
      * @param query the query to search for
-     * @param perPage the total filters per page
+     * @param perPage the total cases per page
      * @param page the page requested
      * @param sortField the field to sort on
      * @param sortDirection the direction to sort

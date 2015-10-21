@@ -26,10 +26,14 @@
 
 package com.desk.java.apiclient.service;
 
+import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Company;
+import com.desk.java.apiclient.model.SortDirection;
+
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * <p>
@@ -44,6 +48,9 @@ import retrofit.http.Path;
 public interface CompanyService {
 
     String COMPANY_URI = "/companies";
+
+    String SORT_FIELD_CREATED_AT = "created_at";
+    String SORT_FIELD_UPDATED_AT = "updated_at";
 
     /**
      * Retrieve a single company
@@ -64,4 +71,38 @@ public interface CompanyService {
      */
     @GET(COMPANY_URI + "/{id}")
     Company getCompany(@Path("id") int companyId);
+
+    /**
+     * Search for companies using the search parameter 'q' to specify search terms.
+     * The 'q' parameter can contain a company name, customer name or the value of a custom company field.
+     * @see <a href="http://dev.desk.com/API/companies/#show">http://dev.desk.com/API/companies/#show</a>
+     *
+     * @param query the search query
+     * @param perPage the total companies per page
+     * @param page the page requested
+     * @param sortField the field to sort on
+     * @param sortDirection the direction to sort
+     * @param callback the callback upon success or failure
+     */
+    @GET(COMPANY_URI + "/search")
+    void searchCompanies(@Query("q") String query, @Query("per_page") int perPage, @Query("page") int page,
+                         @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
+                         Callback<ApiResponse<Company>> callback);
+
+    /**
+     * Search for companies using the search parameter 'q' to specify search terms.
+     * The 'q' parameter can contain a company name, customer name or the value of a custom company field.
+     * @see <a href="http://dev.desk.com/API/companies/#show">http://dev.desk.com/API/companies/#show</a>
+     *
+     * @param query the search query
+     * @param perPage the total companies per page
+     * @param page the page requested
+     * @param sortField the field to sort on
+     * @param sortDirection the direction to sort
+     * @return a company api response
+     */
+    @GET(COMPANY_URI + "/search")
+    ApiResponse<Company> searchCompanies(@Query("q") String query, @Query("per_page") int perPage,
+                                         @Query("page") int page, @Query("sort_field") String sortField,
+                                         @Query("sort_direction") SortDirection sortDirection);
 }
