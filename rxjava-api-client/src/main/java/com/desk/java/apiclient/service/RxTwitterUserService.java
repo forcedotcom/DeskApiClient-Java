@@ -26,38 +26,33 @@
 
 package com.desk.java.apiclient.service;
 
-import com.desk.java.apiclient.model.ApiResponse;
-import com.desk.java.apiclient.model.CustomField;
+import com.desk.java.apiclient.model.TwitterUser;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit.http.Body;
+import retrofit.http.POST;
+import rx.Observable;
+
+import static com.desk.java.apiclient.service.TwitterUserService.TWITTER_USERS_URI;
 
 /**
  * <p>
- *     Service interfacing with the Desk Custom Fields endpoint
+ * Service interfacing with the Desk Twitter Users endpoint
  * </p>
- *
- * Created by Matt Kranzler on 4/28/15.
+ * <p>
+ * Created by Matt Kranzler on 5/20/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
  *
- * @see <a href="http://dev.desk.com/API/custom-fields/">http://dev.desk.com/API/custom-fields/</a>
+ * @see <a href="http://dev.desk.com/API/twitter_users/">http://dev.desk.com/API/twitter_users/</a>
  */
-public interface CustomFieldsService {
-
-    String CUSTOM_FIELDS_URI = "custom_fields";
-
-    int MAX_PER_PAGE = 1000;
+public interface RxTwitterUserService {
 
     /**
-     * Retrieve a paginated list of all custom fields
-     * @see <a href="http://dev.desk.com/API/custom-fields/#list">http://dev.desk.com/API/custom-fields/#list</a>
+     * Creates a Twitter user
      *
-     * @param perPage the amount of labels per page
-     * @param page the page
-     * @return a custom field api response
+     * @param user the new Twitter user
+     * @return a twitter user
+     * @see <a href="http://dev.desk.com/API/twitter-users/#create">http://dev.desk.com/API/twitter-users/#create</a>
      */
-    @GET(CUSTOM_FIELDS_URI)
-    Call<ApiResponse<CustomField>> getCustomFields(@Query("per_page") int perPage, @Query("page") int page);
-
+    @POST(TWITTER_USERS_URI)
+    Observable<TwitterUser> createTwitterUserObservable(@Body TwitterUser user);
 }

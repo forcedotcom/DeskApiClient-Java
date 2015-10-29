@@ -29,7 +29,8 @@ package com.desk.java.apiclient.service;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Group;
 import com.desk.java.apiclient.model.User;
-import retrofit.Callback;
+
+import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -46,20 +47,9 @@ import retrofit.http.Query;
  */
 public interface GroupService {
 
-    String GROUPS_URI = "/groups";
+    String GROUPS_URI = "groups";
 
     int MAX_PER_PAGE = 1000;
-
-    /**
-     * Retrieve a paginated list of all groups
-     * @see <a href="http://dev.desk.com/API/groups/#list">http://dev.desk.com/API/groups/#list</a>
-     *
-     * @param perPage the amount of groups per page
-     * @param page the page
-     * @param callback the callback upon success or failure
-     */
-    @GET(GROUPS_URI)
-    void getGroups(@Query("per_page") int perPage, @Query("page") int page, Callback<ApiResponse<Group>> callback);
 
     /**
      * Retrieve a paginated list of all groups
@@ -70,18 +60,7 @@ public interface GroupService {
      * @return a group api response
      */
     @GET(GROUPS_URI)
-    ApiResponse<Group> getGroups(@Query("per_page") int perPage, @Query("page") int page);
-
-    /**
-     * Retrieve a paginated list of all users for the given group
-     * @see <a href="http://dev.desk.com/API/groups/#list-users">http://dev.desk.com/API/groups/#list-users</a>
-     *
-     * @param groupId the group id
-     * @param perPage the amount of users per page
-     * @param callback the callback upon success or failure
-     */
-    @GET(GROUPS_URI + "/{id}/users")
-    void getUsersForGroup(@Path("id") int groupId, @Query("per_page") int perPage, Callback<ApiResponse<User>> callback);
+    Call<ApiResponse<Group>> getGroups(@Query("per_page") int perPage, @Query("page") int page);
 
     /**
      * Retrieve a paginated list of all users for the given group
@@ -92,17 +71,7 @@ public interface GroupService {
      * @return a user api response
      */
     @GET(GROUPS_URI + "/{id}/users")
-    ApiResponse<User> getUsersForGroup(@Path("id") int groupId, @Query("per_page") int perPage);
-
-    /**
-     * Retrieve a single group
-     * @see <a href="http://dev.desk.com/API/groups/#show">http://dev.desk.com/API/groups/#show</a>
-     *
-     * @param groupId the group id
-     * @param callback the callback upon success or failure
-     */
-    @GET(GROUPS_URI + "/{id}")
-    void getGroup(@Path("id") int groupId, Callback<Group> callback);
+    Call<ApiResponse<User>> getUsersForGroup(@Path("id") int groupId, @Query("per_page") int perPage);
 
     /**
      * Retrieve a single group
@@ -112,5 +81,5 @@ public interface GroupService {
      * @return a group
      */
     @GET(GROUPS_URI + "/{id}")
-    Group getGroup(@Path("id") int groupId);
+    Call<Group> getGroup(@Path("id") int groupId);
 }

@@ -26,16 +26,16 @@
 
 package com.desk.java.apiclient.util;
 
+import com.squareup.okhttp.Request;
+
 import org.junit.Before;
 import org.junit.Test;
-import retrofit.client.Header;
-import retrofit.client.Request;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Matt Kranzler on 6/22/15.
@@ -43,41 +43,45 @@ import static org.junit.Assert.*;
  */
 public class HttpRequestAdapterTest {
 
-    private static final Header HEADER_1 = new Header("header1", "value1");
-    private static final Header HEADER_2 = new Header("header2", "value2");
-    private static final Header HEADER_3 = new Header("header3", "value3");
+    private static final String[] HEADER_1 = new String[] {"header1", "value1"};
+    private static final String[] HEADER_2 = new String[] {"header2", "value2"};
+    private static final String[] HEADER_3 = new String[] {"header3", "value3"};
     private static final String CONTENT_TYPE = "application/json";
     private static final String METHOD = "GET";
-    private static final String URL = "http://test.desk.com";
+    private static final String URL = "http://test.desk.com/";
 
     private Request request;
     private HttpRequestAdapter requestAdapter;
 
     @Before
     public void setUp() {
-        List<Header> headers = Arrays.asList(HEADER_1, HEADER_2, HEADER_3);
-        request = new Request(METHOD, URL, headers, null);
-        requestAdapter = new HttpRequestAdapter(request, CONTENT_TYPE);
+        request = new Request.Builder()
+                .url(URL)
+                .addHeader("header1", "value1")
+                .addHeader("header2", "value2")
+                .addHeader("header3", "value3")
+                .build();
+        requestAdapter = new HttpRequestAdapter(request);
     }
 
     @Test
     public void getAllHeadersReturnsAllHeaders() throws Exception {
         Map<String, String> allHeaders = requestAdapter.getAllHeaders();
-        assertTrue(allHeaders.containsKey(HEADER_1.getName()));
-        assertTrue(allHeaders.containsKey(HEADER_2.getName()));
-        assertTrue(allHeaders.containsKey(HEADER_3.getName()));
+        assertTrue(allHeaders.containsKey(HEADER_1[0]));
+        assertTrue(allHeaders.containsKey(HEADER_2[0]));
+        assertTrue(allHeaders.containsKey(HEADER_3[0]));
     }
 
     @Test
     public void getContentTypeReturnsContentType() throws Exception {
-        assertEquals(requestAdapter.getContentType(), CONTENT_TYPE);
+        assertEquals(CONTENT_TYPE, requestAdapter.getContentType());
     }
 
     @Test
     public void getHeaderReturnsHeader() throws Exception {
-        assertEquals(requestAdapter.getHeader(HEADER_1.getName()), HEADER_1.getValue());
-        assertEquals(requestAdapter.getHeader(HEADER_2.getName()), HEADER_2.getValue());
-        assertEquals(requestAdapter.getHeader(HEADER_3.getName()), HEADER_3.getValue());
+        assertEquals(requestAdapter.getHeader(HEADER_1[0]), HEADER_1[1]);
+        assertEquals(requestAdapter.getHeader(HEADER_2[0]), HEADER_2[1]);
+        assertEquals(requestAdapter.getHeader(HEADER_3[0]), HEADER_3[1]);
     }
 
     @Test
@@ -92,15 +96,14 @@ public class HttpRequestAdapterTest {
 
     @Test
     public void setHeaderDoesSetHeader() throws Exception {
-        Header newHeader = new Header("new_header", "new_value");
-        assertEquals(requestAdapter.getHeader(newHeader.getName()), null);
-        requestAdapter.setHeader(newHeader.getName(), newHeader.getValue());
-        assertEquals(requestAdapter.getHeader(newHeader.getName()), newHeader.getValue());
+        assertEquals(requestAdapter.getHeader("new_header"), null);
+        requestAdapter.setHeader("new_header", "new_value");
+        assertEquals(requestAdapter.getHeader("new_header"), "new_value");
     }
 
     @Test
     public void setRequestUrlSetsRequestUrl() throws Exception {
-        String newUrl = "http://test2.desk.com";
+        String newUrl = "http://test2.desk.com/";
         assertNotEquals(newUrl, requestAdapter.getRequestUrl());
         requestAdapter.setRequestUrl(newUrl);
         assertEquals(newUrl, requestAdapter.getRequestUrl());

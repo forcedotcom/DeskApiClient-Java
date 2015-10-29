@@ -24,52 +24,40 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.desk.java.apiclient.util;
+package com.desk.java.apiclient.service;
 
-import com.squareup.okhttp.OkHttpClient;
-import retrofit.client.Header;
-import retrofit.client.OkClient;
-import retrofit.client.Request;
-import retrofit.client.Response;
+import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.Macro;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import retrofit.http.GET;
+import retrofit.http.Path;
+import retrofit.http.Query;
+import rx.Observable;
+
+import static com.desk.java.apiclient.service.MacroService.MACRO_URI;
+import static com.desk.java.apiclient.service.MacroService.USERS_URI;
 
 /**
- * This is a helper class, a {@code retrofit.client.OkClient} to use
- * when building your {@code retrofit.RestAdapter}.
+ * <p>
+ * Service interfacing with the Desk Macros endpoint
+ * </p>
+ * <p>
+ * Created by Matt Kranzler on 4/28/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ *
+ * @see <a href="http://dev.desk.com/API/macros/">http://dev.desk.com/API/macros/</a>
  */
-public class ApiTokenSigningOkClient extends OkClient {
-
-    public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final String BEARER = "Bearer";
-
-    private final Header authorizationHeader;
-
-    public ApiTokenSigningOkClient(OkHttpClient client, String apiToken) {
-        super(client);
-        authorizationHeader = new Header(AUTHORIZATION_HEADER, BEARER + " " + apiToken);
-    }
-
-    @Override
-    public Response execute(Request request) throws IOException {
-        return super.execute(authorizeRequest(request));
-    }
+public interface RxMacroService {
 
     /**
-     * Creates a new request copying over all values from existing request and adds an authorization header.
-     * @param request the request
-     * @return the authorized request
+     * Retrieve a paginated list of all groups
+     *
+     * @param userId  the user id
+     * @param perPage the amount of labels per page
+     * @param page    the page
+     * @return a macro api response
+     * @see <a href="http://dev.desk.com/API/macros/#list">http://dev.desk.com/API/macros/#list</a>
      */
-    Request authorizeRequest(Request request) {
-        List<Header> headers = new ArrayList<Header>(request.getHeaders());
-        headers.add(authorizationHeader);
-        return new Request(
-                request.getMethod(),
-                request.getUrl(),
-                headers,
-                request.getBody()
-        );
-    }
+    @GET(USERS_URI + "/{id}/" + MACRO_URI)
+    Observable<ApiResponse<Macro>> getMacrosByUserObservable(@Path("id") int userId, @Query("per_page") int perPage, @Query("page") int page);
 }

@@ -28,7 +28,8 @@ package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.InboundMailbox;
-import retrofit.Callback;
+
+import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Query;
 
@@ -45,18 +46,7 @@ import retrofit.http.Query;
  */
 public interface InboundMailboxService {
 
-    String INBOUND_MAILBOX_URI = "/mailboxes/inbound";
-
-    /**
-     * Retrieve a paginated list of inbound mailboxes
-     * @see <a href="http://dev.desk.com/API/inbound-mailboxes/#list">http://dev.desk.com/API/inbound-mailboxes/#list</a>
-     *
-     * @param perPage the amount of labels per page
-     * @param page the page
-     * @param callback the callback upon success or failure
-     */
-    @GET(INBOUND_MAILBOX_URI)
-    void getInboundMailboxes(@Query("per_page") int perPage, @Query("page") int page, Callback<ApiResponse<InboundMailbox>> callback);
+    String INBOUND_MAILBOX_URI = "mailboxes/inbound";
 
     /**
      * Retrieve a paginated list of inbound mailboxes
@@ -67,5 +57,5 @@ public interface InboundMailboxService {
      * @return an inbound mailbox api response
      */
     @GET(INBOUND_MAILBOX_URI)
-    ApiResponse<InboundMailbox> getInboundMailboxes(@Query("per_page") int perPage, @Query("page") int page);
+    Call<ApiResponse<InboundMailbox>> getInboundMailboxes(@Query("per_page") int perPage, @Query("page") int page);
 }

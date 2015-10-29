@@ -27,12 +27,11 @@
 package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
-import com.desk.java.apiclient.model.Company;
 import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.Filter;
-import retrofit.Callback;
+
+import retrofit.Call;
 import retrofit.http.GET;
-import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -47,8 +46,8 @@ import retrofit.http.Query;
  */
 public interface FilterService {
 
-    String FILTERS_URI = "/filters";
-    String COMPANY_FILTERS_URI = "/company_filters";
+    String FILTERS_URI = "filters";
+    String COMPANY_FILTERS_URI = "company_filters";
 
     String FIELD_CASE_COUNTS = "case_counts";
     String FIELD_NAME = "name";
@@ -63,33 +62,10 @@ public interface FilterService {
      * @param perPage the total filters per page
      * @param page the page requested
      * @param fields the fields requested
-     * @param callback the callback upon success or failure
-     */
-    @GET(FILTERS_URI)
-    void getCaseFilters(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields, Callback<ApiResponse<Filter>> callback);
-
-    /**
-     * Retrieves case filters.
-     * @see <a href="http://dev.desk.com/API/filters/#list">http://dev.desk.com/API/filters/#list</a>
-     *
-     * @param perPage the total filters per page
-     * @param page the page requested
-     * @param fields the fields requested
      * @return a filter api response
      */
     @GET(FILTERS_URI)
-    ApiResponse<Filter> getCaseFilters(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
-
-    /**
-     * Retrieves company filters.
-     * @see <a href="http://dev.desk.com/API/company_filters/#list">http://dev.desk.com/API/company_filters/#list</a>
-     *
-     * @param perPage the total filters per page
-     * @param page the page requested
-     * @param callback the callback upon success or failure
-     */
-    @GET(COMPANY_FILTERS_URI)
-    void getCompanyFilters(@Query("per_page") int perPage, @Query("page") int page, Callback<ApiResponse<Filter>> callback);
+    Call<ApiResponse<Filter>> getCaseFilters(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
 
     /**
      * Retrieves company filters.
@@ -100,5 +76,5 @@ public interface FilterService {
      * @return a filter api response
      */
     @GET(COMPANY_FILTERS_URI)
-    ApiResponse<Filter> getCompanyFilters(@Query("per_page") int perPage, @Query("page") int page);
+    Call<ApiResponse<Filter>> getCompanyFilters(@Query("per_page") int perPage, @Query("page") int page);
 }

@@ -29,35 +29,31 @@ package com.desk.java.apiclient.service;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.CustomField;
 
-import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Query;
+import rx.Observable;
 
 /**
  * <p>
- *     Service interfacing with the Desk Custom Fields endpoint
+ * Service interfacing with the Desk Custom Fields endpoint
  * </p>
- *
+ * <p>
  * Created by Matt Kranzler on 4/28/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/custom-fields/">http://dev.desk.com/API/custom-fields/</a>
  */
-public interface CustomFieldsService {
-
-    String CUSTOM_FIELDS_URI = "custom_fields";
-
-    int MAX_PER_PAGE = 1000;
+public interface RxCustomFieldsService extends CustomFieldsService {
 
     /**
      * Retrieve a paginated list of all custom fields
-     * @see <a href="http://dev.desk.com/API/custom-fields/#list">http://dev.desk.com/API/custom-fields/#list</a>
      *
      * @param perPage the amount of labels per page
-     * @param page the page
+     * @param page    the page
      * @return a custom field api response
+     * @see <a href="http://dev.desk.com/API/custom-fields/#list">http://dev.desk.com/API/custom-fields/#list</a>
      */
     @GET(CUSTOM_FIELDS_URI)
-    Call<ApiResponse<CustomField>> getCustomFields(@Query("per_page") int perPage, @Query("page") int page);
+    Observable<ApiResponse<CustomField>> getCustomFieldsObservable(@Query("per_page") int perPage, @Query("page") int page);
 
 }

@@ -26,14 +26,28 @@
 
 package com.desk.java.apiclient.service;
 
-import com.desk.java.apiclient.model.*;
-import retrofit.Callback;
-import retrofit.http.*;
+import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.Attachment;
+import com.desk.java.apiclient.model.Case;
+import com.desk.java.apiclient.model.CaseLock;
+import com.desk.java.apiclient.model.Embed;
+import com.desk.java.apiclient.model.Fields;
+import com.desk.java.apiclient.model.MacroResponse;
+import com.desk.java.apiclient.model.Message;
+import com.desk.java.apiclient.model.SortDirection;
+
+import retrofit.Call;
+import retrofit.http.Body;
+import retrofit.http.GET;
+import retrofit.http.PATCH;
+import retrofit.http.POST;
+import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * <p>
  *     Service interfacing with the Desk Cases endpoint. {@link #createCase(Case, Embed, Fields)}
- *     &amp; {@link #createCase(Case, Embed, Fields, Callback)} support
+ *     &amp; {@link #createCase(Case, Embed, Fields)} support
  *     {@link com.desk.java.apiclient.DeskClient.AuthType#API_TOKEN} authentication
  * </p>
  *
@@ -45,13 +59,13 @@ import retrofit.http.*;
 public interface CaseService {
 
     // URIs
-    String FILTERS_URI = "/filters";
-    String CASES_URI = "/cases";
-    String REPLIES_URI = "/replies";
+    String FILTERS_URI = "filters";
+    String CASES_URI = "cases";
+    String REPLIES_URI = "replies";
     String DRAFT_URI = REPLIES_URI + "/draft";
-    String NOTE_URI = "/notes";
-    String MACROS_URI = "/macros";
-    String ATTACHMENTS_URI = "/attachments";
+    String NOTE_URI = "notes";
+    String MACROS_URI = "macros";
+    String ATTACHMENTS_URI = "attachments";
 
     // Fields
     String FIELD_ID = "id";
@@ -85,28 +99,10 @@ public interface CaseService {
      * @param sortDirection the direction to sort
      * @param embed what to embed
      * @param fields the fields requested
-     * @param callback the callback upon success or failure
-     */
-    @GET(FILTERS_URI + "/{id}" + CASES_URI)
-    void getCasesByFilter(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
-                          @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
-                          @Query("embed") Embed embed, @Query("fields") Fields fields, Callback<ApiResponse<Case>> callback);
-
-    /**
-     * Retrieves cases for a given filter
-     * @see <a href="http://dev.desk.com/API/cases/#list">http://dev.desk.com/API/cases/#list</a>
-     *
-     * @param filterId the id of the filter
-     * @param perPage the total filters per page
-     * @param page the page requested
-     * @param sortField the field to sort on
-     * @param sortDirection the direction to sort
-     * @param embed what to embed
-     * @param fields the fields requested
      * @return a case api response
      */
-    @GET(FILTERS_URI + "/{id}" + CASES_URI)
-    ApiResponse<Case> getCasesByFilter(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+    @GET(FILTERS_URI + "/{id}/" + CASES_URI)
+    Call<ApiResponse<Case>> getCasesByFilter(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
                                                               @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                                               @Query("embed") Embed embed, @Query("fields") Fields fields);
 
@@ -121,28 +117,10 @@ public interface CaseService {
      * @param sortDirection the direction to sort
      * @param embed what to embed
      * @param fields the fields requested
-     * @param callback the callback upon success or failure
-     */
-    @GET(CASES_URI + "/search")
-    void searchCases(@Query("q") String query, @Query("per_page") int perPage, @Query("page") int page,
-                     @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
-                     @Query("embed") Embed embed, @Query("fields") Fields fields, Callback<ApiResponse<Case>> callback);
-
-    /**
-     * Searches for cases provided a query
-     * @see <a href="http://dev.desk.com/API/cases/#search">http://dev.desk.com/API/cases/#search</a>
-     *
-     * @param query the query to search for
-     * @param perPage the total cases per page
-     * @param page the page requested
-     * @param sortField the field to sort on
-     * @param sortDirection the direction to sort
-     * @param embed what to embed
-     * @param fields the fields requested
      * @return a case api response
      */
     @GET(CASES_URI + "/search")
-    ApiResponse<Case> searchCases(@Query("q") String query, @Query("per_page") int perPage, @Query("page") int page,
+    Call<ApiResponse<Case>> searchCases(@Query("q") String query, @Query("per_page") int perPage, @Query("page") int page,
                      @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                      @Query("embed") Embed embed, @Query("fields") Fields fields);
 
@@ -153,34 +131,10 @@ public interface CaseService {
      * @param caseId the id of the case
      * @param embed what to embed
      * @param fields the fields requested
-     * @param callback the callback upon success or failure
-     */
-    @GET(CASES_URI + "/{id}")
-    void getCaseById(@Path("id") int caseId, @Query("embed") Embed embed, @Query("fields") Fields fields,
-                     Callback<Case> callback);
-
-    /**
-     * Gets the case by id
-     * @see <a href="http://dev.desk.com/API/cases/#show">http://dev.desk.com/API/cases/#show</a>
-     *
-     * @param caseId the id of the case
-     * @param embed what to embed
-     * @param fields the fields requested
      * @return a case
      */
     @GET(CASES_URI + "/{id}")
-    Case getCaseById(@Path("id") int caseId, @Query("embed") Embed embed, @Query("fields") Fields fields);
-
-    /**
-     * Locks or unlocks a case
-     * @see <a href="http://dev.desk.com/API/cases/#update">http://dev.desk.com/API/cases/#update</a>
-     *
-     * @param caseId the id of the case
-     * @param caseLock the case lock
-     * @param callback the callback upon success or failure
-     */
-    @PATCH(CASES_URI + "/{id}")
-    void updateCaseLock(@Path("id") int caseId, @Body CaseLock caseLock, Callback<Case> callback);
+    Call<Case> getCaseById(@Path("id") int caseId, @Query("embed") Embed embed, @Query("fields") Fields fields);
 
     /**
      * Locks or unlocks a case
@@ -191,18 +145,7 @@ public interface CaseService {
      * @return a case
      */
     @PATCH(CASES_URI + "/{id}")
-    Case updateCaseLock(@Path("id") int caseId, @Body CaseLock caseLock);
-
-    /**
-     * Updates a case
-     * @see <a href="http://dev.desk.com/API/cases/#update">http://dev.desk.com/API/cases/#update</a>
-     *
-     * @param caseId the id of the case
-     * @param updatedCase the updated case
-     * @param callback the callback upon success or failure
-     */
-    @PATCH(CASES_URI + "/{id}")
-    void updateCase(@Path("id") int caseId, @Body Case updatedCase, Callback<Case> callback);
+    Call<Case> updateCaseLock(@Path("id") int caseId, @Body CaseLock caseLock);
 
     /**
      * Updates a case
@@ -213,21 +156,7 @@ public interface CaseService {
      * @return a case
      */
     @PATCH(CASES_URI + "/{id}")
-    Case updateCase(@Path("id") int caseId, @Body Case updatedCase);
-
-    /**
-     * Updates a case
-     * @see <a href="http://dev.desk.com/API/cases/#update">http://dev.desk.com/API/cases/#update</a>
-     *
-     * @param caseId the id of the case
-     * @param updatedCase the updated case
-     * @param embed what to embed in the response
-     * @param fields the fields requested in the response
-     * @param callback the callback upon success or failure
-     */
-    @PATCH(CASES_URI + "/{id}")
-    void updateCase(@Path("id") int caseId, @Body Case updatedCase, @Query("embed") Embed embed,
-                    @Query("fields") Fields fields, Callback<Case> callback);
+    Call<Case> updateCase(@Path("id") int caseId, @Body Case updatedCase);
 
     /**
      * Updates a case
@@ -240,19 +169,8 @@ public interface CaseService {
      * @return a case
      */
     @PATCH(CASES_URI + "/{id}")
-    Case updateCase(@Path("id") int caseId, @Body Case updatedCase, @Query("embed") Embed embed,
+    Call<Case> updateCase(@Path("id") int caseId, @Body Case updatedCase, @Query("embed") Embed embed,
                     @Query("fields") Fields fields);
-
-    /**
-     * Creates a case
-     * @param newCase the case to create
-     * @param embed the fields to embed in the case response
-     * @param fields the fields to return in the case response
-     * @param callback the callback upon success or failure
-     */
-    @POST(CASES_URI)
-    void createCase(@Body Case newCase, @Query("embed") Embed embed,
-                    @Query("fields") Fields fields, Callback<Case> callback);
 
     /**
      * Creates a case
@@ -262,18 +180,7 @@ public interface CaseService {
      * @return the created case
      */
     @POST(CASES_URI)
-    Case createCase(@Body Case newCase, @Query("embed") Embed embed, @Query("fields") Fields fields);
-
-    /**
-     * Updates a case message
-     * @see <a href="http://dev.desk.com/API/cases/#message-update">http://dev.desk.com/API/cases/#message-update</a>
-     *
-     * @param caseId the id of the case
-     * @param updatedMessage the updated message
-     * @param callback the callback upon success or failure
-     */
-    @PATCH(CASES_URI + "/{id}/message")
-    void updateCaseMessage(@Path("id") int caseId, @Body Message updatedMessage, Callback<Message> callback);
+    Call<Case> createCase(@Body Case newCase, @Query("embed") Embed embed, @Query("fields") Fields fields);
 
     /**
      * Updates a case message
@@ -284,19 +191,7 @@ public interface CaseService {
      * @return a message
      */
     @PATCH(CASES_URI + "/{id}/message")
-    Message updateCaseMessage(@Path("id") int caseId, @Body Message updatedMessage);
-
-    /**
-     * Updates a case reply
-     * @see <a href="http://dev.desk.com/API/cases/#replies-update">http://dev.desk.com/API/cases/#replies-update</a>
-     *
-     * @param caseId the id of the case
-     * @param replyId the id of the reply
-     * @param updatedReply the updated reply
-     * @param callback the callback upon success or failure
-     */
-    @PATCH(CASES_URI + "/{caseId}" + REPLIES_URI + "/{replyId}")
-    void updateCaseReply(@Path("caseId") int caseId, @Path("replyId") int replyId, @Body Message updatedReply, Callback<Message> callback);
+    Call<Message> updateCaseMessage(@Path("id") int caseId, @Body Message updatedMessage);
 
     /**
      * Updates a case reply
@@ -307,22 +202,8 @@ public interface CaseService {
      * @param updatedReply the updated reply
      * @return a message
      */
-    @PATCH(CASES_URI + "/{caseId}" + REPLIES_URI + "/{replyId}")
-    Message updateCaseReply(@Path("caseId") int caseId, @Path("replyId") int replyId, @Body Message updatedReply);
-
-    /**
-     * Retrieves a case's feed
-     * @see <a href="http://dev.desk.com/API/cases/#feed">http://dev.desk.com/API/cases/#feed</a>
-     *
-     * @param caseId the id of the case
-     * @param perPage the total filters per page
-     * @param page the page requested
-     * @param sortDirection the direction to sort
-     * @param callback the callback upon success or failure
-     */
-    @GET(CASES_URI + "/{id}/feed")
-    void getCaseFeed(@Path("id") int caseId, @Query("per_page") int perPage, @Query("page") int page,
-                     @Query("sort_direction") SortDirection sortDirection, Callback<ApiResponse<Message>> callback);
+    @PATCH(CASES_URI + "/{caseId}/" + REPLIES_URI + "/{replyId}")
+    Call<Message> updateCaseReply(@Path("caseId") int caseId, @Path("replyId") int replyId, @Body Message updatedReply);
 
     /**
      * Retrieves a case's feed
@@ -335,7 +216,7 @@ public interface CaseService {
      * @return a response
      */
     @GET(CASES_URI + "/{id}/feed")
-    ApiResponse<Message> getCaseFeed(@Path("id") int caseId, @Query("per_page") int perPage, @Query("page") int page,
+    Call<ApiResponse<Message>> getCaseFeed(@Path("id") int caseId, @Query("per_page") int perPage, @Query("page") int page,
                      @Query("sort_direction") SortDirection sortDirection);
 
     /**
@@ -344,31 +225,10 @@ public interface CaseService {
      *
      * @param caseId the id of the case
      * @param embed what to embed
-     * @param callback the callback upon success or failure
-     */
-    @GET(CASES_URI + "/{id}" + DRAFT_URI)
-    void getDraft(@Path("id") int caseId, @Query("embed") Embed embed, Callback<Message> callback);
-
-    /**
-     * Retrieves a draft for a case if it exists
-     * @see <a href="http://dev.desk.com/API/cases/#drafts-show">http://dev.desk.com/API/cases/#drafts-show</a>
-     *
-     * @param caseId the id of the case
-     * @param embed what to embed
      * @return a message
      */
-    @GET(CASES_URI + "/{id}" + DRAFT_URI)
-    Message getDraft(@Path("id") int caseId, @Query("embed") Embed embed);
-
-    /**
-     * Creates a draft
-     * @see <a href="http://dev.desk.com/API/cases/#drafts-create">http://dev.desk.com/API/cases/#drafts-create</a>
-     *
-     * @param caseId the id of the case
-     * @param callback the callback upon success or failure
-     */
-    @POST(CASES_URI + "/{id}" + DRAFT_URI)
-    void createDraft(@Path("id") int caseId, Callback<Message> callback);
+    @GET(CASES_URI + "/{id}/" + DRAFT_URI)
+    Call<Message> getDraft(@Path("id") int caseId, @Query("embed") Embed embed);
 
     /**
      * Creates a draft
@@ -377,19 +237,8 @@ public interface CaseService {
      * @param caseId the id of the case
      * @return a message
      */
-    @POST(CASES_URI + "/{id}" + DRAFT_URI)
-    Message createDraft(@Path("id") int caseId);
-
-    /**
-     * Updates a draft
-     * @see <a href="http://dev.desk.com/API/cases/#drafts-update">http://dev.desk.com/API/cases/#drafts-update</a>
-     *
-     * @param caseId the id of the case
-     * @param draft the updated draft
-     * @param callback the callback upon success or failure
-     */
-    @PATCH(CASES_URI + "/{id}" + DRAFT_URI)
-    void updateDraft(@Path("id") int caseId, @Body Message draft, Callback<Message> callback);
+    @POST(CASES_URI + "/{id}/" + DRAFT_URI)
+    Call<Message> createDraft(@Path("id") int caseId);
 
     /**
      * Updates a draft
@@ -399,19 +248,8 @@ public interface CaseService {
      * @param draft the updated draft
      * @return a message
      */
-    @PATCH(CASES_URI + "/{id}" + DRAFT_URI)
-    Message updateDraft(@Path("id") int caseId, @Body Message draft);
-
-    /**
-     * Creates a note
-     * @see <a href="http://dev.desk.com/API/cases/#notes-create">http://dev.desk.com/API/cases/#notes-create</a>
-     *
-     * @param caseId the id of the case
-     * @param note the note to create
-     * @param callback the callback upon success or failure
-     */
-    @POST(CASES_URI + "/{id}" + NOTE_URI)
-    void createNote(@Path("id") int caseId, @Body Message note, Callback<Message> callback);
+    @PATCH(CASES_URI + "/{id}/" + DRAFT_URI)
+    Call<Message> updateDraft(@Path("id") int caseId, @Body Message draft);
 
     /**
      * Creates a note
@@ -421,19 +259,8 @@ public interface CaseService {
      * @param note the note to create
      * @return a message
      */
-    @POST(CASES_URI + "/{id}" + NOTE_URI)
-    Message createNote(@Path("id") int caseId, @Body Message note);
-
-    /**
-     * Retrieves a preview for applying a set of macros to a case
-     * @see <a href="http://dev.desk.com/API/cases/#macros-preview">http://dev.desk.com/API/cases/#macros-preview</a>
-     *
-     * @param caseId the id of the case
-     * @param body the desk case body
-     * @param callback the callback upon success or failure
-     */
-    @POST(CASES_URI + "/{id}" + MACROS_URI + "/preview")
-    void previewMacro(@Path("id") int caseId, @Body Case body, Callback<MacroResponse> callback);
+    @POST(CASES_URI + "/{id}/" + NOTE_URI)
+    Call<Message> createNote(@Path("id") int caseId, @Body Message note);
 
     /**
      * Retrieves a preview for applying a set of macros to a case
@@ -443,21 +270,8 @@ public interface CaseService {
      * @param body the desk case body
      * @return a macro response
      */
-    @POST(CASES_URI + "/{id}" + MACROS_URI + "/preview")
-    MacroResponse previewMacro(@Path("id") int caseId, @Body Case body);
-
-    /**
-     * Retrieves a paginated list of all attachments for a case
-     * @see <a href="http://dev.desk.com/API/cases/#attachments-list">http://dev.desk.com/API/cases/#attachments-list</a>
-     *
-     * @param caseId the id of the case
-     * @param perPage the total attachments per page
-     * @param page the page requested
-     * @param callback the callback upon success or failure
-     */
-    @GET(CASES_URI + "/{id}" + ATTACHMENTS_URI)
-    void getAttachments(@Path("id") int caseId, @Query("per_page") int perPage, @Query("page") int page,
-                        Callback<ApiResponse<Attachment>> callback);
+    @POST(CASES_URI + "/{id}/" + MACROS_URI + "/preview")
+    Call<MacroResponse> previewMacro(@Path("id") int caseId, @Body Case body);
 
     /**
      * Retrieves a paginated list of all attachments for a case
@@ -468,6 +282,6 @@ public interface CaseService {
      * @param page the page requested
      * @return an attachment api response
      */
-    @GET(CASES_URI + "/{id}" + ATTACHMENTS_URI)
-    ApiResponse<Attachment> getAttachments(@Path("id") int caseId, @Query("per_page") int perPage, @Query("page") int page);
+    @GET(CASES_URI + "/{id}/" + ATTACHMENTS_URI)
+    Call<ApiResponse<Attachment>> getAttachments(@Path("id") int caseId, @Query("per_page") int perPage, @Query("page") int page);
 }

@@ -27,37 +27,28 @@
 package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
-import com.desk.java.apiclient.model.CustomField;
+import com.desk.java.apiclient.model.Permission;
 
-import retrofit.Call;
 import retrofit.http.GET;
-import retrofit.http.Query;
+import rx.Observable;
+
+import static com.desk.java.apiclient.service.PermissionService.PERMISSIONS_URI;
 
 /**
  * <p>
- *     Service interfacing with the Desk Custom Fields endpoint
+ * Service interfacing with the Desk Permissions endpoint (undocumented)
  * </p>
- *
- * Created by Matt Kranzler on 4/28/15.
+ * <p>
+ * Created by Matt Kranzler on 5/8/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
- *
- * @see <a href="http://dev.desk.com/API/custom-fields/">http://dev.desk.com/API/custom-fields/</a>
  */
-public interface CustomFieldsService {
-
-    String CUSTOM_FIELDS_URI = "custom_fields";
-
-    int MAX_PER_PAGE = 1000;
+public interface RxPermissionService {
 
     /**
-     * Retrieve a paginated list of all custom fields
-     * @see <a href="http://dev.desk.com/API/custom-fields/#list">http://dev.desk.com/API/custom-fields/#list</a>
+     * Retrieves a list of permissions for the logged in user
      *
-     * @param perPage the amount of labels per page
-     * @param page the page
-     * @return a custom field api response
+     * @return a permission api response
      */
-    @GET(CUSTOM_FIELDS_URI)
-    Call<ApiResponse<CustomField>> getCustomFields(@Query("per_page") int perPage, @Query("page") int page);
-
+    @GET(PERMISSIONS_URI)
+    Observable<ApiResponse<Permission>> getPermissionsForUserObservable();
 }

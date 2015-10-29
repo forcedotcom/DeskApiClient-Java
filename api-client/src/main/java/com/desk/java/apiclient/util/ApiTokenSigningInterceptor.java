@@ -24,40 +24,38 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.desk.java.apiclient.service;
+package com.desk.java.apiclient.util;
 
-import com.desk.java.apiclient.model.ApiResponse;
-import com.desk.java.apiclient.model.CustomField;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Query;
+import java.io.IOException;
 
 /**
  * <p>
- *     Service interfacing with the Desk Custom Fields endpoint
+ *     An {@link Interceptor} used to sign requests using an API token.
  * </p>
  *
- * Created by Matt Kranzler on 4/28/15.
+ * Created by Jerrell Mardis
  * Copyright (c) 2015 Desk.com. All rights reserved.
- *
- * @see <a href="http://dev.desk.com/API/custom-fields/">http://dev.desk.com/API/custom-fields/</a>
  */
-public interface CustomFieldsService {
+public class ApiTokenSigningInterceptor implements Interceptor {
 
-    String CUSTOM_FIELDS_URI = "custom_fields";
+    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String BEARER = "Bearer";
 
-    int MAX_PER_PAGE = 1000;
+    private final String apiToken;
 
-    /**
-     * Retrieve a paginated list of all custom fields
-     * @see <a href="http://dev.desk.com/API/custom-fields/#list">http://dev.desk.com/API/custom-fields/#list</a>
-     *
-     * @param perPage the amount of labels per page
-     * @param page the page
-     * @return a custom field api response
-     */
-    @GET(CUSTOM_FIELDS_URI)
-    Call<ApiResponse<CustomField>> getCustomFields(@Query("per_page") int perPage, @Query("page") int page);
+    public ApiTokenSigningInterceptor(String apiToken) {
+        this.apiToken = apiToken;
+    }
 
+    public Response intercept(Chain chain) throws IOException {
+        Request request = chain.request();
+        Request newRequest = request.newBuilder()
+                .addHeader(AUTHORIZATION_HEADER, BEARER + " " + apiToken)
+                .build();
+        return chain.proceed(newRequest);
+    }
 }

@@ -27,37 +27,57 @@
 package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
-import com.desk.java.apiclient.model.CustomField;
+import com.desk.java.apiclient.model.Group;
+import com.desk.java.apiclient.model.User;
 
-import retrofit.Call;
 import retrofit.http.GET;
+import retrofit.http.Path;
 import retrofit.http.Query;
+import rx.Observable;
+
+import static com.desk.java.apiclient.service.GroupService.GROUPS_URI;
 
 /**
  * <p>
- *     Service interfacing with the Desk Custom Fields endpoint
+ * Service interfacing with the Desk Groups endpoint
  * </p>
- *
+ * <p>
  * Created by Matt Kranzler on 4/28/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
  *
- * @see <a href="http://dev.desk.com/API/custom-fields/">http://dev.desk.com/API/custom-fields/</a>
+ * @see <a href="http://dev.desk.com/API/groups/">http://dev.desk.com/API/groups/</a>
  */
-public interface CustomFieldsService {
-
-    String CUSTOM_FIELDS_URI = "custom_fields";
-
-    int MAX_PER_PAGE = 1000;
+public interface RxGroupService {
 
     /**
-     * Retrieve a paginated list of all custom fields
-     * @see <a href="http://dev.desk.com/API/custom-fields/#list">http://dev.desk.com/API/custom-fields/#list</a>
+     * Retrieve a paginated list of all groups
      *
-     * @param perPage the amount of labels per page
-     * @param page the page
-     * @return a custom field api response
+     * @param perPage the amount of groups per page
+     * @param page    the page
+     * @return a group api response
+     * @see <a href="http://dev.desk.com/API/groups/#list">http://dev.desk.com/API/groups/#list</a>
      */
-    @GET(CUSTOM_FIELDS_URI)
-    Call<ApiResponse<CustomField>> getCustomFields(@Query("per_page") int perPage, @Query("page") int page);
+    @GET(GROUPS_URI)
+    Observable<ApiResponse<Group>> getGroupsObservable(@Query("per_page") int perPage, @Query("page") int page);
 
+    /**
+     * Retrieve a paginated list of all users for the given group
+     *
+     * @param groupId the group id
+     * @param perPage the amount of users per page
+     * @return a user api response
+     * @see <a href="http://dev.desk.com/API/groups/#list-users">http://dev.desk.com/API/groups/#list-users</a>
+     */
+    @GET(GROUPS_URI + "/{id}/users")
+    Observable<ApiResponse<User>> getUsersForGroupObservable(@Path("id") int groupId, @Query("per_page") int perPage);
+
+    /**
+     * Retrieve a single group
+     *
+     * @param groupId the group id
+     * @return a group
+     * @see <a href="http://dev.desk.com/API/groups/#show">http://dev.desk.com/API/groups/#show</a>
+     */
+    @GET(GROUPS_URI + "/{id}")
+    Observable<Group> getGroupObservable(@Path("id") int groupId);
 }

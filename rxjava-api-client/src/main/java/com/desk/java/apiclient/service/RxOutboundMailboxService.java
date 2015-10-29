@@ -27,37 +27,34 @@
 package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
-import com.desk.java.apiclient.model.CustomField;
+import com.desk.java.apiclient.model.OutboundMailbox;
 
-import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Query;
+import rx.Observable;
+
+import static com.desk.java.apiclient.service.OutboundMailboxService.OUTBOUND_MAILBOX_URI;
 
 /**
  * <p>
- *     Service interfacing with the Desk Custom Fields endpoint
+ * Service interfacing with the Desk Outbound Mailboxes endpoint
  * </p>
- *
+ * <p>
  * Created by Matt Kranzler on 4/28/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
  *
- * @see <a href="http://dev.desk.com/API/custom-fields/">http://dev.desk.com/API/custom-fields/</a>
+ * @see <a href="http://dev.desk.com/API/outbound-mailboxes/">http://dev.desk.com/API/outbound-mailboxes/</a>
  */
-public interface CustomFieldsService {
-
-    String CUSTOM_FIELDS_URI = "custom_fields";
-
-    int MAX_PER_PAGE = 1000;
+public interface RxOutboundMailboxService {
 
     /**
-     * Retrieve a paginated list of all custom fields
-     * @see <a href="http://dev.desk.com/API/custom-fields/#list">http://dev.desk.com/API/custom-fields/#list</a>
+     * Retrieve a paginated list of outbound mailboxes
      *
      * @param perPage the amount of labels per page
-     * @param page the page
-     * @return a custom field api response
+     * @param page    the page
+     * @return a outbound mailbox api response
+     * @see <a href="http://dev.desk.com/API/outbound-mailboxes/#list">http://dev.desk.com/API/outbound-mailboxes/#list</a>
      */
-    @GET(CUSTOM_FIELDS_URI)
-    Call<ApiResponse<CustomField>> getCustomFields(@Query("per_page") int perPage, @Query("page") int page);
-
+    @GET(OUTBOUND_MAILBOX_URI)
+    Observable<ApiResponse<OutboundMailbox>> getOutboundMailboxesObservable(@Query("per_page") int perPage, @Query("page") int page);
 }

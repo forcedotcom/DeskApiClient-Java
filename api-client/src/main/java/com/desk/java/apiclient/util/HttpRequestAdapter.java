@@ -26,102 +26,99 @@
 
 package com.desk.java.apiclient.util;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import com.squareup.okhttp.Request;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import oauth.signpost.http.HttpRequest;
-import retrofit.client.Header;
-import retrofit.client.Request;
+import okio.Buffer;
 
+/**
+ * <p>
+ * A {@link HttpRequest} used by oauth-signpost to sign requests.
+ * </p>
+ * <p>
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
 public class HttpRequestAdapter implements HttpRequest {
 
-	private static final String DEFAULT_CONTENT_TYPE = "application/json";
-	
-	private Request request;
+    private static final String DEFAULT_CONTENT_TYPE = "application/json";
 
-	private String contentType;
+    private Request request;
+    private String contentType = DEFAULT_CONTENT_TYPE;
 
-	public HttpRequestAdapter(Request request) {
-		this(request, request.getBody() != null ? request.getBody().mimeType() : DEFAULT_CONTENT_TYPE);
-	}
+    /**
+     * Constructs a new {@code OkHttpRequestAdapter}.
+     *
+     * @param request the {@link Request} that is to be signed.
+     */
+    public HttpRequestAdapter(Request request) {
+        this.request = request;
+    }
 
-	public HttpRequestAdapter(Request request, String contentType) {
-		this.request = request;
-		this.contentType = contentType;
-	}
-	
-	@Override
-	public Map<String, String> getAllHeaders() {
-		HashMap<String, String> headers = new HashMap<String, String>(); 
-		for(Header header : request.getHeaders()) {
-			headers.put(header.getName(), header.getValue());
-		}
-		return headers;
-	}
+    public HttpRequestAdapter(Request request, String contentType) {
+        this.request = request;
+        this.contentType = contentType;
+    }
 
-	@Override
-	public String getContentType() {
-		return contentType;
-	}
+    @Override
+    public Map<String, String> getAllHeaders() {
+        HashMap<String, String> headers = new HashMap<>();
+        for (String key : request.headers().names()) {
+            headers.put(key, request.header(key));
+        }
+        return headers;
+    }
 
-	@Override
-	public String getHeader(String key) {
-		for(Header header : request.getHeaders()) {
-			if(key.equals(header.getName())) {
-				return header.getValue();
-			}
-		}
-		return null;
-	}
+    @Override
+    public String getContentType() {
+        if (request.body() != null && request.body().contentType() != null) {
+            return request.body().contentType().toString();
+        }
+        return contentType;
+    }
 
-	@Override
-	public InputStream getMessagePayload() throws IOException {
-		final String contentType = getContentType();
-		if (null != contentType && contentType.startsWith("application/x-www-form-urlencoded")) {
-			long contentLength = request.getBody().length();
-			ByteArrayOutputStream output = new ByteArrayOutputStream(Long.valueOf(contentLength)
-					.intValue());
-			request.getBody().writeTo(output);
-			return new ByteArrayInputStream(output.toByteArray());
-		}
+    @Override
+    public String getHeader(String key) {
+        return request.header(key);
+    }
 
-		throw new UnsupportedOperationException("The content type" + (contentType != null ? " " +
-					contentType : "") + " is not supported.");
-	}
+    @Override
+    public InputStream getMessagePayload() throws IOException {
+        if (request.body() == null) {
+            return null;
+        }
+        Buffer buf = new Buffer();
+        request.body().writeTo(buf);
+        return buf.inputStream();
+    }
 
-	@Override
-	public String getMethod() {
-		return request.getMethod();
-	}
+    @Override
+    public String getMethod() {
+        return request.method();
+    }
 
-	@Override
-	public String getRequestUrl() {
-		return request.getUrl();
-	}
+    @Override
+    public String getRequestUrl() {
+        return request.urlString();
+    }
 
-	@Override
-	public void setHeader(String key, String value) {
-		ArrayList<Header> headers = new ArrayList<Header>();
-		headers.addAll(request.getHeaders());
-		headers.add(new Header(key, value));
-		Request copy = new Request(request.getMethod(), request.getUrl(), headers, request.getBody());
-		request = copy;
-	}
+    @Override
+    public void setHeader(String key, String value) {
+        request = request.newBuilder().header(key, value).build();
+    }
 
-	@Override
-	public void setRequestUrl(String url) {
-		Request copy = new Request(request.getMethod(), url, request.getHeaders(), request.getBody());
-		request = copy;
-	}
+    @Override
+    public void setRequestUrl(String url) {
+        request = request.newBuilder().url(url).build();
+    }
 
-	@Override
-	public Object unwrap() {
-		return request;
-	}
-
+    @Override
+    public Object unwrap() {
+        return request;
+    }
 }

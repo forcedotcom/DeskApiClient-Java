@@ -26,6 +26,7 @@
 
 package com.desk.java.apiclient.service;
 
+import com.desk.java.apiclient.RxDeskClient;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Article;
 import com.desk.java.apiclient.model.SortDirection;
@@ -33,60 +34,55 @@ import com.desk.java.apiclient.model.Topic;
 
 import org.jetbrains.annotations.Nullable;
 
-import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import rx.Observable;
+
+import static com.desk.java.apiclient.service.TopicService.TOPICS_URI;
 
 /**
  * <p>
- *     Service interfacing with the Desk Topics endpoint. This service supports
- *     {@link com.desk.java.apiclient.DeskClient.AuthType#API_TOKEN} authentication.
+ * Service interfacing with the Desk Topics endpoint. This service supports
+ * {@link RxDeskClient.AuthType#API_TOKEN} authentication.
  * </p>
- *
+ * <p>
  * Created by Matt Kranzler on 6/19/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/topics/">http://dev.desk.com/API/topics/</a>
  */
-public interface TopicService {
-
-    // URIs
-    String TOPICS_URI = "topics";
-
-    // Fields
-    String FIELD_ID = "id";
-    String FIELD_POSITION = "position";
+public interface RxTopicService {
 
     /**
      * Retrieve a list of all topics.
-     * @see <a href="http://dev.desk.com/API/topics/#list">http://dev.desk.com/API/topics/#list</a>
      *
-     * @param language the ISO language code. If null default to en
+     * @param language        the ISO language code. If null default to en
      * @param inSupportCenter true to include only articles that are in the support center
-     * @param brandId the brand ID to limit results to or null for all brands
-     * @param sortField the field to sort the topics on
-     * @param sortDirection the direction to sort the topics
+     * @param brandId         the brand ID to limit results to or null for all brands
+     * @param sortField       the field to sort the topics on
+     * @param sortDirection   the direction to sort the topics
      * @return a topic api response
+     * @see <a href="http://dev.desk.com/API/topics/#list">http://dev.desk.com/API/topics/#list</a>
      */
     @GET(TOPICS_URI)
-    Call<ApiResponse<Topic>> getTopics(@Nullable @Header("Accept-Language") String language,
-                                 @Nullable @Query("in_support_center") Boolean inSupportCenter,
-                                 @Nullable @Query("brand_id") Integer brandId,
-                                 @Nullable @Query("sort_field") String sortField,
-                                 @Nullable @Query("sort_direction") SortDirection sortDirection);
+    Observable<ApiResponse<Topic>> getTopicsObservable(@Nullable @Header("Accept-Language") String language,
+                                                       @Nullable @Query("in_support_center") Boolean inSupportCenter,
+                                                       @Nullable @Query("brand_id") Integer brandId,
+                                                       @Nullable @Query("sort_field") String sortField,
+                                                       @Nullable @Query("sort_direction") SortDirection sortDirection);
 
     /**
      * Retrieve a list of all articles within a topic
      *
-     * @param language the ISO language code. If null default to en
-     * @param topicId the topic ID to get the articles for
+     * @param language        the ISO language code. If null default to en
+     * @param topicId         the topic ID to get the articles for
      * @param inSupportCenter true to include only articles that are in the support center
      * @return a article api response
      */
     @GET(TOPICS_URI + "/{topicId}/articles")
-    Call<ApiResponse<Article>> getArticlesOfTopic(@Nullable @Header("Accept-Language") String language,
-                                                        @Path("topicId") int topicId,
-                                                        @Nullable @Query("in_support_center") Boolean inSupportCenter);
+    Observable<ApiResponse<Article>> getArticlesOfTopicObservable(@Nullable @Header("Accept-Language") String language,
+                                                                  @Path("topicId") int topicId,
+                                                                  @Nullable @Query("in_support_center") Boolean inSupportCenter);
 }

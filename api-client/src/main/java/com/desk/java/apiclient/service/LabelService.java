@@ -28,7 +28,8 @@ package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Label;
-import retrofit.Callback;
+
+import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Query;
 
@@ -44,20 +45,9 @@ import retrofit.http.Query;
  */
 public interface LabelService {
 
-    String LABELS_URI = "/labels";
+    String LABELS_URI = "labels";
 
     int MAX_PER_PAGE = 1000;
-
-    /**
-     * Retrieve a paginated list of all labels
-     * @see <a href="http://dev.desk.com/API/labels/#list">http://dev.desk.com/API/labels/#list</a>
-     *
-     * @param perPage the amount of labels per page
-     * @param page the page
-     * @param callback the callback upon success or failure
-     */
-    @GET(LABELS_URI)
-    void getLabels(@Query("per_page") int perPage, @Query("page") int page, Callback<ApiResponse<Label>> callback);
 
     /**
      * Retrieve a paginated list of all labels
@@ -68,5 +58,5 @@ public interface LabelService {
      * @return a label api response
      */
     @GET(LABELS_URI)
-    ApiResponse<Label> getLabels(@Query("per_page") int perPage, @Query("page") int page);
+    Call<ApiResponse<Label>> getLabels(@Query("per_page") int perPage, @Query("page") int page);
 }

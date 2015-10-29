@@ -26,47 +26,41 @@
 
 package com.desk.java.apiclient.util;
 
-import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Interceptor;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
+import oauth.signpost.AbstractOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
-import retrofit.client.OkClient;
-import retrofit.client.Request;
-import retrofit.client.Response;
 
 /**
- * This is a helper class, a {@code retrofit.client.OkClient} to use
- * when building your {@code retrofit.RestAdapter}.
+ * <p>
+ *     An {@link Interceptor} used to sign requests using an {@link AbstractOAuthConsumer}.
+ * </p>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
-public class OAuthSigningOkClient extends OkClient {
+public class OAuthSigningInterceptor implements Interceptor {
 
     private final RetrofitHttpOAuthConsumer oAuthConsumer;
 
-    public OAuthSigningOkClient(OkHttpClient client, RetrofitHttpOAuthConsumer consumer) {
-        super(client);
+    public OAuthSigningInterceptor(RetrofitHttpOAuthConsumer consumer) {
         oAuthConsumer = consumer;
     }
 
-    @Override
-    public Response execute(Request request) throws IOException {
-        return super.execute(authorizeRequest(request));
-    }
-
-    Request authorizeRequest(Request request) {
-        Request authorizedRequest = request;
+    public Response intercept(Chain chain) throws IOException {
+        Request authorizedRequest = chain.request();
         try {
-            HttpRequestAdapter signedAdapter = (HttpRequestAdapter) oAuthConsumer.sign(request);
+            HttpRequestAdapter signedAdapter = (HttpRequestAdapter) oAuthConsumer.sign(chain.request());
             authorizedRequest = (Request) signedAdapter.unwrap();
-        } catch (OAuthMessageSignerException e) {
-            // Fail to sign, ignore
-        } catch (OAuthExpectationFailedException e) {
-            // Fail to sign, ignore
-        } catch (OAuthCommunicationException e) {
+        } catch (OAuthMessageSignerException | OAuthExpectationFailedException | OAuthCommunicationException e) {
             // Fail to sign, ignore
         }
-        return authorizedRequest;
+        return chain.proceed(authorizedRequest);
     }
 }

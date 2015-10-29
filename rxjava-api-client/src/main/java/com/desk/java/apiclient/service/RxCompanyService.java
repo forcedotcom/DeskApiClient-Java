@@ -27,39 +27,55 @@
 package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
-import com.desk.java.apiclient.model.Macro;
+import com.desk.java.apiclient.model.Company;
+import com.desk.java.apiclient.model.SortDirection;
 
-import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import rx.Observable;
 
 /**
  * <p>
- *     Service interfacing with the Desk Macros endpoint
+ * Service interfacing with the Desk Companies endpoint
  * </p>
- *
- * Created by Matt Kranzler on 4/28/15.
+ * <p>
+ * Created by Matt Kranzler on 5/6/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
  *
- * @see <a href="http://dev.desk.com/API/macros/">http://dev.desk.com/API/macros/</a>
+ * @see <a href="http://dev.desk.com/API/companies/">http://dev.desk.com/API/companies/</a>
  */
-public interface MacroService {
+public interface RxCompanyService extends CompanyService {
 
-    String USERS_URI = "users";
-    String MACRO_URI = "macros";
+    String COMPANY_URI = "companies";
 
-    int MAX_PER_PAGE = 1000;
+    String SORT_FIELD_CREATED_AT = "created_at";
+    String SORT_FIELD_UPDATED_AT = "updated_at";
 
     /**
-     * Retrieve a paginated list of all groups
-     * @see <a href="http://dev.desk.com/API/macros/#list">http://dev.desk.com/API/macros/#list</a>
+     * Retrieve a single company
      *
-     * @param userId the user id
-     * @param perPage the amount of labels per page
-     * @param page the page
-     * @return a macro api response
+     * @param companyId the company id
+     * @return a company
+     * @see <a href="http://dev.desk.com/API/companies/#show">http://dev.desk.com/API/companies/#show</a>
      */
-    @GET(USERS_URI + "/{id}/" + MACRO_URI)
-    Call<ApiResponse<Macro>> getMacrosByUser(@Path("id") int userId, @Query("per_page") int perPage, @Query("page") int page);
+    @GET(COMPANY_URI + "/{id}")
+    Observable<Company> getCompanyObservable(@Path("id") int companyId);
+
+    /**
+     * Search for companies using the search parameter 'q' to specify search terms.
+     * The 'q' parameter can contain a company name, customer name or the value of a custom company field.
+     *
+     * @param query         the search query
+     * @param perPage       the total companies per page
+     * @param page          the page requested
+     * @param sortField     the field to sort on
+     * @param sortDirection the direction to sort
+     * @return a company api response
+     * @see <a href="http://dev.desk.com/API/companies/#show">http://dev.desk.com/API/companies/#show</a>
+     */
+    @GET(COMPANY_URI + "/search")
+    Observable<ApiResponse<Company>> searchCompaniesObservable(@Query("q") String query, @Query("per_page") int perPage,
+                                                               @Query("page") int page, @Query("sort_field") String sortField,
+                                                               @Query("sort_direction") SortDirection sortDirection);
 }

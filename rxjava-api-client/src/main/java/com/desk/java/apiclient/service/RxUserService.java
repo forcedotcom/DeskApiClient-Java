@@ -32,7 +32,6 @@ import com.desk.java.apiclient.model.Setting;
 import com.desk.java.apiclient.model.SettingUpdate;
 import com.desk.java.apiclient.model.User;
 
-import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.DELETE;
 import retrofit.http.GET;
@@ -40,44 +39,43 @@ import retrofit.http.PATCH;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
+import rx.Observable;
+
+import static com.desk.java.apiclient.service.UserService.MOBILE_DEVICES_URI;
+import static com.desk.java.apiclient.service.UserService.SETTINGS_URI;
+import static com.desk.java.apiclient.service.UserService.USERS_URI;
 
 /**
  * <p>
- *     Service interfacing with the Desk Users endpoint
+ * Service interfacing with the Desk Users endpoint
  * </p>
- *
+ * <p>
  * Created by Matt Kranzler on 4/28/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/users/">http://dev.desk.com/API/users/</a>
  */
-public interface UserService {
-
-    String USERS_URI = "users";
-    String MOBILE_DEVICES_URI = "mobile_devices";
-    String SETTINGS_URI = "settings";
-
-    int MAX_PER_PAGE = 100;
+public interface RxUserService {
 
     /**
      * Retrieve a paginated list of all users
-     * @see <a href="http://dev.desk.com/API/users/#list">http://dev.desk.com/API/users/#list</a>
      *
      * @param perPage the amount of labels per page
-     * @param page the page
+     * @param page    the page
      * @return a user api response
+     * @see <a href="http://dev.desk.com/API/users/#list">http://dev.desk.com/API/users/#list</a>
      */
     @GET(USERS_URI)
-    Call<ApiResponse<User>> getUsers(@Query("per_page") int perPage, @Query("page") int page);
+    Observable<ApiResponse<User>> getUsersObservable(@Query("per_page") int perPage, @Query("page") int page);
 
     /**
      * Retrieves the current user (API authentication must be present)
-     * @see <a href="http://dev.desk.com/API/users/#show">http://dev.desk.com/API/users/#show</a>
      *
      * @return a user
+     * @see <a href="http://dev.desk.com/API/users/#show">http://dev.desk.com/API/users/#show</a>
      */
     @GET(USERS_URI + "/current")
-    Call<User> getCurrentUser();
+    Observable<User> getCurrentUserObservable();
 
     /**
      * Logs out the current user (undocumented)
@@ -85,27 +83,27 @@ public interface UserService {
      * @return Void
      */
     @POST(USERS_URI + "/me/logout")
-    Call<Void> logoutCurrentUser();
+    Observable<Void> logoutCurrentUserObservable();
 
     /**
      * Retrieve a single user
-     * @see <a href="http://dev.desk.com/API/users/#show">http://dev.desk.com/API/users/#show</a>
      *
      * @param userId the user id
      * @return a user
+     * @see <a href="http://dev.desk.com/API/users/#show">http://dev.desk.com/API/users/#show</a>
      */
     @GET(USERS_URI + "/{id}")
-    Call<User> getUser(@Path("id") int userId);
+    Observable<User> getUserObservable(@Path("id") int userId);
 
     /**
      * List all of the user's mobile devices.
-     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-list">http://dev.desk.com/API/users/#mobile-devices-list</a>
      *
      * @param userId the user id
      * @return a mobile device api response
+     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-list">http://dev.desk.com/API/users/#mobile-devices-list</a>
      */
     @GET(USERS_URI + "/{id}/" + MOBILE_DEVICES_URI)
-    Call<ApiResponse<MobileDevice>> getMobileDevicesForUser(@Path("id") int userId);
+    Observable<ApiResponse<MobileDevice>> getMobileDevicesForUserObservable(@Path("id") int userId);
 
     /**
      * Creates a mobile device for the current user
@@ -114,7 +112,7 @@ public interface UserService {
      * @return a mobile device
      */
     @POST(USERS_URI + "/current/" + MOBILE_DEVICES_URI)
-    Call<MobileDevice> createMobileDevice(@Body MobileDevice device);
+    Observable<MobileDevice> createMobileDeviceObservable(@Body MobileDevice device);
 
     /**
      * Deletes a mobile device for the current user
@@ -123,30 +121,30 @@ public interface UserService {
      * @return nothing
      */
     @DELETE(USERS_URI + "/current/" + MOBILE_DEVICES_URI + "/{id}")
-    Call<Void> deleteMobileDevice(@Path("id") int id);
+    Observable<Void> deleteMobileDeviceObservable(@Path("id") int id);
 
     /**
      * Retrieve a list of mobile device settings.
-     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-list">http://dev.desk.com/API/users/#mobile-devices-settings-list</a>
      *
-     * @param userId the user id
+     * @param userId   the user id
      * @param deviceId the device id
      * @return a setting api response
+     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-list">http://dev.desk.com/API/users/#mobile-devices-settings-list</a>
      */
     @GET(USERS_URI + "/{userId}/" + MOBILE_DEVICES_URI + "/{deviceId}/" + SETTINGS_URI)
-    Call<ApiResponse<Setting>> getMobileDevicesSettings(@Path("userId") int userId, @Path("deviceId") int deviceId);
+    Observable<ApiResponse<Setting>> getMobileDevicesSettingsObservable(@Path("userId") int userId, @Path("deviceId") int deviceId);
 
     /**
      * Update a mobile device setting
-     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-update">http://dev.desk.com/API/users/#mobile-devices-settings-update</a>
      *
-     * @param userId the user id
-     * @param deviceId the device id
+     * @param userId    the user id
+     * @param deviceId  the device id
      * @param settingId the setting id
-     * @param update the setting update body
+     * @param update    the setting update body
      * @return a setting
+     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-update">http://dev.desk.com/API/users/#mobile-devices-settings-update</a>
      */
     @PATCH(USERS_URI + "/{userId}/" + MOBILE_DEVICES_URI + "/{deviceId}/" + SETTINGS_URI + "/{settingId}")
-    Call<Setting> updateMobileDeviceSetting(@Path("userId") int userId, @Path("deviceId") int deviceId,
-                                   @Path("settingId") int settingId, @Body SettingUpdate update);
+    Observable<Setting> updateMobileDeviceSettingObservable(@Path("userId") int userId, @Path("deviceId") int deviceId,
+                                                            @Path("settingId") int settingId, @Body SettingUpdate update);
 }
