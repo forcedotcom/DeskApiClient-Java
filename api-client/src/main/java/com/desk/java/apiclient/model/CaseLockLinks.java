@@ -27,8 +27,9 @@
 package com.desk.java.apiclient.model;
 
 
-import java.io.Serializable;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.Serializable;
 
 /**
  * Created by Matt Kranzler on 5/4/15.

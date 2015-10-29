@@ -26,11 +26,15 @@
 
 package com.desk.java.apiclient.service;
 
-import com.desk.java.apiclient.model.*;
+import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.Article;
+import com.desk.java.apiclient.model.BrandIds;
+import com.desk.java.apiclient.model.SortDirection;
+import com.desk.java.apiclient.model.TopicIds;
+
 import org.jetbrains.annotations.Nullable;
 
 import retrofit.Call;
-import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.Query;

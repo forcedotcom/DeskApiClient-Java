@@ -33,6 +33,8 @@ import retrofit.http.GET;
 import retrofit.http.Query;
 import rx.Observable;
 
+import static com.desk.java.apiclient.service.CustomFieldsService.CUSTOM_FIELDS_URI;
+
 /**
  * <p>
  * Service interfacing with the Desk Custom Fields endpoint
@@ -43,7 +45,7 @@ import rx.Observable;
  *
  * @see <a href="http://dev.desk.com/API/custom-fields/">http://dev.desk.com/API/custom-fields/</a>
  */
-public interface RxCustomFieldsService extends CustomFieldsService {
+public interface RxCustomFieldsService {
 
     /**
      * Retrieve a paginated list of all custom fields

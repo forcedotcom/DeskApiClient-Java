@@ -32,14 +32,13 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 
-import oauth.signpost.AbstractOAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 
 /**
  * <p>
- *     An {@link Interceptor} used to sign requests using an {@link AbstractOAuthConsumer}.
+ *     An {@link Interceptor} used to sign requests using an {@link RetrofitHttpOAuthConsumer}.
  * </p>
  *
  * Created by Jerrell Mardis

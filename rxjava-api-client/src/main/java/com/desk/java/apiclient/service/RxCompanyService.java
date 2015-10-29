@@ -35,6 +35,8 @@ import retrofit.http.Path;
 import retrofit.http.Query;
 import rx.Observable;
 
+import static com.desk.java.apiclient.service.CompanyService.COMPANY_URI;
+
 /**
  * <p>
  * Service interfacing with the Desk Companies endpoint
@@ -45,12 +47,7 @@ import rx.Observable;
  *
  * @see <a href="http://dev.desk.com/API/companies/">http://dev.desk.com/API/companies/</a>
  */
-public interface RxCompanyService extends CompanyService {
-
-    String COMPANY_URI = "companies";
-
-    String SORT_FIELD_CREATED_AT = "created_at";
-    String SORT_FIELD_UPDATED_AT = "updated_at";
+public interface RxCompanyService {
 
     /**
      * Retrieve a single company

@@ -130,7 +130,7 @@ public class DefaultDeskClient implements DeskClient {
             }
         }
 
-        this.restAdapter = createRestAdapter().build();
+        this.restAdapter = retrofitBuilder.build();
     }
 
     @Override

@@ -26,18 +26,6 @@
 
 package com.desk.java.apiclient;
 
-import com.desk.java.apiclient.service.ArticleService;
-import com.desk.java.apiclient.service.CaseService;
-import com.desk.java.apiclient.service.CompanyService;
-import com.desk.java.apiclient.service.CustomFieldsService;
-import com.desk.java.apiclient.service.CustomerService;
-import com.desk.java.apiclient.service.FilterService;
-import com.desk.java.apiclient.service.GroupService;
-import com.desk.java.apiclient.service.InboundMailboxService;
-import com.desk.java.apiclient.service.LabelService;
-import com.desk.java.apiclient.service.MacroService;
-import com.desk.java.apiclient.service.OutboundMailboxService;
-import com.desk.java.apiclient.service.PermissionService;
 import com.desk.java.apiclient.service.RxArticleService;
 import com.desk.java.apiclient.service.RxCaseService;
 import com.desk.java.apiclient.service.RxCompanyService;
@@ -54,9 +42,6 @@ import com.desk.java.apiclient.service.RxSiteService;
 import com.desk.java.apiclient.service.RxTopicService;
 import com.desk.java.apiclient.service.RxTwitterUserService;
 import com.desk.java.apiclient.service.RxUserService;
-import com.desk.java.apiclient.service.SiteService;
-import com.desk.java.apiclient.service.TopicService;
-import com.desk.java.apiclient.service.TwitterUserService;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -93,11 +78,11 @@ public class RxDeskClient extends DefaultDeskClient {
     private RxInboundMailboxService rxInboundMailboxService;
 
     /**
-     * Creates a {@link DeskClient} using the builder provided.
-     * @param builder the builder to use to build the {@link DeskClient}
-     * @return a {@link DeskClient}
+     * Creates a {@link RxDeskClient} using the builder provided.
+     * @param builder the builder to use to build the {@link RxDeskClient}
+     * @return a {@link RxDeskClient}
      */
-    public static DeskClient create(DefaultDeskClient.Builder builder) {
+    public static RxDeskClient create(DefaultDeskClient.Builder builder) {
         builder.callAdapters(Collections.singletonList((Factory) RxJavaCallAdapterFactory.create()));
         return new RxDeskClient(builder);
     }

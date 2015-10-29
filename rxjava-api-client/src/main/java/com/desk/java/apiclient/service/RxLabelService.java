@@ -33,6 +33,8 @@ import retrofit.http.GET;
 import retrofit.http.Query;
 import rx.Observable;
 
+import static com.desk.java.apiclient.service.LabelService.LABELS_URI;
+
 /**
  * <p>
  * Service interfacing with the Desk Labels endpoint
@@ -43,7 +45,7 @@ import rx.Observable;
  *
  * @see <a href="http://dev.desk.com/API/labels/">http://dev.desk.com/API/labels/</a>
  */
-public interface RxLabelService extends LabelService {
+public interface RxLabelService {
 
     /**
      * Retrieve a paginated list of all labels

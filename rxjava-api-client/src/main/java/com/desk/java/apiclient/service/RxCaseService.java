@@ -45,10 +45,18 @@ import retrofit.http.Path;
 import retrofit.http.Query;
 import rx.Observable;
 
+import static com.desk.java.apiclient.service.CaseService.ATTACHMENTS_URI;
+import static com.desk.java.apiclient.service.CaseService.CASES_URI;
+import static com.desk.java.apiclient.service.CaseService.DRAFT_URI;
+import static com.desk.java.apiclient.service.CaseService.FILTERS_URI;
+import static com.desk.java.apiclient.service.CaseService.MACROS_URI;
+import static com.desk.java.apiclient.service.CaseService.NOTE_URI;
+import static com.desk.java.apiclient.service.CaseService.REPLIES_URI;
+
 /**
  * <p>
- * Service interfacing with the Desk Cases endpoint. {@link #createCase(Case, Embed, Fields)}
- * &amp; {@link #createCase(Case, Embed, Fields)} support
+ * Service interfacing with the Desk Cases endpoint. {@link #createCaseObservable(Case, Embed, Fields)}
+ * &amp; {@link #createCaseObservable(Case, Embed, Fields)} support
  * {@link RxDeskClient.AuthType#API_TOKEN} authentication
  * </p>
  * <p>
@@ -57,7 +65,7 @@ import rx.Observable;
  *
  * @see <a href="http://dev.desk.com/API/cases/">http://dev.desk.com/API/cases/</a>
  */
-public interface RxCaseService extends CaseService {
+public interface RxCaseService {
 
     /**
      * Retrieves cases for a given filter

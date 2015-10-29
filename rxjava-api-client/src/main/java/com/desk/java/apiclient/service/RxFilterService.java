@@ -34,6 +34,9 @@ import retrofit.http.GET;
 import retrofit.http.Query;
 import rx.Observable;
 
+import static com.desk.java.apiclient.service.FilterService.COMPANY_FILTERS_URI;
+import static com.desk.java.apiclient.service.FilterService.FILTERS_URI;
+
 /**
  * <p>
  * Service interfacing with the Desk Filters endpoint
@@ -44,7 +47,7 @@ import rx.Observable;
  *
  * @see <a href="http://dev.desk.com/API/filters/">http://dev.desk.com/API/filters/</a>
  */
-public interface RxFilterService extends FilterService {
+public interface RxFilterService {
 
     /**
      * Retrieves case filters.

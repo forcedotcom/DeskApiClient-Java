@@ -39,6 +39,8 @@ import retrofit.http.Path;
 import retrofit.http.Query;
 import rx.Observable;
 
+import static com.desk.java.apiclient.service.CustomerService.CUSTOMERS_URI;
+
 /**
  * <p>
  * Service interfacing with the Desk Customers endpoint
@@ -49,7 +51,7 @@ import rx.Observable;
  *
  * @see <a href="http://dev.desk.com/API/customers/">http://dev.desk.com/API/customers/</a>
  */
-public interface RxCustomerService extends CustomerService {
+public interface RxCustomerService {
 
     /**
      * Retrieve a single customer
