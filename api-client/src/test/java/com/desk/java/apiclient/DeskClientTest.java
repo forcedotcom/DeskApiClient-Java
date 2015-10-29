@@ -26,16 +26,11 @@
 
 package com.desk.java.apiclient;
 
-import com.desk.java.apiclient.util.DeskClientUtils;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.net.URI;
 
-import static com.desk.java.apiclient.DeskClient.OAUTH_ACCESS_URL;
-import static com.desk.java.apiclient.DeskClient.OAUTH_AUTHORIZE_URL;
-import static com.desk.java.apiclient.DeskClient.OAUTH_REQUEST_URL;
 import static com.desk.java.apiclient.DeskClient.PROTOCOL_CONNECT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -152,24 +147,6 @@ public class DeskClientTest {
     @Test
     public void twitterUsersIsNotNull() throws Exception {
         assertNotNull(apiTokenDeskClient.twitterUsers());
-    }
-
-    @Test
-    public void oAuthRequestUrlReturnsCorrectUrl() throws Exception {
-        final String requestUrl = DeskClientUtils.oAuthRequestUrl(TEST_HOST_NAME);
-        assertEquals(PROTOCOL_CONNECT + TEST_HOST_NAME + OAUTH_REQUEST_URL, requestUrl);
-    }
-
-    @Test
-    public void oAuthAccessUrlReturnsCorrectUrl() throws Exception {
-        final String accessUrl = DeskClientUtils.oAuthAccessUrl(TEST_HOST_NAME);
-        assertEquals(PROTOCOL_CONNECT + TEST_HOST_NAME + OAUTH_ACCESS_URL, accessUrl);
-    }
-
-    @Test
-    public void oAuthAuthorizeUrlReturnsCorrectUrl() throws Exception {
-        final String authorizeUrl = DeskClientUtils.oAuthAuthorizeUrl(TEST_HOST_NAME);
-        assertEquals(PROTOCOL_CONNECT + TEST_HOST_NAME + OAUTH_AUTHORIZE_URL, authorizeUrl);
     }
 
     @Test
