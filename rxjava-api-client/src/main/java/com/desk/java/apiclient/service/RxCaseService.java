@@ -26,7 +26,7 @@
 
 package com.desk.java.apiclient.service;
 
-import com.desk.java.apiclient.RxDeskClient;
+import com.desk.java.apiclient.DeskClientBuilder;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Attachment;
 import com.desk.java.apiclient.model.Case;
@@ -57,7 +57,7 @@ import static com.desk.java.apiclient.service.CaseService.REPLIES_URI;
  * <p>
  * Service interfacing with the Desk Cases endpoint. {@link #createCaseObservable(Case, Embed, Fields)}
  * &amp; {@link #createCaseObservable(Case, Embed, Fields)} support
- * {@link RxDeskClient.AuthType#API_TOKEN} authentication
+ * {@link DeskClientBuilder.AuthType#API_TOKEN} authentication
  * </p>
  * <p>
  * Created by Matt Kranzler on 5/1/15.

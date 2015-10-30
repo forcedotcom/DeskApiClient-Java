@@ -26,6 +26,7 @@
 
 package com.desk.java.apiclient.service;
 
+import com.desk.java.apiclient.DeskClientBuilder;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.InboundMailbox;
 
@@ -36,7 +37,7 @@ import retrofit.http.Query;
 /**
  * <p>
  *     Service interfacing with the Desk Inbound Mailboxes endpoint.
- *     This service supports {@link com.desk.java.apiclient.DeskClient.AuthType#API_TOKEN} authentication.
+ *     This service supports {@link DeskClientBuilder.AuthType#API_TOKEN} authentication.
  * </p>
  *
  * Created by Matt Kranzler on 6/26/15.

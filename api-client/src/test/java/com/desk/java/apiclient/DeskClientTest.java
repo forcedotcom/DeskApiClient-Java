@@ -31,7 +31,7 @@ import org.junit.Test;
 
 import java.net.URI;
 
-import static com.desk.java.apiclient.DeskClient.PROTOCOL_CONNECT;
+import static com.desk.java.apiclient.DeskClientBuilder.PROTOCOL_CONNECT;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -50,17 +50,17 @@ public class DeskClientTest {
 
     @Before
     public void setup() {
-        oAuthDeskClient = new DeskClient.Builder(
+        oAuthDeskClient = DeskClient.create(new DeskClientBuilder(
                 TEST_HOST_NAME,
                 "1234",
                 "5678",
                 "1234",
                 "5678"
-        ).create();
-        apiTokenDeskClient = new DeskClient.Builder(
+        ));
+        apiTokenDeskClient = DeskClient.create(new DeskClientBuilder(
                 TEST_HOST_NAME,
                 "1234"
-        ).create();
+        ));
     }
 
     @Test

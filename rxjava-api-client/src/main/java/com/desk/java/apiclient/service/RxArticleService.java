@@ -26,7 +26,6 @@
 
 package com.desk.java.apiclient.service;
 
-import com.desk.java.apiclient.RxDeskClient;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Article;
 import com.desk.java.apiclient.model.BrandIds;
@@ -44,7 +43,7 @@ import static com.desk.java.apiclient.service.ArticleService.ARTICLES_URI;
 
 /**
  * <p>
- * Service interfacing with the Desk Article endpoint. This service supports {@link RxDeskClient.AuthType#API_TOKEN} authentication
+ * Service interfacing with the Desk Article endpoint. This service supports {@link com.desk.java.apiclient.DeskClientBuilder.AuthType#API_TOKEN} authentication
  * </p>
  * <p>
  * Created by Matt Kranzler on 6/25/15.

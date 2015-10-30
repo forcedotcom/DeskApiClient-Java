@@ -26,6 +26,7 @@
 
 package com.desk.java.apiclient.service;
 
+import com.desk.java.apiclient.DeskClientBuilder;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Article;
 import com.desk.java.apiclient.model.SortDirection;
@@ -42,7 +43,7 @@ import retrofit.http.Query;
 /**
  * <p>
  *     Service interfacing with the Desk Topics endpoint. This service supports
- *     {@link com.desk.java.apiclient.DeskClient.AuthType#API_TOKEN} authentication.
+ *     {@link DeskClientBuilder.AuthType#API_TOKEN} authentication.
  * </p>
  *
  * Created by Matt Kranzler on 6/19/15.

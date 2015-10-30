@@ -58,7 +58,7 @@ import retrofit.RxJavaCallAdapterFactory;
  * Created by Jerrell Mardis
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
-public class RxDeskClient extends DefaultDeskClient {
+public class RxDeskClient extends DeskClient {
 
     private RxUserService rxUserService;
     private RxSiteService rxSiteService;
@@ -78,16 +78,20 @@ public class RxDeskClient extends DefaultDeskClient {
     private RxInboundMailboxService rxInboundMailboxService;
 
     /**
-     * Creates a {@link RxDeskClient} using the builder provided.
+     * Creates a {@link RxDeskClient} using the builder provided and adds a {@link RxJavaCallAdapterFactory}.
+     *
      * @param builder the builder to use to build the {@link RxDeskClient}
      * @return a {@link RxDeskClient}
      */
-    public static RxDeskClient create(DefaultDeskClient.Builder builder) {
+    public static RxDeskClient create(DeskClientBuilder builder) {
+        if (builder == null) {
+            throw new IllegalStateException("DeskClientBuilder cannot be null.");
+        }
         builder.callAdapters(Collections.singletonList((Factory) RxJavaCallAdapterFactory.create()));
         return new RxDeskClient(builder);
     }
 
-    private RxDeskClient(DefaultDeskClient.Builder builder) {
+    private RxDeskClient(DeskClientBuilder builder) {
         super(builder);
     }
 

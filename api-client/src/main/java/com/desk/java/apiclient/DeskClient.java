@@ -26,6 +26,8 @@
 
 package com.desk.java.apiclient;
 
+import com.desk.java.apiclient.DeskClientBuilder.AuthType;
+import com.desk.java.apiclient.model.CaseLock;
 import com.desk.java.apiclient.service.ArticleService;
 import com.desk.java.apiclient.service.CaseService;
 import com.desk.java.apiclient.service.CompanyService;
@@ -42,22 +44,33 @@ import com.desk.java.apiclient.service.SiteService;
 import com.desk.java.apiclient.service.TopicService;
 import com.desk.java.apiclient.service.TwitterUserService;
 import com.desk.java.apiclient.service.UserService;
+import com.desk.java.apiclient.util.ApiTokenSigningInterceptor;
+import com.desk.java.apiclient.util.DeskClientUtils;
+import com.desk.java.apiclient.util.ISO8601DateAdapter;
+import com.desk.java.apiclient.util.OAuthSigningInterceptor;
+import com.desk.java.apiclient.util.RetrofitHttpOAuthConsumer;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.Interceptor;
 import com.squareup.okhttp.OkHttpClient;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
-import retrofit.CallAdapter.Factory;
+import retrofit.CallAdapter;
+import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
-import static com.desk.java.apiclient.DeskClient.AuthType.API_TOKEN;
-import static com.desk.java.apiclient.DeskClient.AuthType.OAUTH;
+import static com.desk.java.apiclient.DeskClientBuilder.API_BASE_PATH;
+import static com.desk.java.apiclient.DeskClientBuilder.AuthType.OAUTH;
 
 /**
  * <p>
@@ -67,31 +80,89 @@ import static com.desk.java.apiclient.DeskClient.AuthType.OAUTH;
  * Created by Matt Kranzler on 4/27/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
-public interface DeskClient {
+public class DeskClient {
 
-    String OAUTH_REQUEST_URL = "/oauth/request_token";
-    String OAUTH_ACCESS_URL = "/oauth/access_token";
-    String OAUTH_AUTHORIZE_URL = "/oauth/authorize";
-    String PROTOCOL_CONNECT = "https://";
-    String API_BASE_PATH = "/api/v2/";
+    private final String hostname;
+    private final String apiToken;
+    private final String consumerKey;
+    private final String consumerSecret;
+    private final String accessToken;
+    private final String accessTokenSecret;
+    private final Cache responseCache;
+    private final List<Interceptor> applicationInterceptors;
+    private final List<Interceptor> networkInterceptors;
+    private final AuthType authType;
 
-    enum AuthType {
-        OAUTH,
-        API_TOKEN
+    private Retrofit restAdapter;
+    private RetrofitHttpOAuthConsumer oAuthConsumer;
+    private UserService userService;
+    private SiteService siteService;
+    private LabelService labelService;
+    private CustomFieldsService customFieldsService;
+    private GroupService groupService;
+    private MacroService macroService;
+    private OutboundMailboxService outboundMailboxService;
+    private FilterService filterService;
+    private CaseService caseService;
+    private CompanyService companyService;
+    private CustomerService customerService;
+    private PermissionService permissionService;
+    private TwitterUserService twitterUserService;
+    private TopicService topicService;
+    private ArticleService articleService;
+    private InboundMailboxService inboundMailboxService;
+
+    /**
+     * Creates a {@link DeskClient} using the provided {@link DeskClientBuilder}.
+     *
+     * @return the desk client
+     */
+    public static DeskClient create(DeskClientBuilder builder) {
+        if (builder == null) {
+            throw new IllegalStateException("DeskClientBuilder cannot be null.");
+        }
+        return new DeskClient(builder);
+    }
+
+    DeskClient(DeskClientBuilder builder) {
+        this.authType = builder.authType;
+        this.apiToken = builder.apiToken;
+        this.hostname = builder.hostname;
+        this.consumerKey = builder.consumerKey;
+        this.consumerSecret = builder.consumerSecret;
+        this.accessToken = builder.accessToken;
+        this.accessTokenSecret = builder.accessTokenSecret;
+        this.responseCache = builder.responseCache;
+        this.applicationInterceptors = builder.applicationInterceptors;
+        this.networkInterceptors = builder.networkInterceptors;
+        this.oAuthConsumer = createOAuthConsumer();
+
+        Retrofit.Builder retrofitBuilder = createRestAdapter();
+        if (builder.callAdapters != null && !builder.callAdapters.isEmpty()) {
+            for (CallAdapter.Factory callAdapter : builder.callAdapters) {
+                retrofitBuilder.addCallAdapterFactory(callAdapter);
+            }
+        }
+
+        this.restAdapter = retrofitBuilder.build();
     }
 
     /**
      * Gets the hostname
      * @return the hostname
      */
-    String getHostname();
+    public String getHostname() {
+        return this.hostname;
+    }
 
     /**
      * Gets the url with the path provided.
      * @param path the path
      * @return the url
      */
-    String getUrl(String path);
+    public String getUrl(String path) {
+        return DeskClientUtils.buildUrl(hostname, path);
+    }
 
     /**
      * Signs the provided URL with OAuth credentials
@@ -101,12 +172,26 @@ public interface DeskClient {
      * @throws OAuthExpectationFailedException if consumer key or consumer secret are not set in the OAuthConsumer
      * @throws OAuthMessageSignerException if an error occurs while signing the url
      */
-    String signUrl(String url) throws OAuthCommunicationException, OAuthExpectationFailedException, OAuthMessageSignerException;
+    public String signUrl(String url) throws OAuthCommunicationException, OAuthExpectationFailedException, OAuthMessageSignerException {
+        if (OAUTH == authType) {
+            return oAuthConsumer.sign(url);
+        } else {
+            return url;
+        }
+    }
 
     /**
      * Clears all cached response objects from the response cache if one exists.
      */
-    void clearResponseCache();
+    public void clearResponseCache() {
+        if (responseCache != null) {
+            try {
+                responseCache.evictAll();
+            } catch (IOException e) {
+                // ignore
+            }
+        }
+    }
 
     /**
      * Get the Desk User service
@@ -114,7 +199,12 @@ public interface DeskClient {
      * @return the default Desk User service
      */
     @NotNull
-    UserService users();
+    public UserService users() {
+        if (userService == null) {
+            userService = restAdapter.create(UserService.class);
+        }
+        return userService;
+    }
 
     /**
      * Get the Desk Site service
@@ -122,7 +212,12 @@ public interface DeskClient {
      * @return the default Desk Site service
      */
     @NotNull
-    SiteService sites();
+    public SiteService sites() {
+        if (siteService == null) {
+            siteService = restAdapter.create(SiteService.class);
+        }
+        return siteService;
+    }
 
     /**
      * Get the Desk Label service
@@ -130,7 +225,12 @@ public interface DeskClient {
      * @return the default Desk Label service
      */
     @NotNull
-    LabelService labels();
+    public LabelService labels() {
+        if (labelService == null) {
+            labelService = restAdapter.create(LabelService.class);
+        }
+        return labelService;
+    }
 
     /**
      * Get the Desk Custom Fields service
@@ -138,7 +238,12 @@ public interface DeskClient {
      * @return the default Desk Custom Fields service
      */
     @NotNull
-    CustomFieldsService customFields();
+    public CustomFieldsService customFields() {
+        if (customFieldsService == null) {
+            customFieldsService = restAdapter.create(CustomFieldsService.class);
+        }
+        return customFieldsService;
+    }
 
     /**
      * Get the Desk Group service
@@ -146,7 +251,12 @@ public interface DeskClient {
      * @return the default Desk Group service
      */
     @NotNull
-    GroupService groups();
+    public GroupService groups() {
+        if (groupService == null) {
+            groupService = restAdapter.create(GroupService.class);
+        }
+        return groupService;
+    }
 
     /**
      * Get the Desk Macro service
@@ -154,7 +264,12 @@ public interface DeskClient {
      * @return the default Desk Macro service
      */
     @NotNull
-    MacroService macros();
+    public MacroService macros() {
+        if (macroService == null) {
+            macroService = restAdapter.create(MacroService.class);
+        }
+        return macroService;
+    }
 
     /**
      * Get the Desk Outbound Mailbox service
@@ -162,7 +277,12 @@ public interface DeskClient {
      * @return the default Desk Outbound Mailbox service
      */
     @NotNull
-    OutboundMailboxService outboundMailboxes();
+    public OutboundMailboxService outboundMailboxes() {
+        if (outboundMailboxService == null) {
+            outboundMailboxService = restAdapter.create(OutboundMailboxService.class);
+        }
+        return outboundMailboxService;
+    }
 
     /**
      * Get the Desk Filter service
@@ -170,7 +290,12 @@ public interface DeskClient {
      * @return the default Desk Filter service
      */
     @NotNull
-    FilterService filters();
+    public FilterService filters() {
+        if (filterService == null) {
+            filterService = restAdapter.create(FilterService.class);
+        }
+        return filterService;
+    }
 
     /**
      * Get the Desk Case service
@@ -178,7 +303,12 @@ public interface DeskClient {
      * @return the default Desk Case service
      */
     @NotNull
-    CaseService cases();
+    public CaseService cases() {
+        if (caseService == null) {
+            caseService = restAdapter.create(CaseService.class);
+        }
+        return caseService;
+    }
 
     /**
      * Get the Desk Company service
@@ -186,7 +316,12 @@ public interface DeskClient {
      * @return the default Desk Company service
      */
     @NotNull
-    CompanyService companies();
+    public CompanyService companies() {
+        if (companyService == null) {
+            companyService = restAdapter.create(CompanyService.class);
+        }
+        return companyService;
+    }
 
     /**
      * Get the Desk Customer service
@@ -194,7 +329,12 @@ public interface DeskClient {
      * @return the default Desk Customer service
      */
     @NotNull
-    CustomerService customers();
+    public CustomerService customers() {
+        if (customerService == null) {
+            customerService = restAdapter.create(CustomerService.class);
+        }
+        return customerService;
+    }
 
     /**
      * Get the Desk Permission service
@@ -202,7 +342,12 @@ public interface DeskClient {
      * @return the default Desk Permission service
      */
     @NotNull
-    PermissionService permissions();
+    public PermissionService permissions() {
+        if (permissionService == null) {
+            permissionService = restAdapter.create(PermissionService.class);
+        }
+        return permissionService;
+    }
 
     /**
      * Get the Desk Twitter User service
@@ -210,7 +355,12 @@ public interface DeskClient {
      * @return the default Desk Twitter User service
      */
     @NotNull
-    TwitterUserService twitterUsers();
+    public TwitterUserService twitterUsers() {
+        if (twitterUserService == null) {
+            twitterUserService = restAdapter.create(TwitterUserService.class);
+        }
+        return twitterUserService;
+    }
 
     /**
      * Get the Desk Topic service
@@ -218,7 +368,12 @@ public interface DeskClient {
      * @return the default Desk Topic service
      */
     @NotNull
-    TopicService topics();
+    public TopicService topics() {
+        if (topicService == null) {
+            topicService = restAdapter.create(TopicService.class);
+        }
+        return topicService;
+    }
 
     /**
      * Get the Desk Article service
@@ -226,7 +381,12 @@ public interface DeskClient {
      * @return the default Desk Article service
      */
     @NotNull
-    ArticleService articles();
+    public ArticleService articles() {
+        if (articleService == null) {
+            articleService = restAdapter.create(ArticleService.class);
+        }
+        return articleService;
+    }
 
     /**
      * Get the Desk Inbound Mailbox service
@@ -234,100 +394,75 @@ public interface DeskClient {
      * @return the default Desk Inbound Mailbox service
      */
     @NotNull
-    InboundMailboxService inboundMailboxes();
+    public InboundMailboxService inboundMailboxes() {
+        if (inboundMailboxService == null) {
+            inboundMailboxService = restAdapter.create(InboundMailboxService.class);
+        }
+        return inboundMailboxService;
+    }
 
-    /**
-     * Builder class to assist in create a desk client instance
-     */
-    class Builder {
+    protected Retrofit getRestAdapter() {
+        return restAdapter;
+    }
 
-        Cache responseCache;
-        List<Interceptor> applicationInterceptors;
-        List<Interceptor> networkInterceptors;
-        String hostname;
-        String apiToken;
-        String consumerKey;
-        String consumerSecret;
-        String accessToken;
-        String accessTokenSecret;
-        AuthType authType;
-        List<Factory> callAdapters;
+    private Retrofit.Builder createRestAdapter() {
+        return new Retrofit.Builder()
+                .baseUrl(getUrl(API_BASE_PATH))
+                .client(createOkHttpClient())
+                .addConverterFactory(GsonConverterFactory.create(createGson()));
+    }
 
-        /**
-         * Creates a builder to create a desk client that uses api token authentication
-         * @param hostname the Desk site (ex: yourcompany.desk.com)
-         * @param apiToken the api token to be used to authenticate
-         */
-        public Builder(@NotNull String hostname, @NotNull String apiToken) {
-            this.hostname = hostname;
-            this.apiToken = apiToken;
-            this.authType = API_TOKEN;
+    private Gson createGson() {
+        return new GsonBuilder()
+                .registerTypeAdapter(Date.class, new ISO8601DateAdapter())
+                .registerTypeAdapter(CaseLock.class, CaseLock.TYPE_ADAPTER)
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .create();
+    }
+
+    private OkHttpClient createOkHttpClient() {
+        OkHttpClient okHttpClient = new OkHttpClient();
+
+        // if we have response cache let's use it!
+        if (responseCache != null) {
+            okHttpClient.setCache(responseCache);
         }
 
-        /**
-         * Creates a builder to create a client that uses OAuth 1.0 authentication
-         * @param hostname the Desk site (ex: yourcompany.desk.com)
-         * @param consumerKey the Desk API consumer key for OAuth
-         * @param consumerSecret the Desk API consumer secret for OAuth
-         * @param accessToken the oauth access token
-         * @param accessTokenSecret the oauth access token secret
-         */
-        public Builder(@NotNull String hostname, @NotNull String consumerKey, @NotNull String consumerSecret,
-                       @NotNull String accessToken, @NotNull String accessTokenSecret) {
-            this.hostname = hostname;
-            this.consumerKey = consumerKey;
-            this.consumerSecret = consumerSecret;
-            this.accessToken = accessToken;
-            this.accessTokenSecret = accessTokenSecret;
-            this.authType = OAUTH;
+        // add auth interceptors
+        switch (authType) {
+            case OAUTH:
+                if (oAuthConsumer == null) {
+                    throw new IllegalStateException("a RetrofitHttpOAuthConsumer must be created before creating OKClient");
+                }
+                okHttpClient.interceptors().add(new OAuthSigningInterceptor(oAuthConsumer));
+                break;
+            case API_TOKEN:
+                okHttpClient.interceptors().add(new ApiTokenSigningInterceptor(apiToken));
+                break;
+            default:
+                throw new IllegalStateException("AuthType " + authType + " isn't supported.");
         }
 
-        /**
-         * Appends the provided interceptors to the end of the list of internal application interceptors.
-         * @param interceptors the application interceptors
-         * @return the builder instance
-         */
-        public Builder applicationInterceptors(List<Interceptor> interceptors) {
-            this.applicationInterceptors = interceptors;
-            return this;
+        // add all other application interceptors
+        if (applicationInterceptors != null && !applicationInterceptors.isEmpty()) {
+            okHttpClient.interceptors().addAll(applicationInterceptors);
         }
 
-        /**
-         * Appends the provided interceptors to the end of the list of internal network interceptors.
-         * @param interceptors the application interceptors
-         * @return the builder instance
-         */
-        public Builder networkInterceptors(List<Interceptor> interceptors) {
-            this.networkInterceptors = interceptors;
-            return this;
+        // add all other network interceptors
+        if (networkInterceptors != null && !networkInterceptors.isEmpty()) {
+            okHttpClient.networkInterceptors().addAll(networkInterceptors);
         }
 
-        /**
-         * Sets the response cache for HTTP responses for the {@link OkHttpClient} backed by the client
-         * @param responseCache the response cache
-         * @return the builder instance
-         */
-        public Builder responseCache(Cache responseCache) {
-            this.responseCache = responseCache;
-            return this;
-        }
+        return okHttpClient;
+    }
 
-        /**
-         * Adds the provided list of {@link Factory}s to {@link Retrofit}.
-         * @param callAdapters the list of {@link Factory}s
-         * @return the builder instance
-         */
-        public Builder callAdapters(List<Factory> callAdapters) {
-            this.callAdapters = callAdapters;
-            return this;
-        }
-
-        /**
-         * Creates the desk client
-         * @return the desk client
-         */
-        public DeskClient create() {
-            return new DefaultDeskClient(this);
+    private RetrofitHttpOAuthConsumer createOAuthConsumer() {
+        if (OAUTH == authType) {
+            RetrofitHttpOAuthConsumer consumer = new RetrofitHttpOAuthConsumer(consumerKey, consumerSecret);
+            consumer.setTokenWithSecret(accessToken, accessTokenSecret);
+            return consumer;
+        } else {
+            return null;
         }
     }
 }

@@ -26,6 +26,7 @@
 
 package com.desk.java.apiclient.service;
 
+import com.desk.java.apiclient.DeskClientBuilder;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Attachment;
 import com.desk.java.apiclient.model.Case;
@@ -48,7 +49,7 @@ import retrofit.http.Query;
  * <p>
  *     Service interfacing with the Desk Cases endpoint. {@link #createCase(Case, Embed, Fields)}
  *     &amp; {@link #createCase(Case, Embed, Fields)} support
- *     {@link com.desk.java.apiclient.DeskClient.AuthType#API_TOKEN} authentication
+ *     {@link DeskClientBuilder.AuthType#API_TOKEN} authentication
  * </p>
  *
  * Created by Matt Kranzler on 5/1/15.

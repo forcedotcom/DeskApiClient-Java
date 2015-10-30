@@ -41,7 +41,7 @@ import retrofit.http.Query;
 
 /**
  * <p>
- * Service interfacing with the Desk Article endpoint. This service supports {@link com.desk.java.apiclient.DeskClient.AuthType#API_TOKEN} authentication
+ * Service interfacing with the Desk Article endpoint. This service supports {@link com.desk.java.apiclient.DeskClientBuilder.AuthType#API_TOKEN} authentication
  * </p>
  *
  * Created by Matt Kranzler on 6/25/15.

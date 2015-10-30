@@ -2,10 +2,10 @@ package com.desk.java.apiclient.util;
 
 import com.desk.java.apiclient.DeskClient;
 
-import static com.desk.java.apiclient.DeskClient.OAUTH_ACCESS_URL;
-import static com.desk.java.apiclient.DeskClient.OAUTH_AUTHORIZE_URL;
-import static com.desk.java.apiclient.DeskClient.OAUTH_REQUEST_URL;
-import static com.desk.java.apiclient.DeskClient.PROTOCOL_CONNECT;
+import static com.desk.java.apiclient.DeskClientBuilder.OAUTH_ACCESS_URL;
+import static com.desk.java.apiclient.DeskClientBuilder.OAUTH_AUTHORIZE_URL;
+import static com.desk.java.apiclient.DeskClientBuilder.OAUTH_REQUEST_URL;
+import static com.desk.java.apiclient.DeskClientBuilder.PROTOCOL_CONNECT;
 
 /**
  * <p>
