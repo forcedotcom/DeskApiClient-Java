@@ -26,16 +26,22 @@
 
 package com.desk.java.apiclient.service;
 
-import com.desk.java.apiclient.model.*;
+import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.Article;
+import com.desk.java.apiclient.model.BrandIds;
+import com.desk.java.apiclient.model.SortDirection;
+import com.desk.java.apiclient.model.TopicIds;
+
 import org.jetbrains.annotations.Nullable;
-import retrofit.Callback;
+
+import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.Query;
 
 /**
  * <p>
- * Service interfacing with the Desk Article endpoint. This service supports {@link com.desk.java.apiclient.DeskClient.AuthType#API_TOKEN} authentication
+ * Service interfacing with the Desk Article endpoint. This service supports {@link com.desk.java.apiclient.DeskClientBuilder.AuthType#API_TOKEN} authentication
  * </p>
  *
  * Created by Matt Kranzler on 6/25/15.
@@ -46,7 +52,7 @@ import retrofit.http.Query;
 public interface ArticleService {
 
     // URIs
-    String ARTICLES_URI = "/articles";
+    String ARTICLES_URI = "articles";
 
     // Fields
     String FIELD_ID = "id";
@@ -66,25 +72,10 @@ public interface ArticleService {
      * @param page the page to retrieve
      * @param perPage how many entries per page
      * @param inSupportCenter true to include only articles that are in the support center
-     * @param callback the callback upon success or failure
-     */
-    @GET(ARTICLES_URI)
-    void getArticles(@Header("Accept-Language") String language, @Query("page") int page, @Query("per_page") int perPage,
-                     @Nullable @Query("in_support_center") Boolean inSupportCenter,
-                     Callback<ApiResponse<Article>> callback);
-
-    /**
-     * Retrieve a list of all articles.
-     * @see <a href="http://dev.desk.com/API/articles/#list">http://dev.desk.com/API/articles/#list</a>
-     *
-     * @param language the ISO language code. If null default to en
-     * @param page the page to retrieve
-     * @param perPage how many entries per page
-     * @param inSupportCenter true to include only articles that are in the support center
      * @return an article api response
      */
     @GET(ARTICLES_URI)
-    ApiResponse<Article> getArticles(
+    Call<ApiResponse<Article>> getArticles(
             @Header("Accept-Language") String language, @Query("page") int page, @Query("per_page") int perPage,
             @Nullable @Query("in_support_center") Boolean inSupportCenter);
 
@@ -99,33 +90,10 @@ public interface ArticleService {
      * @param brandIds the brand IDs to limit results to or null for all brands
      * @param sortField the field to sort the results on
      * @param sortDirection the direction to sort the results
-     * @param callback the callback upon success or failure
-     */
-    @GET(ARTICLES_URI + "/search")
-    void getArticles(@Header("Accept-Language") String language,
-                     @Query("page") int page, @Query("per_page") int perPage,
-                     @Nullable @Query("in_support_center") Boolean inSupportCenter,
-                     @Nullable @Query("topic_ids") TopicIds topicIds,
-                     @Nullable @Query("brand_ids") BrandIds brandIds,
-                     @Nullable @Query("sort_field") String sortField,
-                     @Nullable @Query("sort_direction") SortDirection sortDirection,
-                     Callback<ApiResponse<Article>> callback);
-
-    /**
-     * Retrieve a list of all articles filtered by topics and/or brands
-     *
-     * @param language the ISO language code. If null default to en
-     * @param page the page to retrieve
-     * @param perPage how many entries per page
-     * @param inSupportCenter true to include only articles that are in the support center
-     * @param topicIds the topic IDs to limit results to or null for all topics
-     * @param brandIds the brand IDs to limit results to or null for all brands
-     * @param sortField the field to sort the results on
-     * @param sortDirection the direction to sort the results
      * @return an article api response
      */
     @GET(ARTICLES_URI + "/search")
-    ApiResponse<Article> getArticles(@Header("Accept-Language") String language,
+    Call<ApiResponse<Article>> getArticles(@Header("Accept-Language") String language,
                                      @Query("page") int page, @Query("per_page") int perPage,
                                      @Nullable @Query("in_support_center") Boolean inSupportCenter,
                                      @Nullable @Query("topic_ids") TopicIds topicIds,
@@ -136,31 +104,6 @@ public interface ArticleService {
     /**
      * Perform a search across all public articles.
      * @see <a href="http://dev.desk.com/API/articles/#search">http://dev.desk.com/API/articles/#search</a>
-     *  @param language the ISO language code. If null default to en
-     * @param page the page to retrieve
-     * @param perPage how many entries per page
-     * @param topicIds the topic IDs to limit results to or null for all topics
-     * @param brandIds the brand IDs to limit results to or null for all brands
-     * @param inSupportCenter true to include only articles that are in the support center
-     * @param sortField the field to sort the results on
-     * @param sortDirection the direction to sort the results
-     * @param searchTerm Search terms. Can be any text and will search across subject, body_text, keywords, question, answer
-     * @param callback the callback upon success or failure
-     */
-    @GET(ARTICLES_URI + "/search")
-    void searchArticles(@Header("Accept-Language") String language,
-                        @Query("page") int page, @Query("per_page") int perPage,
-                        @Nullable @Query("topic_ids") TopicIds topicIds,
-                        @Nullable @Query("brand_ids") BrandIds brandIds,
-                        @Nullable @Query("in_support_center") Boolean inSupportCenter,
-                        @Nullable @Query("sort_field") String sortField,
-                        @Nullable @Query("sort_direction") SortDirection sortDirection,
-                        @Query("text") String searchTerm,
-                        Callback<ApiResponse<Article>> callback);
-
-    /**
-     * Perform a search across all public articles.
-     * @see <a href="http://dev.desk.com/API/articles/#search">http://dev.desk.com/API/articles/#search</a>
      *
      * @param language the ISO language code. If null default to en
      * @param page the page to retrieve
@@ -174,7 +117,7 @@ public interface ArticleService {
      * @return an article api response
      */
     @GET(ARTICLES_URI + "/search")
-    ApiResponse<Article> searchArticles(@Header("Accept-Language") String language,
+    Call<ApiResponse<Article>> searchArticles(@Header("Accept-Language") String language,
                                         @Query("page") int page, @Query("per_page") int perPage,
                                         @Nullable @Query("topic_ids") TopicIds topicIds,
                                         @Nullable @Query("brand_ids") BrandIds brandIds,

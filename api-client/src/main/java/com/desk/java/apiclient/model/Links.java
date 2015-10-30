@@ -27,9 +27,10 @@
 package com.desk.java.apiclient.model;
 
 
-import java.io.Serializable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.Serializable;
 
 public class Links implements Serializable {
 

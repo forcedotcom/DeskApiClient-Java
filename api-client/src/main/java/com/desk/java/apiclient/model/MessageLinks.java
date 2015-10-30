@@ -27,10 +27,11 @@
 package com.desk.java.apiclient.model;
 
 
-import java.io.Serializable;
+import com.google.gson.annotations.SerializedName;
+
 import org.jetbrains.annotations.Nullable;
 
-import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 
 public class MessageLinks extends Links implements Serializable {
 

@@ -28,6 +28,7 @@ package com.desk.java.apiclient.model;
 
 import com.desk.java.apiclient.util.StringUtils;
 import com.google.gson.annotations.SerializedName;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;

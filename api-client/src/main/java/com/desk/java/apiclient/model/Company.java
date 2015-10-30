@@ -27,10 +27,9 @@
 package com.desk.java.apiclient.model;
 
 
-import java.io.Serializable;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
+import java.io.Serializable;
 import java.util.HashMap;
 
 public class Company implements Serializable {

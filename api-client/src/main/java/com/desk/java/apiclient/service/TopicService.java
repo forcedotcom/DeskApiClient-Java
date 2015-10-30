@@ -26,12 +26,15 @@
 
 package com.desk.java.apiclient.service;
 
+import com.desk.java.apiclient.DeskClientBuilder;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Article;
 import com.desk.java.apiclient.model.SortDirection;
 import com.desk.java.apiclient.model.Topic;
+
 import org.jetbrains.annotations.Nullable;
-import retrofit.Callback;
+
+import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.Path;
@@ -40,7 +43,7 @@ import retrofit.http.Query;
 /**
  * <p>
  *     Service interfacing with the Desk Topics endpoint. This service supports
- *     {@link com.desk.java.apiclient.DeskClient.AuthType#API_TOKEN} authentication.
+ *     {@link DeskClientBuilder.AuthType#API_TOKEN} authentication.
  * </p>
  *
  * Created by Matt Kranzler on 6/19/15.
@@ -51,7 +54,7 @@ import retrofit.http.Query;
 public interface TopicService {
 
     // URIs
-    String TOPICS_URI = "/topics";
+    String TOPICS_URI = "topics";
 
     // Fields
     String FIELD_ID = "id";
@@ -66,27 +69,10 @@ public interface TopicService {
      * @param brandId the brand ID to limit results to or null for all brands
      * @param sortField the field to sort the topics on
      * @param sortDirection the direction to sort the topics
-     * @param callback the callback upon success or failure
-     */
-    @GET(TOPICS_URI)
-    void getTopics(@Nullable @Header("Accept-Language") String language,
-                   @Nullable @Query("in_support_center") Boolean inSupportCenter,
-                   @Nullable @Query("brand_id") Integer brandId, @Nullable @Query("sort_field") String sortField,
-                   @Nullable @Query("sort_direction") SortDirection sortDirection, Callback<ApiResponse<Topic>> callback);
-
-    /**
-     * Retrieve a list of all topics.
-     * @see <a href="http://dev.desk.com/API/topics/#list">http://dev.desk.com/API/topics/#list</a>
-     *
-     * @param language the ISO language code. If null default to en
-     * @param inSupportCenter true to include only articles that are in the support center
-     * @param brandId the brand ID to limit results to or null for all brands
-     * @param sortField the field to sort the topics on
-     * @param sortDirection the direction to sort the topics
      * @return a topic api response
      */
     @GET(TOPICS_URI)
-    ApiResponse<Topic> getTopics(@Nullable @Header("Accept-Language") String language,
+    Call<ApiResponse<Topic>> getTopics(@Nullable @Header("Accept-Language") String language,
                                  @Nullable @Query("in_support_center") Boolean inSupportCenter,
                                  @Nullable @Query("brand_id") Integer brandId,
                                  @Nullable @Query("sort_field") String sortField,
@@ -98,23 +84,10 @@ public interface TopicService {
      * @param language the ISO language code. If null default to en
      * @param topicId the topic ID to get the articles for
      * @param inSupportCenter true to include only articles that are in the support center
-     * @param callback the callback upon success or failure
-     */
-    @GET(TOPICS_URI + "/{topicId}/articles")
-    void getArticlesOfTopic(@Nullable @Header("Accept-Language") String language,
-                            @Path("topicId") int topicId, @Nullable @Query("in_support_center") Boolean inSupportCenter,
-                            Callback<ApiResponse<Article>> callback);
-
-    /**
-     * Retrieve a list of all articles within a topic
-     *
-     * @param language the ISO language code. If null default to en
-     * @param topicId the topic ID to get the articles for
-     * @param inSupportCenter true to include only articles that are in the support center
      * @return a article api response
      */
     @GET(TOPICS_URI + "/{topicId}/articles")
-    ApiResponse<Article> getArticlesOfTopic(@Nullable @Header("Accept-Language") String language,
+    Call<ApiResponse<Article>> getArticlesOfTopic(@Nullable @Header("Accept-Language") String language,
                                                         @Path("topicId") int topicId,
                                                         @Nullable @Query("in_support_center") Boolean inSupportCenter);
 }

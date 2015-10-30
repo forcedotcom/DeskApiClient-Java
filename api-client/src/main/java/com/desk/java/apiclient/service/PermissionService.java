@@ -28,7 +28,8 @@ package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Permission;
-import retrofit.Callback;
+
+import retrofit.Call;
 import retrofit.http.GET;
 
 /**
@@ -41,15 +42,7 @@ import retrofit.http.GET;
  */
 public interface PermissionService {
 
-    String PERMISSIONS_URI = "/permissions";
-
-    /**
-     * Retrieves a list of permissions for the logged in user
-     *
-     * @param callback the callback upon success or failure
-     */
-    @GET(PERMISSIONS_URI)
-    void getPermissionsForUser(Callback<ApiResponse<Permission>> callback);
+    String PERMISSIONS_URI = "permissions";
 
     /**
      * Retrieves a list of permissions for the logged in user
@@ -57,5 +50,5 @@ public interface PermissionService {
      * @return a permission api response
      */
     @GET(PERMISSIONS_URI)
-    ApiResponse<Permission> getPermissionsForUser();
+    Call<ApiResponse<Permission>> getPermissionsForUser();
 }

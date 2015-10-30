@@ -28,7 +28,8 @@ package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Macro;
-import retrofit.Callback;
+
+import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -45,8 +46,8 @@ import retrofit.http.Query;
  */
 public interface MacroService {
 
-    String USERS_URI = "/users";
-    String MACRO_URI = "/macros";
+    String USERS_URI = "users";
+    String MACRO_URI = "macros";
 
     int MAX_PER_PAGE = 1000;
 
@@ -57,20 +58,8 @@ public interface MacroService {
      * @param userId the user id
      * @param perPage the amount of labels per page
      * @param page the page
-     * @param callback the callback upon success or failure
-     */
-    @GET(USERS_URI + "/{id}" + MACRO_URI)
-    void getMacrosByUser(@Path("id") int userId, @Query("per_page") int perPage, @Query("page") int page, Callback<ApiResponse<Macro>> callback);
-
-    /**
-     * Retrieve a paginated list of all groups
-     * @see <a href="http://dev.desk.com/API/macros/#list">http://dev.desk.com/API/macros/#list</a>
-     *
-     * @param userId the user id
-     * @param perPage the amount of labels per page
-     * @param page the page
      * @return a macro api response
      */
-    @GET(USERS_URI + "/{id}" + MACRO_URI)
-    ApiResponse<Macro> getMacrosByUser(@Path("id") int userId, @Query("per_page") int perPage, @Query("page") int page);
+    @GET(USERS_URI + "/{id}/" + MACRO_URI)
+    Call<ApiResponse<Macro>> getMacrosByUser(@Path("id") int userId, @Query("per_page") int perPage, @Query("page") int page);
 }

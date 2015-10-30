@@ -27,8 +27,9 @@
 package com.desk.java.apiclient.model;
 
 
-import java.io.Serializable;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.Serializable;
 
 public class Macro implements Serializable {
 
