@@ -24,49 +24,31 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.desk.java.apiclient.util;
+package com.desk.java.apiclient.service;
 
-import com.squareup.okhttp.OkHttpClient;
+import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.Permission;
 
-import java.io.IOException;
+import retrofit.http.GET;
+import rx.Observable;
 
-import oauth.signpost.exception.OAuthCommunicationException;
-import oauth.signpost.exception.OAuthExpectationFailedException;
-import oauth.signpost.exception.OAuthMessageSignerException;
-import retrofit.client.OkClient;
-import retrofit.client.Request;
-import retrofit.client.Response;
+import static com.desk.java.apiclient.service.PermissionService.PERMISSIONS_URI;
 
 /**
- * This is a helper class, a {@code retrofit.client.OkClient} to use
- * when building your {@code retrofit.RestAdapter}.
+ * <p>
+ *     Service interfacing with the Desk Permissions endpoint (undocumented)
+ * </p>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
-public class OAuthSigningOkClient extends OkClient {
+public interface RxPermissionService {
 
-    private final RetrofitHttpOAuthConsumer oAuthConsumer;
-
-    public OAuthSigningOkClient(OkHttpClient client, RetrofitHttpOAuthConsumer consumer) {
-        super(client);
-        oAuthConsumer = consumer;
-    }
-
-    @Override
-    public Response execute(Request request) throws IOException {
-        return super.execute(authorizeRequest(request));
-    }
-
-    Request authorizeRequest(Request request) {
-        Request authorizedRequest = request;
-        try {
-            HttpRequestAdapter signedAdapter = (HttpRequestAdapter) oAuthConsumer.sign(request);
-            authorizedRequest = (Request) signedAdapter.unwrap();
-        } catch (OAuthMessageSignerException e) {
-            // Fail to sign, ignore
-        } catch (OAuthExpectationFailedException e) {
-            // Fail to sign, ignore
-        } catch (OAuthCommunicationException e) {
-            // Fail to sign, ignore
-        }
-        return authorizedRequest;
-    }
+    /**
+     * Retrieves a list of permissions for the logged in user
+     *
+     * @return a permission api response
+     */
+    @GET(PERMISSIONS_URI)
+    Observable<ApiResponse<Permission>> getPermissionsForUserObservable();
 }

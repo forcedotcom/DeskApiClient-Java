@@ -26,63 +26,48 @@
 
 package com.desk.java.apiclient.util;
 
+import com.squareup.okhttp.Call;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import retrofit.client.Header;
-import retrofit.client.Request;
-
-import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Unit tests for {@link OAuthSigningOkClient}
- *
- * Created by Matt Kranzler on 6/22/15.
+ * Created by Matt Kranzler on 6/19/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class OAuthSigningOkClientTest {
+public class ApiTokenSigningInterceptorTest {
 
     private static final String AUTHORIZATION_HEADER = "Authorization";
-    private static final String CONSUMER_KEY = "consumer_key";
-    private static final String CONSUMER_SECRET = "consumer_secret";
-    private static final String TOKEN = "token";
-    private static final String SECRET = "secret";
+    private static final String API_TOKEN = "api-token";
 
-    @Mock
-    OkHttpClient mockHttpClient;
-
-    private RetrofitHttpOAuthConsumer consumer;
-    private OAuthSigningOkClient okClient;
+    private ApiTokenSigningInterceptor apiTokenSigningInterceptor;
 
     @Before
-    public void setUp() throws Exception {
-        consumer = new RetrofitHttpOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
-        consumer.setTokenWithSecret(TOKEN, SECRET);
-        okClient = new OAuthSigningOkClient(mockHttpClient, consumer);
+    public void setUp() {
+        apiTokenSigningInterceptor = new ApiTokenSigningInterceptor(API_TOKEN);
     }
 
     @Test
-    public void authorizeRequestDoesAuthorizeRequest() {
-        Request unauthorizedRequest = new Request("GET", "https://test.desk.com", null, null);
+    public void authorizeRequestDoesAddAuthorizationHeader() throws Exception {
+        Request unauthorizedRequest = new Request.Builder().url("https://test.desk.com").build();
         assertFalse(doesHaveAuthorizationHeader(unauthorizedRequest));
-        Request authorizedRequest = okClient.authorizeRequest(unauthorizedRequest);
-        assertTrue(doesHaveAuthorizationHeader(authorizedRequest));
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.interceptors().add(apiTokenSigningInterceptor);
+        Call call = okHttpClient.newCall(unauthorizedRequest);
+        Response response = call.execute();
+        assertTrue(doesHaveAuthorizationHeader(response.request()));
     }
 
     private boolean doesHaveAuthorizationHeader(Request request) {
-        List<Header> headers = request.getHeaders();
-        for (Header header : headers) {
-            if (AUTHORIZATION_HEADER.equals(header.getName())) {
-                return true;
-            }
-        }
-        return false;
+        return request.headers().get(AUTHORIZATION_HEADER) != null;
     }
 }

@@ -27,16 +27,16 @@
 package com.desk.java.apiclient.model;
 
 
-import java.io.Serializable;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
+import java.io.Serializable;
 import java.util.HashMap;
 
 public class Company implements Serializable {
 
-    private static final long serialVersionUID = 7792122326436126561L;
+    private static final long serialVersionUID = 7792122326436126562L;
 
+    private int id;
     private String name;
     private String[] domains;
     private CompanyLinks _links;
@@ -75,6 +75,10 @@ public class Company implements Serializable {
 
     public void setCustomFields(HashMap<String, String> cf) {
         this.customFields = cf;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getDomainsForDisplay() {

@@ -27,13 +27,13 @@
 package com.desk.java.apiclient.model;
 
 
-import java.io.Serializable;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import com.desk.java.apiclient.service.CaseService;
 import com.desk.java.apiclient.util.StringUtils;
 
-import com.desk.java.apiclient.service.CaseService;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.io.Serializable;
 import java.util.Date;
 
 public class Message implements Serializable {

@@ -24,52 +24,39 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.desk.java.apiclient.util;
+package com.desk.java.apiclient.service;
 
-import com.squareup.okhttp.OkHttpClient;
-import retrofit.client.Header;
-import retrofit.client.OkClient;
-import retrofit.client.Request;
-import retrofit.client.Response;
+import com.desk.java.apiclient.model.Site;
+import com.desk.java.apiclient.model.SiteBilling;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import retrofit.http.GET;
+import rx.Observable;
+
+import static com.desk.java.apiclient.service.SiteService.SITE_URI;
 
 /**
- * This is a helper class, a {@code retrofit.client.OkClient} to use
- * when building your {@code retrofit.RestAdapter}.
+ * <p>
+ *     Service interfacing with the Desk Site endpoint (undocumented)
+ * </p>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
-public class ApiTokenSigningOkClient extends OkClient {
-
-    public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final String BEARER = "Bearer";
-
-    private final Header authorizationHeader;
-
-    public ApiTokenSigningOkClient(OkHttpClient client, String apiToken) {
-        super(client);
-        authorizationHeader = new Header(AUTHORIZATION_HEADER, BEARER + " " + apiToken);
-    }
-
-    @Override
-    public Response execute(Request request) throws IOException {
-        return super.execute(authorizeRequest(request));
-    }
+public interface RxSiteService {
 
     /**
-     * Creates a new request copying over all values from existing request and adds an authorization header.
-     * @param request the request
-     * @return the authorized request
+     * Retrieves the site
+     *
+     * @return a site
      */
-    Request authorizeRequest(Request request) {
-        List<Header> headers = new ArrayList<Header>(request.getHeaders());
-        headers.add(authorizationHeader);
-        return new Request(
-                request.getMethod(),
-                request.getUrl(),
-                headers,
-                request.getBody()
-        );
-    }
+    @GET(SITE_URI)
+    Observable<Site> getSiteObservable();
+
+    /**
+     * Retrieves the billing information for a site
+     *
+     * @return a site billing
+     */
+    @GET(SITE_URI + "/billing")
+    Observable<SiteBilling> getSiteBillingObservable();
 }

@@ -28,7 +28,8 @@ package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.Site;
 import com.desk.java.apiclient.model.SiteBilling;
-import retrofit.Callback;
+
+import retrofit.Call;
 import retrofit.http.GET;
 
 /**
@@ -41,33 +42,19 @@ import retrofit.http.GET;
  */
 public interface SiteService {
 
-    String SITE_URI = "/site";
-
-    /**
-     * Retrieves the site
-     * @param callback the callback upon success or failure
-     */
-    @GET(SITE_URI)
-    void getSite(Callback<Site> callback);
+    String SITE_URI = "site";
 
     /**
      * Retrieves the site
      * @return a site
      */
     @GET(SITE_URI)
-    Site getSite();
-
-    /**
-     * Retrieves the billing information for a site
-     * @param callback the callback upon success or failure
-     */
-    @GET(SITE_URI + "/billing")
-    void getSiteBilling(Callback<SiteBilling> callback);
+    Call<Site> getSite();
 
     /**
      * Retrieves the billing information for a site
      * @return a site billing
      */
     @GET(SITE_URI + "/billing")
-    SiteBilling getSiteBilling();
+    Call<SiteBilling> getSiteBilling();
 }
