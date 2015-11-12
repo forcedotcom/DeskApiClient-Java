@@ -37,13 +37,13 @@ import static com.desk.java.apiclient.service.OutboundMailboxService.OUTBOUND_MA
 
 /**
  * <p>
- * Service interfacing with the Desk Outbound Mailboxes endpoint
+ *     Service interfacing with the Desk Outbound Mailboxes endpoint
  * </p>
- * <p>
- * Created by Matt Kranzler on 4/28/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/outbound-mailboxes/">http://dev.desk.com/API/outbound-mailboxes/</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxOutboundMailboxService {
 

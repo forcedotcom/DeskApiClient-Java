@@ -37,13 +37,13 @@ import static com.desk.java.apiclient.service.CustomFieldsService.CUSTOM_FIELDS_
 
 /**
  * <p>
- * Service interfacing with the Desk Custom Fields endpoint
+ *     Service interfacing with the Desk Custom Fields endpoint
  * </p>
- * <p>
- * Created by Matt Kranzler on 4/28/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/custom-fields/">http://dev.desk.com/API/custom-fields/</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxCustomFieldsService {
 

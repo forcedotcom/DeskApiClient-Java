@@ -39,13 +39,13 @@ import static com.desk.java.apiclient.service.FilterService.FILTERS_URI;
 
 /**
  * <p>
- * Service interfacing with the Desk Filters endpoint
+ *     Service interfacing with the Desk Filters endpoint
  * </p>
- * <p>
- * Created by Matt Kranzler on 5/1/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/filters/">http://dev.desk.com/API/filters/</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxFilterService {
 

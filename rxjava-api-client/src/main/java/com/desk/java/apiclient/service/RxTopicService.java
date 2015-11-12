@@ -44,14 +44,14 @@ import static com.desk.java.apiclient.service.TopicService.TOPICS_URI;
 
 /**
  * <p>
- * Service interfacing with the Desk Topics endpoint. This service supports
- * {@link DeskClientBuilder.AuthType#API_TOKEN} authentication.
+ *     Service interfacing with the Desk Topics endpoint. This service supports
+ *     {@link DeskClientBuilder.AuthType#API_TOKEN} authentication.
  * </p>
- * <p>
- * Created by Matt Kranzler on 6/19/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/topics/">http://dev.desk.com/API/topics/</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxTopicService {
 

@@ -39,13 +39,13 @@ import static com.desk.java.apiclient.service.CompanyService.COMPANY_URI;
 
 /**
  * <p>
- * Service interfacing with the Desk Companies endpoint
+ *     Service interfacing with the Desk Companies endpoint
  * </p>
- * <p>
- * Created by Matt Kranzler on 5/6/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/companies/">http://dev.desk.com/API/companies/</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxCompanyService {
 

@@ -47,13 +47,13 @@ import static com.desk.java.apiclient.service.UserService.USERS_URI;
 
 /**
  * <p>
- * Service interfacing with the Desk Users endpoint
+ *     Service interfacing with the Desk Users endpoint
  * </p>
- * <p>
- * Created by Matt Kranzler on 4/28/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/users/">http://dev.desk.com/API/users/</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxUserService {
 

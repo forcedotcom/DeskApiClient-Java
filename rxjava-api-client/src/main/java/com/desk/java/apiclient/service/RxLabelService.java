@@ -37,13 +37,13 @@ import static com.desk.java.apiclient.service.LabelService.LABELS_URI;
 
 /**
  * <p>
- * Service interfacing with the Desk Labels endpoint
+ *     Service interfacing with the Desk Labels endpoint
  * </p>
- * <p>
- * Created by Matt Kranzler on 4/27/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/labels/">http://dev.desk.com/API/labels/</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxLabelService {
 

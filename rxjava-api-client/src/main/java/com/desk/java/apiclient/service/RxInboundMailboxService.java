@@ -38,14 +38,14 @@ import static com.desk.java.apiclient.service.InboundMailboxService.INBOUND_MAIL
 
 /**
  * <p>
- * Service interfacing with the Desk Inbound Mailboxes endpoint.
- * This service supports {@link DeskClientBuilder.AuthType#API_TOKEN} authentication.
+ *     Service interfacing with the Desk Inbound Mailboxes endpoint.
+ *     This service supports {@link DeskClientBuilder.AuthType#API_TOKEN} authentication.
  * </p>
- * <p>
- * Created by Matt Kranzler on 6/26/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/inbound-mailboxes/">http://dev.desk.com/API/inbound-mailboxes/</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxInboundMailboxService {
 

@@ -52,6 +52,7 @@ import retrofit.http.Query;
 public interface CustomerService {
 
     // URIs
+    String COMPANIES_URI = "companies";
     String CUSTOMERS_URI = "customers";
 
     // Embeds
@@ -111,4 +112,15 @@ public interface CustomerService {
      */
     @GET(CUSTOMERS_URI + "/search")
     Call<ApiResponse<Customer>> searchCustomers(@Query("q") String query, @Query("embed") Embed embed);
+
+    /**
+     * Retrieves customers by the company provided.
+     *
+     * @param companyId the company Id
+     * @param perPage the total cases per page
+     * @param page the page requested
+     * @return a customer response
+     */
+    @GET(COMPANIES_URI + "/{id}/" + CUSTOMERS_URI)
+    Call<ApiResponse<Customer>> getCustomersByCompany(@Path("id") int companyId, @Query("per_page") int perPage, @Query("page") int page);
 }

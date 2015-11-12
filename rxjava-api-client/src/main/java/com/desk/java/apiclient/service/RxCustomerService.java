@@ -39,17 +39,18 @@ import retrofit.http.Path;
 import retrofit.http.Query;
 import rx.Observable;
 
+import static com.desk.java.apiclient.service.CustomerService.COMPANIES_URI;
 import static com.desk.java.apiclient.service.CustomerService.CUSTOMERS_URI;
 
 /**
  * <p>
- * Service interfacing with the Desk Customers endpoint
+ *     Service interfacing with the Desk Customers endpoint
  * </p>
- * <p>
- * Created by Matt Kranzler on 5/6/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/customers/">http://dev.desk.com/API/customers/</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxCustomerService {
 
@@ -106,4 +107,15 @@ public interface RxCustomerService {
      */
     @GET(CUSTOMERS_URI + "/search")
     Observable<ApiResponse<Customer>> searchCustomersObservable(@Query("q") String query, @Query("embed") Embed embed);
+
+    /**
+     * Retrieves customers by the company provided.
+     *
+     * @param companyId the company Id
+     * @param perPage the total cases per page
+     * @param page the page requested
+     * @return a customer response
+     */
+    @GET(COMPANIES_URI + "/{id}/" + CUSTOMERS_URI)
+    Observable<ApiResponse<Customer>> getCustomersByCompany(@Path("id") int companyId, @Query("per_page") int perPage, @Query("page") int page);
 }
