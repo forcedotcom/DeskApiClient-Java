@@ -36,10 +36,10 @@ import static com.desk.java.apiclient.service.PermissionService.PERMISSIONS_URI;
 
 /**
  * <p>
- * Service interfacing with the Desk Permissions endpoint (undocumented)
+ *     Service interfacing with the Desk Permissions endpoint (undocumented)
  * </p>
- * <p>
- * Created by Matt Kranzler on 5/8/15.
+ *
+ * Created by Jerrell Mardis
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxPermissionService {

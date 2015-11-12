@@ -36,13 +36,13 @@ import static com.desk.java.apiclient.service.TwitterUserService.TWITTER_USERS_U
 
 /**
  * <p>
- * Service interfacing with the Desk Twitter Users endpoint
+ *     Service interfacing with the Desk Twitter Users endpoint
  * </p>
- * <p>
- * Created by Matt Kranzler on 5/20/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/twitter_users/">http://dev.desk.com/API/twitter_users/</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxTwitterUserService {
 

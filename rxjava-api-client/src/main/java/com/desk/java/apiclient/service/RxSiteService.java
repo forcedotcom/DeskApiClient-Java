@@ -36,10 +36,10 @@ import static com.desk.java.apiclient.service.SiteService.SITE_URI;
 
 /**
  * <p>
- * Service interfacing with the Desk Site endpoint (undocumented)
+ *     Service interfacing with the Desk Site endpoint (undocumented)
  * </p>
- * <p>
- * Created by Matt Kranzler on 4/28/15.
+ *
+ * Created by Jerrell Mardis
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxSiteService {

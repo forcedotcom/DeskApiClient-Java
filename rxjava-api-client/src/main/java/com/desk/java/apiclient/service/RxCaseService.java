@@ -55,15 +55,15 @@ import static com.desk.java.apiclient.service.CaseService.REPLIES_URI;
 
 /**
  * <p>
- * Service interfacing with the Desk Cases endpoint. {@link #createCaseObservable(Case, Embed, Fields)}
- * &amp; {@link #createCaseObservable(Case, Embed, Fields)} support
- * {@link DeskClientBuilder.AuthType#API_TOKEN} authentication
+ *     Service interfacing with the Desk Cases endpoint. {@link #createCaseObservable(Case, Embed, Fields)}
+ *     &amp; {@link #createCaseObservable(Case, Embed, Fields)} support
+ *     {@link DeskClientBuilder.AuthType#API_TOKEN} authentication
  * </p>
- * <p>
- * Created by Matt Kranzler on 5/1/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/cases/">http://dev.desk.com/API/cases/</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxCaseService {
 

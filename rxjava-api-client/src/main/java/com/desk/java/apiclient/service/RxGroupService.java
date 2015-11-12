@@ -39,13 +39,13 @@ import static com.desk.java.apiclient.service.GroupService.GROUPS_URI;
 
 /**
  * <p>
- * Service interfacing with the Desk Groups endpoint
+ *     Service interfacing with the Desk Groups endpoint
  * </p>
- * <p>
- * Created by Matt Kranzler on 4/28/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/groups/">http://dev.desk.com/API/groups/</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxGroupService {
 

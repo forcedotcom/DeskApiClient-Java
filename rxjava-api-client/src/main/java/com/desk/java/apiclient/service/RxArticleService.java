@@ -43,13 +43,13 @@ import static com.desk.java.apiclient.service.ArticleService.ARTICLES_URI;
 
 /**
  * <p>
- * Service interfacing with the Desk Article endpoint. This service supports {@link com.desk.java.apiclient.DeskClientBuilder.AuthType#API_TOKEN} authentication
+ *     Service interfacing with the Desk Article endpoint. This service supports {@link com.desk.java.apiclient.DeskClientBuilder.AuthType#API_TOKEN} authentication
  * </p>
- * <p>
- * Created by Matt Kranzler on 6/25/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/articles">http://dev.desk.com/API/articles</a>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxArticleService {
 
