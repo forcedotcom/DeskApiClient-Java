@@ -26,9 +26,10 @@
 
 package com.desk.java.apiclient.util;
 
+import com.squareup.okhttp.Request;
+
 import org.junit.Before;
 import org.junit.Test;
-import retrofit.client.Request;
 
 import static org.junit.Assert.assertTrue;
 
@@ -57,7 +58,7 @@ public class RetrofitHttpOAuthConsumerTest {
 
     @Test
     public void wrapDoesReturnHttpRequestAdapter() {
-        Request request = new Request("GET", "https://test.desk.com", null, null);
+        Request request = new Request.Builder().url("https://test.desk.com").build();
         assertTrue(consumer.wrap(request) instanceof HttpRequestAdapter);
     }
 }

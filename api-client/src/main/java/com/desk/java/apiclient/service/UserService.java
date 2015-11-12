@@ -26,9 +26,20 @@
 
 package com.desk.java.apiclient.service;
 
-import com.desk.java.apiclient.model.*;
-import retrofit.Callback;
-import retrofit.http.*;
+import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.MobileDevice;
+import com.desk.java.apiclient.model.Setting;
+import com.desk.java.apiclient.model.SettingUpdate;
+import com.desk.java.apiclient.model.User;
+
+import retrofit.Call;
+import retrofit.http.Body;
+import retrofit.http.DELETE;
+import retrofit.http.GET;
+import retrofit.http.PATCH;
+import retrofit.http.POST;
+import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * <p>
@@ -42,22 +53,11 @@ import retrofit.http.*;
  */
 public interface UserService {
 
-    String USERS_URI = "/users";
-    String MOBILE_DEVICES_URI = "/mobile_devices";
-    String SETTINGS_URI = "/settings";
+    String USERS_URI = "users";
+    String MOBILE_DEVICES_URI = "mobile_devices";
+    String SETTINGS_URI = "settings";
 
     int MAX_PER_PAGE = 100;
-
-    /**
-     * Retrieve a paginated list of all users
-     * @see <a href="http://dev.desk.com/API/users/#list">http://dev.desk.com/API/users/#list</a>
-     *
-     * @param perPage the amount of labels per page
-     * @param page the page
-     * @param callback the callback upon success or failure
-     */
-    @GET(USERS_URI)
-    void getUsers(@Query("per_page") int perPage, @Query("page") int page, Callback<ApiResponse<User>> callback);
 
     /**
      * Retrieve a paginated list of all users
@@ -68,16 +68,7 @@ public interface UserService {
      * @return a user api response
      */
     @GET(USERS_URI)
-    ApiResponse<User> getUsers(@Query("per_page") int perPage, @Query("page") int page);
-
-    /**
-     * Retrieves the current user (API authentication must be present)
-     * @see <a href="http://dev.desk.com/API/users/#show">http://dev.desk.com/API/users/#show</a>
-     *
-     * @param callback the callback upon success or failure
-     */
-    @GET(USERS_URI + "/current")
-    void getCurrentUser(Callback<User> callback);
+    Call<ApiResponse<User>> getUsers(@Query("per_page") int perPage, @Query("page") int page);
 
     /**
      * Retrieves the current user (API authentication must be present)
@@ -86,15 +77,7 @@ public interface UserService {
      * @return a user
      */
     @GET(USERS_URI + "/current")
-    User getCurrentUser();
-
-    /**
-     * Logs out the current user (undocumented)
-     *
-     * @param callback the callback upon success or failure
-     */
-    @POST(USERS_URI + "/me/logout")
-    void logoutCurrentUser(Callback<Void> callback);
+    Call<User> getCurrentUser();
 
     /**
      * Logs out the current user (undocumented)
@@ -102,17 +85,7 @@ public interface UserService {
      * @return Void
      */
     @POST(USERS_URI + "/me/logout")
-    Void logoutCurrentUser();
-
-    /**
-     * Retrieve a single user
-     * @see <a href="http://dev.desk.com/API/users/#show">http://dev.desk.com/API/users/#show</a>
-     *
-     * @param userId the user id
-     * @param callback the callback upon success or failure
-     */
-    @GET(USERS_URI + "/{id}")
-    void getUser(@Path("id") int userId, Callback<User> callback);
+    Call<Void> logoutCurrentUser();
 
     /**
      * Retrieve a single user
@@ -122,17 +95,7 @@ public interface UserService {
      * @return a user
      */
     @GET(USERS_URI + "/{id}")
-    User getUser(@Path("id") int userId);
-
-    /**
-     * List all of the user's mobile devices.
-     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-list">http://dev.desk.com/API/users/#mobile-devices-list</a>
-     *
-     * @param userId the user id
-     * @param callback the callback upon success or failure
-     */
-    @GET(USERS_URI + "/{id}" + MOBILE_DEVICES_URI)
-    void getMobileDevicesForUser(@Path("id") int userId, Callback<ApiResponse<MobileDevice>> callback);
+    Call<User> getUser(@Path("id") int userId);
 
     /**
      * List all of the user's mobile devices.
@@ -141,17 +104,8 @@ public interface UserService {
      * @param userId the user id
      * @return a mobile device api response
      */
-    @GET(USERS_URI + "/{id}" + MOBILE_DEVICES_URI)
-    ApiResponse<MobileDevice> getMobileDevicesForUser(@Path("id") int userId);
-
-    /**
-     * Creates a mobile device for the current user
-     *
-     * @param device the device to create with token
-     * @param callback the callback upon success or failure
-     */
-    @POST(USERS_URI + "/current" + MOBILE_DEVICES_URI)
-    void createMobileDevice(@Body MobileDevice device, Callback<MobileDevice> callback);
+    @GET(USERS_URI + "/{id}/" + MOBILE_DEVICES_URI)
+    Call<ApiResponse<MobileDevice>> getMobileDevicesForUser(@Path("id") int userId);
 
     /**
      * Creates a mobile device for the current user
@@ -159,8 +113,8 @@ public interface UserService {
      * @param device the device to create with token
      * @return a mobile device
      */
-    @POST(USERS_URI + "/current" + MOBILE_DEVICES_URI)
-    MobileDevice createMobileDevice(@Body MobileDevice device);
+    @POST(USERS_URI + "/current/" + MOBILE_DEVICES_URI)
+    Call<MobileDevice> createMobileDevice(@Body MobileDevice device);
 
     /**
      * Deletes a mobile device for the current user
@@ -168,28 +122,8 @@ public interface UserService {
      * @param id the device id to delete
      * @return nothing
      */
-    @DELETE(USERS_URI + "/current" + MOBILE_DEVICES_URI + "/{id}")
-    Void deleteMobileDevice(@Path("id") int id);
-
-    /**
-     * Deletes a mobile device for the current user
-     *
-     * @param id the device id to delete
-     * @param callback the callback upon success or failure
-     */
-    @DELETE(USERS_URI + "/current" + MOBILE_DEVICES_URI + "/{id}")
-    void deleteMobileDevice(@Path("id") int id, Callback<Void> callback);
-
-    /**
-     * Retrieve a list of mobile device settings.
-     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-list">http://dev.desk.com/API/users/#mobile-devices-settings-list</a>
-     *
-     * @param userId the user id
-     * @param deviceId the device id
-     * @param callback the callback upon success or failure
-     */
-    @GET(USERS_URI + "/{userId}" + MOBILE_DEVICES_URI + "/{deviceId}" + SETTINGS_URI)
-    void getMobileDevicesSettings(@Path("userId") int userId, @Path("deviceId") int deviceId, Callback<ApiResponse<Setting>> callback);
+    @DELETE(USERS_URI + "/current/" + MOBILE_DEVICES_URI + "/{id}")
+    Call<Void> deleteMobileDevice(@Path("id") int id);
 
     /**
      * Retrieve a list of mobile device settings.
@@ -199,22 +133,8 @@ public interface UserService {
      * @param deviceId the device id
      * @return a setting api response
      */
-    @GET(USERS_URI + "/{userId}" + MOBILE_DEVICES_URI + "/{deviceId}" + SETTINGS_URI)
-    ApiResponse<Setting> getMobileDevicesSettings(@Path("userId") int userId, @Path("deviceId") int deviceId);
-
-    /**
-     * Update a mobile device setting
-     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-update">http://dev.desk.com/API/users/#mobile-devices-settings-update</a>
-     *
-     * @param userId the user id
-     * @param deviceId the device id
-     * @param settingId the setting id
-     * @param update the setting update body
-     * @param callback the callback upon success or failure
-     */
-    @PATCH(USERS_URI + "/{userId}" + MOBILE_DEVICES_URI + "/{deviceId}" + SETTINGS_URI + "/{settingId}")
-    void updateMobileDeviceSetting(@Path("userId") int userId, @Path("deviceId") int deviceId,
-                                   @Path("settingId") int settingId, @Body SettingUpdate update, Callback<Setting> callback);
+    @GET(USERS_URI + "/{userId}/" + MOBILE_DEVICES_URI + "/{deviceId}/" + SETTINGS_URI)
+    Call<ApiResponse<Setting>> getMobileDevicesSettings(@Path("userId") int userId, @Path("deviceId") int deviceId);
 
     /**
      * Update a mobile device setting
@@ -226,7 +146,7 @@ public interface UserService {
      * @param update the setting update body
      * @return a setting
      */
-    @PATCH(USERS_URI + "/{userId}" + MOBILE_DEVICES_URI + "/{deviceId}" + SETTINGS_URI + "/{settingId}")
-    Setting updateMobileDeviceSetting(@Path("userId") int userId, @Path("deviceId") int deviceId,
+    @PATCH(USERS_URI + "/{userId}/" + MOBILE_DEVICES_URI + "/{deviceId}/" + SETTINGS_URI + "/{settingId}")
+    Call<Setting> updateMobileDeviceSetting(@Path("userId") int userId, @Path("deviceId") int deviceId,
                                    @Path("settingId") int settingId, @Body SettingUpdate update);
 }

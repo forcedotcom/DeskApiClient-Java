@@ -24,57 +24,51 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.desk.java.apiclient.util;
+package com.desk.java.apiclient.service;
 
-import com.squareup.okhttp.OkHttpClient;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-import retrofit.client.Header;
-import retrofit.client.Request;
+import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.Fields;
+import com.desk.java.apiclient.model.Filter;
 
-import java.util.List;
+import retrofit.http.GET;
+import retrofit.http.Query;
+import rx.Observable;
 
-import static com.desk.java.apiclient.util.ApiTokenSigningOkClient.AUTHORIZATION_HEADER;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static com.desk.java.apiclient.service.FilterService.COMPANY_FILTERS_URI;
+import static com.desk.java.apiclient.service.FilterService.FILTERS_URI;
 
 /**
- * Created by Matt Kranzler on 6/19/15.
+ * <p>
+ *     Service interfacing with the Desk Filters endpoint
+ * </p>
+ *
+ * @see <a href="http://dev.desk.com/API/filters/">http://dev.desk.com/API/filters/</a>
+ *
+ * Created by Jerrell Mardis
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class ApiTokenSigningOkClientTest {
+public interface RxFilterService {
 
-    private static final String API_TOKEN = "api-token";
+    /**
+     * Retrieves case filters.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @param fields  the fields requested
+     * @return a filter api response
+     * @see <a href="http://dev.desk.com/API/filters/#list">http://dev.desk.com/API/filters/#list</a>
+     */
+    @GET(FILTERS_URI)
+    Observable<ApiResponse<Filter>> getCaseFiltersObservable(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
 
-    @Mock
-    OkHttpClient mockOkHttpClient;
-
-    private ApiTokenSigningOkClient okClient;
-
-    @Before
-    public void setUp() {
-        okClient = new ApiTokenSigningOkClient(mockOkHttpClient, API_TOKEN);
-    }
-
-    @Test
-    public void authorizeRequestDoesAddAuthorizationHeader() throws Exception {
-        Request unauthorizedRequest = new Request("GET", "https://test.desk.com", null, null);
-        assertFalse(doesHaveAuthorizationHeader(unauthorizedRequest));
-        Request authorizedRequest = okClient.authorizeRequest(unauthorizedRequest);
-        assertTrue(doesHaveAuthorizationHeader(authorizedRequest));
-    }
-
-    private boolean doesHaveAuthorizationHeader(Request request) {
-        List<Header> headers = request.getHeaders();
-        for (Header header : headers) {
-            if (AUTHORIZATION_HEADER.equals(header.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
+    /**
+     * Retrieves company filters.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @return a filter api response
+     * @see <a href="http://dev.desk.com/API/company_filters/#list">http://dev.desk.com/API/company_filters/#list</a>
+     */
+    @GET(COMPANY_FILTERS_URI)
+    Observable<ApiResponse<Filter>> getCompanyFiltersObservable(@Query("per_page") int perPage, @Query("page") int page);
 }

@@ -29,9 +29,9 @@ package com.desk.java.apiclient.service;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.Filter;
-import retrofit.Callback;
+
+import retrofit.Call;
 import retrofit.http.GET;
-import retrofit.http.Path;
 import retrofit.http.Query;
 
 /**
@@ -46,8 +46,8 @@ import retrofit.http.Query;
  */
 public interface FilterService {
 
-    String USERS_URI = "/users";
-    String FILTERS_URI = "/filters";
+    String FILTERS_URI = "filters";
+    String COMPANY_FILTERS_URI = "company_filters";
 
     String FIELD_CASE_COUNTS = "case_counts";
     String FIELD_NAME = "name";
@@ -56,30 +56,25 @@ public interface FilterService {
     String FIELD_ID = "id";
 
     /**
-     * Retrieves filters for the user provided
+     * Retrieves case filters.
      * @see <a href="http://dev.desk.com/API/filters/#list">http://dev.desk.com/API/filters/#list</a>
      *
-     * @param userId the id of the user to get filters for
-     * @param perPage the total filters per page
-     * @param page the page requested
-     * @param fields the fields requested
-     * @param callback the callback upon success or failure
-     */
-    @GET(USERS_URI + "/{id}" + FILTERS_URI)
-    void getFiltersByUser(@Path("id") int userId, @Query("per_page") int perPage, @Query("page") int page,
-                           @Query("fields") Fields fields, Callback<ApiResponse<Filter>> callback);
-
-    /**
-     * Retrieves filters for the user provided
-     * @see <a href="http://dev.desk.com/API/filters/#list">http://dev.desk.com/API/filters/#list</a>
-     *
-     * @param userId the id of the user to get filters for
      * @param perPage the total filters per page
      * @param page the page requested
      * @param fields the fields requested
      * @return a filter api response
      */
-    @GET(USERS_URI + "/{id}" + FILTERS_URI)
-    ApiResponse<Filter> getFiltersByUser(@Path("id") int userId, @Query("per_page") int perPage, @Query("page") int page,
-                          @Query("fields") Fields fields);
+    @GET(FILTERS_URI)
+    Call<ApiResponse<Filter>> getCaseFilters(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
+
+    /**
+     * Retrieves company filters.
+     * @see <a href="http://dev.desk.com/API/company_filters/#list">http://dev.desk.com/API/company_filters/#list</a>
+     *
+     * @param perPage the total filters per page
+     * @param page the page requested
+     * @return a filter api response
+     */
+    @GET(COMPANY_FILTERS_URI)
+    Call<ApiResponse<Filter>> getCompanyFilters(@Query("per_page") int perPage, @Query("page") int page);
 }

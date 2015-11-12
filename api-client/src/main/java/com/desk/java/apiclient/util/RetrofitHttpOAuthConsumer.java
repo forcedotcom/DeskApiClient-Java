@@ -26,22 +26,31 @@
 
 package com.desk.java.apiclient.util;
 
+import com.squareup.okhttp.Request;
+
 import oauth.signpost.AbstractOAuthConsumer;
 import oauth.signpost.http.HttpRequest;
-import retrofit.client.Request;
 
+/**
+ * <p>
+ *     An {@link AbstractOAuthConsumer} used to handle OkHttp {@link Request}s.
+ * </p>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
 public class RetrofitHttpOAuthConsumer extends AbstractOAuthConsumer {
 
-	public RetrofitHttpOAuthConsumer(String consumerKey, String consumerSecret) {
-		super(consumerKey, consumerSecret);
-	}
+    public RetrofitHttpOAuthConsumer(String key, String secret) {
+        super(key, secret);
+    }
 
-	@Override
-	protected HttpRequest wrap(Object request) {
-		if (!(request instanceof retrofit.client.Request)) {
-			throw new IllegalArgumentException("This consumer expects requests of type " + retrofit.client.Request.class.getCanonicalName());
-		}
-		return new HttpRequestAdapter((Request) request);
-	}
+    @Override
+    protected HttpRequest wrap(Object request) {
+        if (!(request instanceof Request)) {
+            throw new IllegalArgumentException("Request must be of type: " + Request.class.getCanonicalName());
+        }
+        return new HttpRequestAdapter((Request) request);
+    }
 
 }

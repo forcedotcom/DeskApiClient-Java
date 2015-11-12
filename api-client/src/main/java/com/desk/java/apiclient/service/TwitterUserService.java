@@ -27,7 +27,8 @@
 package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.TwitterUser;
-import retrofit.Callback;
+
+import retrofit.Call;
 import retrofit.http.Body;
 import retrofit.http.POST;
 
@@ -44,17 +45,7 @@ import retrofit.http.POST;
 public interface TwitterUserService {
 
     // URIs
-    String TWITTER_USERS_URI = "/twitter_users";
-
-    /**
-     * Creates a Twitter user
-     * @see <a href="http://dev.desk.com/API/twitter-users/#create">http://dev.desk.com/API/twitter-users/#create</a>
-     *
-     * @param user the new Twitter user
-     * @param callback the callback upon success or failure
-     */
-    @POST(TWITTER_USERS_URI)
-    void createTwitterUser(@Body TwitterUser user, Callback<TwitterUser> callback);
+    String TWITTER_USERS_URI = "twitter_users";
 
     /**
      * Creates a Twitter user
@@ -64,5 +55,5 @@ public interface TwitterUserService {
      * @return a twitter user
      */
     @POST(TWITTER_USERS_URI)
-    TwitterUser createTwitterUser(@Body TwitterUser user);
+    Call<TwitterUser> createTwitterUser(@Body TwitterUser user);
 }

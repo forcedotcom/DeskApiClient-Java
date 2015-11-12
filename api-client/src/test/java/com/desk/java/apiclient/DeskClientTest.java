@@ -28,12 +28,14 @@ package com.desk.java.apiclient;
 
 import org.junit.Before;
 import org.junit.Test;
-import retrofit.RestAdapter;
 
 import java.net.URI;
 
-import static com.desk.java.apiclient.DeskClient.*;
-import static org.junit.Assert.*;
+import static com.desk.java.apiclient.DeskClientBuilder.PROTOCOL_CONNECT;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Matt Kranzler on 6/18/15.
@@ -48,29 +50,17 @@ public class DeskClientTest {
 
     @Before
     public void setup() {
-        oAuthDeskClient = new DeskClient.Builder(
+        oAuthDeskClient = DeskClient.create(new DeskClientBuilder(
                 TEST_HOST_NAME,
                 "1234",
                 "5678",
                 "1234",
                 "5678"
-        ).create();
-        apiTokenDeskClient = new DeskClient.Builder(
+        ));
+        apiTokenDeskClient = DeskClient.create(new DeskClientBuilder(
                 TEST_HOST_NAME,
                 "1234"
-        ).create();
-    }
-
-    @Test
-    public void setIsDebugSetsLogLevelToFull() throws Exception {
-        oAuthDeskClient.setIsDebug(true);
-        assertEquals(RestAdapter.LogLevel.FULL, oAuthDeskClient.getRestAdapter().getLogLevel());
-    }
-
-    @Test
-    public void setIsDebugSetsLogLevelToNone() throws Exception {
-        oAuthDeskClient.setIsDebug(false);
-        assertEquals(RestAdapter.LogLevel.NONE, oAuthDeskClient.getRestAdapter().getLogLevel());
+        ));
     }
 
     @Test
@@ -157,24 +147,6 @@ public class DeskClientTest {
     @Test
     public void twitterUsersIsNotNull() throws Exception {
         assertNotNull(apiTokenDeskClient.twitterUsers());
-    }
-
-    @Test
-    public void oAuthRequestUrlReturnsCorrectUrl() throws Exception {
-        final String requestUrl = DeskClient.oAuthRequestUrl(TEST_HOST_NAME);
-        assertEquals(PROTOCOL_CONNECT + TEST_HOST_NAME + OAUTH_REQUEST_URL, requestUrl);
-    }
-
-    @Test
-    public void oAuthAccessUrlReturnsCorrectUrl() throws Exception {
-        final String accessUrl = DeskClient.oAuthAccessUrl(TEST_HOST_NAME);
-        assertEquals(PROTOCOL_CONNECT + TEST_HOST_NAME + OAUTH_ACCESS_URL, accessUrl);
-    }
-
-    @Test
-    public void oAuthAuthorizeUrlReturnsCorrectUrl() throws Exception {
-        final String authorizeUrl = DeskClient.oAuthAuthorizeUrl(TEST_HOST_NAME);
-        assertEquals(PROTOCOL_CONNECT + TEST_HOST_NAME + OAUTH_AUTHORIZE_URL, authorizeUrl);
     }
 
     @Test

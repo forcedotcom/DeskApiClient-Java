@@ -28,7 +28,8 @@ package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.CustomField;
-import retrofit.Callback;
+
+import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Query;
 
@@ -44,20 +45,9 @@ import retrofit.http.Query;
  */
 public interface CustomFieldsService {
 
-    String CUSTOM_FIELDS_URI = "/custom_fields";
+    String CUSTOM_FIELDS_URI = "custom_fields";
 
     int MAX_PER_PAGE = 1000;
-
-    /**
-     * Retrieve a paginated list of all custom fields
-     * @see <a href="http://dev.desk.com/API/custom-fields/#list">http://dev.desk.com/API/custom-fields/#list</a>
-     *
-     * @param perPage the amount of labels per page
-     * @param page the page
-     * @param callback the callback upon success or failure
-     */
-    @GET(CUSTOM_FIELDS_URI)
-    void getCustomFields(@Query("per_page") int perPage, @Query("page") int page, Callback<ApiResponse<CustomField>> callback);
 
     /**
      * Retrieve a paginated list of all custom fields
@@ -68,6 +58,6 @@ public interface CustomFieldsService {
      * @return a custom field api response
      */
     @GET(CUSTOM_FIELDS_URI)
-    ApiResponse<CustomField> getCustomFields(@Query("per_page") int perPage, @Query("page") int page);
+    Call<ApiResponse<CustomField>> getCustomFields(@Query("per_page") int perPage, @Query("page") int page);
 
 }

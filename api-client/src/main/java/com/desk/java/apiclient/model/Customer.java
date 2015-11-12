@@ -27,11 +27,12 @@
 package com.desk.java.apiclient.model;
 
 
-import java.io.Serializable;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.desk.java.apiclient.util.StringUtils;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

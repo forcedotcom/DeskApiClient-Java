@@ -26,9 +26,18 @@
 
 package com.desk.java.apiclient.service;
 
-import com.desk.java.apiclient.model.*;
-import retrofit.Callback;
-import retrofit.http.*;
+import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.Case;
+import com.desk.java.apiclient.model.Customer;
+import com.desk.java.apiclient.model.Embed;
+
+import retrofit.Call;
+import retrofit.http.Body;
+import retrofit.http.GET;
+import retrofit.http.PATCH;
+import retrofit.http.POST;
+import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * <p>
@@ -43,7 +52,8 @@ import retrofit.http.*;
 public interface CustomerService {
 
     // URIs
-    String CUSTOMERS_URI = "/customers";
+    String COMPANIES_URI = "companies";
+    String CUSTOMERS_URI = "customers";
 
     // Embeds
     String EMBED_FACEBOOK_USER = "facebook_user";
@@ -55,32 +65,10 @@ public interface CustomerService {
      *
      * @param customerId the customer id
      * @param embed the objects to embed
-     * @param callback the callback upon success or failure
-     */
-    @GET(CUSTOMERS_URI + "/{id}")
-    void getCustomer(@Path("id") int customerId, @Query("embed") Embed embed, Callback<Customer> callback);
-
-    /**
-     * Retrieve a single customer
-     * @see <a href="http://dev.desk.com/API/customers/#show">http://dev.desk.com/API/customers/#show</a>
-     *
-     * @param customerId the customer id
-     * @param embed the objects to embed
      * @return a customer
      */
     @GET(CUSTOMERS_URI + "/{id}")
-    Customer getCustomer(@Path("id") int customerId, @Query("embed") Embed embed);
-
-    /**
-     * Updates a customer
-     * @see <a href="http://dev.desk.com/API/customers/#update">http://dev.desk.com/API/customers/#update</a>
-     *
-     * @param customerId the customer id
-     * @param updatedCustomer the updated customer
-     * @param callback the callback upon success or failure
-     */
-    @PATCH(CUSTOMERS_URI + "/{id}")
-    void updateCustomer(@Path("id") int customerId, @Body Customer updatedCustomer, Callback<Customer> callback);
+    Call<Customer> getCustomer(@Path("id") int customerId, @Query("embed") Embed embed);
 
     /**
      * Updates a customer
@@ -91,17 +79,7 @@ public interface CustomerService {
      * @return a customer
      */
     @PATCH(CUSTOMERS_URI + "/{id}")
-    Customer updateCustomer(@Path("id") int customerId, @Body Customer updatedCustomer);
-
-    /**
-     * Creates a customer
-     * @see <a href="http://dev.desk.com/API/customers/#create">http://dev.desk.com/API/customers/#create</a>
-     *
-     * @param newCustomer the customer to create
-     * @param callback the callback upon success or failure
-     */
-    @POST(CUSTOMERS_URI)
-    void createCustomer(@Body Customer newCustomer, Callback<Customer> callback);
+    Call<Customer> updateCustomer(@Path("id") int customerId, @Body Customer updatedCustomer);
 
     /**
      * Creates a customer
@@ -111,18 +89,7 @@ public interface CustomerService {
      * @return a customer
      */
     @POST(CUSTOMERS_URI)
-    Customer createCustomer(@Body Customer newCustomer);
-
-    /**
-     * Creates a case for the customer
-     * @see <a href="http://dev.desk.com/API/cases/#create">http://dev.desk.com/API/cases/#create</a>
-     *
-     * @param customerId the customer id
-     * @param deskCase the case to create
-     * @param callback the callback upon success or failure
-     */
-    @POST(CUSTOMERS_URI + "/{id}/cases")
-    void createCaseForCustomer(@Path("id") int customerId, @Body Case deskCase, Callback<Case> callback);
+    Call<Customer> createCustomer(@Body Customer newCustomer);
 
     /**
      * Creates a case for the customer
@@ -133,18 +100,7 @@ public interface CustomerService {
      * @return a case
      */
     @POST(CUSTOMERS_URI + "/{id}/cases")
-    Case createCaseForCustomer(@Path("id") int customerId, @Body Case deskCase);
-
-    /**
-     * Searches for customers
-     * @see <a href="http://dev.desk.com/API/customers/#search">http://dev.desk.com/API/customers/#search</a>
-     *
-     * @param query the query searching across the following fields: firstname, lastname, name, email &amp; phone
-     * @param embed the fields to embed
-     * @param callback the callback upon success or failure
-     */
-    @GET(CUSTOMERS_URI + "/search")
-    void searchCustomers(@Query("q") String query, @Query("embed") Embed embed, Callback<ApiResponse<Customer>> callback);
+    Call<Case> createCaseForCustomer(@Path("id") int customerId, @Body Case deskCase);
 
     /**
      * Searches for customers
@@ -155,5 +111,16 @@ public interface CustomerService {
      * @return a customer api response
      */
     @GET(CUSTOMERS_URI + "/search")
-    ApiResponse<Customer> searchCustomers(@Query("q") String query, @Query("embed") Embed embed);
+    Call<ApiResponse<Customer>> searchCustomers(@Query("q") String query, @Query("embed") Embed embed);
+
+    /**
+     * Retrieves customers by the company provided.
+     *
+     * @param companyId the company Id
+     * @param perPage the total cases per page
+     * @param page the page requested
+     * @return a customer response
+     */
+    @GET(COMPANIES_URI + "/{id}/" + CUSTOMERS_URI)
+    Call<ApiResponse<Customer>> getCustomersByCompany(@Path("id") int companyId, @Query("per_page") int perPage, @Query("page") int page);
 }
