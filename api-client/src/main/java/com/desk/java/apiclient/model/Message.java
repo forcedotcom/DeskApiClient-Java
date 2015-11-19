@@ -47,6 +47,7 @@ public class Message implements Serializable {
     private String body;
     private MessageDirection direction;
     private MessageStatus status;
+    private CaseStatus ticketStatus;
     private String to;
     private String from;
     private String cc;
@@ -338,6 +339,14 @@ public class Message implements Serializable {
     @Nullable
     public Link getOutboundMailboxLink() {
         return getLinks().getOutboundMailbox();
+    }
+
+    public CaseStatus getTicketStatus() {
+        return ticketStatus;
+    }
+
+    public void setTicketStatus(CaseStatus ticketStatus) {
+        this.ticketStatus = ticketStatus;
     }
 
     /**
