@@ -36,6 +36,7 @@ import retrofit.http.Query;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.CompanyService.COMPANY_URI;
+import static com.desk.java.apiclient.service.CompanyService.FILTERS_URI;
 
 /**
  * <p>
@@ -75,4 +76,19 @@ public interface RxCompanyService {
     Observable<ApiResponse<Company>> searchCompaniesObservable(@Query("q") String query, @Query("per_page") int perPage,
                                                                @Query("page") int page, @Query("sort_field") String sortField,
                                                                @Query("sort_direction") SortDirection sortDirection);
+
+    /**
+     * Retrieves companies for a given filter
+     * @see <a href="http://dev.desk.com/API/cases/#list">http://dev.desk.com/API/companies/#list</a>
+     *
+     * @param filterId the id of the filter
+     * @param perPage the total filters per page
+     * @param page the page requested
+     * @param sortField the field to sort on
+     * @param sortDirection the direction to sort
+     * @return a company api response
+     */
+    @GET(FILTERS_URI + "/{id}/" + COMPANY_URI)
+    Observable<ApiResponse<Company>> getCompaniesByFilterObservable(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+                                                    @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection);
 }
