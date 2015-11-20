@@ -47,10 +47,13 @@ import retrofit.http.Query;
  */
 public interface CompanyService {
 
+    // URIs
     String COMPANY_URI = "companies";
+    String FILTERS_URI = "company_filters";
 
     String SORT_FIELD_CREATED_AT = "created_at";
     String SORT_FIELD_UPDATED_AT = "updated_at";
+    String SORT_FIELD_NAME = "name";
 
     /**
      * Retrieve a single company
@@ -78,4 +81,19 @@ public interface CompanyService {
     Call<ApiResponse<Company>> searchCompanies(@Query("q") String query, @Query("per_page") int perPage,
                                          @Query("page") int page, @Query("sort_field") String sortField,
                                          @Query("sort_direction") SortDirection sortDirection);
+
+    /**
+     * Retrieves companies for a given filter
+     * @see <a href="http://dev.desk.com/API/cases/#list">http://dev.desk.com/API/companies/#list</a>
+     *
+     * @param filterId the id of the filter
+     * @param perPage the total filters per page
+     * @param page the page requested
+     * @param sortField the field to sort on
+     * @param sortDirection the direction to sort
+     * @return a company api response
+     */
+    @GET(FILTERS_URI + "/{id}/" + COMPANY_URI)
+    Call<ApiResponse<Company>> getCompaniesByFilter(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+                                             @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection);
 }

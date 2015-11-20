@@ -54,7 +54,7 @@ public class Message implements Serializable {
     private String bcc;
     private String type;
     private String hidden;
-    private boolean isBestAnswer;
+    private String isBestAnswer;
     private String hiddenAt;
     private String fromFacebookName;
     private String answersDisallowedAt;
@@ -147,12 +147,18 @@ public class Message implements Serializable {
         this.type = t;
     }
 
-    public boolean isBestAnswer() {
-        return isBestAnswer;
+    public String getIsBestAnswer() {
+        return this.isBestAnswer;
     }
 
-    public void setIsBestAnswer(boolean isBestAnswer) {
-        this.isBestAnswer = isBestAnswer;
+    public void setIsBestAnswer(String iba) {
+        this.isBestAnswer = iba;
+    }
+
+    public boolean getIsBestAnswerBoolean() {
+        return (StringUtils.isEmpty(this.isBestAnswer)) ?
+                false : Boolean.parseBoolean(this.isBestAnswer);
+
     }
 
     public String getHidden() {
