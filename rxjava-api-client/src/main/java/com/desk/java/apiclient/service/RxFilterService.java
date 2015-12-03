@@ -35,6 +35,7 @@ import retrofit.http.Query;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.FilterService.COMPANY_FILTERS_URI;
+import static com.desk.java.apiclient.service.FilterService.CUSTOMER_FILTERS_URI;
 import static com.desk.java.apiclient.service.FilterService.FILTERS_URI;
 
 /**
@@ -71,4 +72,15 @@ public interface RxFilterService {
      */
     @GET(COMPANY_FILTERS_URI)
     Observable<ApiResponse<Filter>> getCompanyFiltersObservable(@Query("per_page") int perPage, @Query("page") int page);
+
+    /**
+     * Retrieves customer filters.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @return a filter api response
+     * @see <a href="http://dev.desk.com/API/customer_filters/#list">http://dev.desk.com/API/customer_filters/#list</a>
+     */
+    @GET(CUSTOMER_FILTERS_URI)
+    Observable<ApiResponse<Filter>> getCustomerFiltersObservable(@Query("per_page") int perPage, @Query("page") int page);
 }
