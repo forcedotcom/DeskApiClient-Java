@@ -44,5 +44,14 @@ public enum ChatEventType {
     CHAT_AGENT_ENTER,
 
     @SerializedName("chat_agent_exit")
-    CHAT_AGENT_EXIT
+    CHAT_AGENT_EXIT;
+
+    /**
+     * Returns a lowercase toString() value
+     * @return the lowercase value
+     */
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
+    }
 }

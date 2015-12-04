@@ -38,5 +38,14 @@ public enum Requestor {
     CUSTOMER,
 
     @SerializedName("agent")
-    AGENT
+    AGENT;
+
+    /**
+     * Returns a lowercase toString() value
+     * @return the lowercase value
+     */
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
+    }
 }

@@ -38,5 +38,14 @@ public enum TypeStatus {
     START,
 
     @SerializedName("stop")
-    STOP
+    STOP;
+
+    /**
+     * Returns a lowercase toString() value
+     * @return the lowercase value
+     */
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
+    }
 }
