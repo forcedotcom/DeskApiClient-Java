@@ -26,9 +26,12 @@
 
 package com.desk.java.apiclient.service;
 
-import com.desk.java.apiclient.model.chat.CustomerInfo;
-import com.desk.java.apiclient.model.chat.PollInfo;
-import com.desk.java.apiclient.model.chat.SessionInfo;
+import com.desk.java.apiclient.model.chat.ChatMessage;
+import com.desk.java.apiclient.model.chat.ChatSession;
+import com.desk.java.apiclient.model.chat.ChatSessionPoll;
+import com.desk.java.apiclient.model.chat.GuestCustomer;
+import com.desk.java.apiclient.model.chat.Requestor;
+import com.desk.java.apiclient.model.chat.TypeStatus;
 
 import retrofit.http.DELETE;
 import retrofit.http.POST;
@@ -49,11 +52,12 @@ public interface RxChatService {
 
     String CUSTOMERS = "customers";
     String CHAT_SESSIONS = "chat_sessions";
+    String CASES = "cases";
     String REPLIES = "replies";
     String POLL = "poll";
+    String TYPING = "typing";
 
     /**
-     * Creates a guest customer.
      *
      * @param name
      * @param chatToken
@@ -61,12 +65,11 @@ public interface RxChatService {
      * @return
      */
     @POST(CUSTOMERS)
-    Observable<CustomerInfo> createCustomer(@Query("first_name") String name,
-                                            @Query("chat_token") String chatToken,
-                                            @Query("fields") String fields);
+    Observable<GuestCustomer> createGuestCustomer(@Query("first_name") String name,
+                                                  @Query("chat_token") String chatToken,
+                                                  @Query("fields") String fields);
 
     /**
-     * Starts a session.
      *
      * @param guestCustomerId
      * @param chatToken
@@ -74,27 +77,25 @@ public interface RxChatService {
      * @return
      */
     @POST(CUSTOMERS + "/{id}/" + CHAT_SESSIONS)
-    Observable<SessionInfo> startSession(@Path("id") long guestCustomerId,
-                                          @Query("chat_token") String chatToken,
-                                          @Query("customer_token") String customerToken);
+    Observable<ChatSession> startSession(@Path("id") long guestCustomerId,
+                                         @Query("chat_token") String chatToken,
+                                         @Query("customer_token") String customerToken);
 
     /**
-     * Sends a message.
      *
-     * @param guestCustomerId
+     * @param caseId
      * @param body
      * @param chatToken
      * @param customerToken
      * @return
      */
-    @POST(CUSTOMERS + "/{id}/" + REPLIES)
-    Observable<SessionInfo> sendMessage(@Path("id") long guestCustomerId,
+    @POST(CASES + "/{id}/" + REPLIES)
+    Observable<ChatMessage> sendMessage(@Path("id") long caseId,
                                         @Query("body") String body,
                                         @Query("chat_token") String chatToken,
                                         @Query("customer_token") String customerToken);
 
     /**
-     * Checks for new messages.
      *
      * @param guestCustomerId
      * @param chatSessionId
@@ -104,14 +105,13 @@ public interface RxChatService {
      * @return
      */
     @POST(CUSTOMERS + "/{id}/" + CHAT_SESSIONS + "/{chat_session_id}/" + POLL)
-    Observable<PollInfo> poll(@Path("id") long guestCustomerId,
-                              @Path("chat_session_id") long chatSessionId,
-                              @Query("chat_token") String chatToken,
-                              @Query("customer_token") String customerToken,
-                              @Query("requestor") String requestor);
+    Observable<ChatSessionPoll> poll(@Path("id") long guestCustomerId,
+                                     @Path("chat_session_id") long chatSessionId,
+                                     @Query("chat_token") String chatToken,
+                                     @Query("customer_token") String customerToken,
+                                     @Query("requestor") Requestor requestor);
 
     /**
-     * Ends a chat session.
      *
      * @param guestCustomerId
      * @param chatSessionId
@@ -126,4 +126,23 @@ public interface RxChatService {
                                 @Query("chat_token") String chatToken,
                                 @Query("customer_token") String customerToken,
                                 @Query("requestor") String requestor);
+
+    /**
+     *
+     * @param guestCustomerId
+     * @param chatSessionId
+     * @param chatToken
+     * @param customerToken
+     * @param requestor
+     * @param status
+     * @return
+     */
+    @POST(CUSTOMERS + "/{id}/" + CHAT_SESSIONS + "/{chat_session_id}/" + TYPING)
+    Observable<Void> updateTypingStatus(@Path("id") long guestCustomerId,
+                                        @Path("chat_session_id") long chatSessionId,
+                                        @Query("chat_token") String chatToken,
+                                        @Query("customer_token") String customerToken,
+                                        @Query("requestor") String requestor,
+                                        @Query("status") Requestor status);
+
 }

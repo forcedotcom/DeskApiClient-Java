@@ -43,13 +43,20 @@ import com.desk.java.apiclient.service.RxSiteService;
 import com.desk.java.apiclient.service.RxTopicService;
 import com.desk.java.apiclient.service.RxTwitterUserService;
 import com.desk.java.apiclient.service.RxUserService;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 
 import retrofit.CallAdapter.Factory;
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
+
+import static com.desk.java.apiclient.DeskClientBuilder.API_BASE_PATH;
+import static com.squareup.okhttp.logging.HttpLoggingInterceptor.Level.BODY;
 
 /**
  * <p>
@@ -228,8 +235,21 @@ public class RxDeskClient extends DeskClient {
     @NotNull
     public RxChatService chatRx() {
         if (rxChatService == null) {
-            rxChatService = getRestAdapter().create(RxChatService.class);
+            rxChatService = getChatRestAdapter().create(RxChatService.class);
         }
         return rxChatService;
+    }
+
+    private Retrofit getChatRestAdapter() {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(BODY);
+        OkHttpClient client = new OkHttpClient();
+        client.interceptors().add(httpLoggingInterceptor);
+        return new Retrofit.Builder()
+                .baseUrl(getUrl(API_BASE_PATH))
+                .client(client)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(createGson()))
+                .build();
     }
 }

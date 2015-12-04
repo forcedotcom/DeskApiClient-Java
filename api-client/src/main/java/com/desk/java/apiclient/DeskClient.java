@@ -412,7 +412,7 @@ public class DeskClient {
                 .addConverterFactory(GsonConverterFactory.create(createGson()));
     }
 
-    private Gson createGson() {
+    protected Gson createGson() {
         return new GsonBuilder()
                 .registerTypeAdapter(Date.class, new ISO8601DateAdapter())
                 .registerTypeAdapter(CaseLock.class, CaseLock.TYPE_ADAPTER)
