@@ -28,6 +28,7 @@ package com.desk.java.apiclient;
 
 import com.desk.java.apiclient.service.RxArticleService;
 import com.desk.java.apiclient.service.RxCaseService;
+import com.desk.java.apiclient.service.RxChatService;
 import com.desk.java.apiclient.service.RxCompanyService;
 import com.desk.java.apiclient.service.RxCustomFieldsService;
 import com.desk.java.apiclient.service.RxCustomerService;
@@ -76,6 +77,7 @@ public class RxDeskClient extends DeskClient {
     private RxTopicService rxTopicService;
     private RxArticleService rxArticleService;
     private RxInboundMailboxService rxInboundMailboxService;
+    private RxChatService rxChatService;
 
     /**
      * Creates a {@link RxDeskClient} using the builder provided and adds a {@link RxJavaCallAdapterFactory}.
@@ -221,5 +223,13 @@ public class RxDeskClient extends DeskClient {
             rxInboundMailboxService = getRestAdapter().create(RxInboundMailboxService.class);
         }
         return rxInboundMailboxService;
+    }
+
+    @NotNull
+    public RxChatService chatRx() {
+        if (rxChatService == null) {
+            rxChatService = getRestAdapter().create(RxChatService.class);
+        }
+        return rxChatService;
     }
 }
