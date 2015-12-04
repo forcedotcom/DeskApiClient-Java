@@ -41,4 +41,5 @@ public class ChatMessage {
     public Date createdAt;
     public Date updatedAt;
     public MessageDirection direction;
+    public ChatEventType eventType;
 }

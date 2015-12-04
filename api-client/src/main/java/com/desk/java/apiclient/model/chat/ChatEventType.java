@@ -37,6 +37,12 @@ public enum ChatEventType {
     @SerializedName("queue_item_pulled")
     QUEUE_ITEM_PULLED,
 
+    @SerializedName("queue_item_available")
+    QUEUE_ITEM_AVAILABLE,
+
     @SerializedName("chat_agent_enter")
-    CHAT_AGENT_ENTER
+    CHAT_AGENT_ENTER,
+
+    @SerializedName("chat_agent_exit")
+    CHAT_AGENT_EXIT
 }
