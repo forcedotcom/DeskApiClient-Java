@@ -125,7 +125,7 @@ public interface RxChatService {
                                 @Path("chat_session_id") long chatSessionId,
                                 @Query("chat_token") String chatToken,
                                 @Query("customer_token") String customerToken,
-                                @Query("requestor") String requestor);
+                                @Query("requestor") Requestor requestor);
 
     /**
      *
@@ -142,7 +142,7 @@ public interface RxChatService {
                                         @Path("chat_session_id") long chatSessionId,
                                         @Query("chat_token") String chatToken,
                                         @Query("customer_token") String customerToken,
-                                        @Query("requestor") String requestor,
-                                        @Query("status") Requestor status);
+                                        @Query("requestor") Requestor requestor,
+                                        @Query("status") TypeStatus status);
 
 }
