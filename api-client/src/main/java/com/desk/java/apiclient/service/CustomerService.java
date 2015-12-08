@@ -30,6 +30,7 @@ import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Case;
 import com.desk.java.apiclient.model.Customer;
 import com.desk.java.apiclient.model.Embed;
+import com.desk.java.apiclient.model.SortDirection;
 
 import retrofit.Call;
 import retrofit.http.Body;
@@ -54,6 +55,11 @@ public interface CustomerService {
     // URIs
     String COMPANIES_URI = "companies";
     String CUSTOMERS_URI = "customers";
+
+    // Sorts fields
+    String SORT_FIELD_CREATED_AT = "created_at";
+    String SORT_FIELD_UPDATED_AT = "updated_at";
+    String SORT_FIELD_EXTERNAL_ID = "external_id";
 
     // Embeds
     String EMBED_FACEBOOK_USER = "facebook_user";
@@ -108,10 +114,17 @@ public interface CustomerService {
      *
      * @param query the query searching across the following fields: firstname, lastname, name, email &amp; phone
      * @param embed the fields to embed
+     * @param perPage       the total customers per page
+     * @param page          the page requested
+     * @param sortField     the field to sort on
+     * @param sortDirection the direction to sort
      * @return a customer api response
      */
     @GET(CUSTOMERS_URI + "/search")
-    Call<ApiResponse<Customer>> searchCustomers(@Query("q") String query, @Query("embed") Embed embed);
+    Call<ApiResponse<Customer>> searchCustomers(@Query("q") String query, @Query("embed") Embed embed,
+                                                @Query("per_page") int perPage, @Query("page") int page,
+                                                @Query("sort_field") String sortField,
+                                                @Query("sort_direction") SortDirection sortDirection);
 
     /**
      * Retrieves customers by the company provided.
