@@ -103,7 +103,7 @@ public interface RxCustomerService {
      *
      * @param query the query searching across the following fields: firstname, lastname, name, email &amp; phone
      * @param embed the fields to embed
-     * @param perPage       the total companies per page
+     * @param perPage       the total customers per page
      * @param page          the page requested
      * @param sortField     the field to sort on
      * @param sortDirection the direction to sort
