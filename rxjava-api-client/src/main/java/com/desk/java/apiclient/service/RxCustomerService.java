@@ -30,6 +30,7 @@ import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Case;
 import com.desk.java.apiclient.model.Customer;
 import com.desk.java.apiclient.model.Embed;
+import com.desk.java.apiclient.model.SortDirection;
 
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -102,11 +103,18 @@ public interface RxCustomerService {
      *
      * @param query the query searching across the following fields: firstname, lastname, name, email &amp; phone
      * @param embed the fields to embed
+     * @param perPage       the total companies per page
+     * @param page          the page requested
+     * @param sortField     the field to sort on
+     * @param sortDirection the direction to sort
      * @return a customer api response
      * @see <a href="http://dev.desk.com/API/customers/#search">http://dev.desk.com/API/customers/#search</a>
      */
     @GET(CUSTOMERS_URI + "/search")
-    Observable<ApiResponse<Customer>> searchCustomersObservable(@Query("q") String query, @Query("embed") Embed embed);
+    Observable<ApiResponse<Customer>> searchCustomersObservable(@Query("q") String query, @Query("embed") Embed embed,
+                                                                @Query("per_page") int perPage, @Query("page") int page,
+                                                                @Query("sort_field") String sortField,
+                                                                @Query("sort_direction") SortDirection sortDirection);
 
     /**
      * Retrieves customers by the company provided.
