@@ -48,6 +48,7 @@ public interface FilterService {
 
     String FILTERS_URI = "filters";
     String COMPANY_FILTERS_URI = "company_filters";
+    String CUSTOMER_FILTERS_URI = "customer_filters";
 
     String FIELD_CASE_COUNTS = "case_counts";
     String FIELD_NAME = "name";
@@ -77,4 +78,15 @@ public interface FilterService {
      */
     @GET(COMPANY_FILTERS_URI)
     Call<ApiResponse<Filter>> getCompanyFilters(@Query("per_page") int perPage, @Query("page") int page);
+
+    /**
+     * Retrieves customer filters.
+     * @see <a href="http://dev.desk.com/API/customer_filters/#list">http://dev.desk.com/API/customer_filters/#list</a>
+     *
+     * @param perPage the total filters per page
+     * @param page the page requested
+     * @return a filter api response
+     */
+    @GET(CUSTOMER_FILTERS_URI)
+    Call<ApiResponse<Filter>> getCustomerFilters(@Query("per_page") int perPage, @Query("page") int page);
 }
