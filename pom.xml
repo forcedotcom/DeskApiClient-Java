@@ -33,10 +33,10 @@
 
     <groupId>com.desk</groupId>
     <artifactId>api-client-parent</artifactId>
-    <version>0-SNAPSHOT</version>
+    <version>1.2.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Desk Java API Client</name>
+    <name>Desk Java API Client Parent</name>
     <description>The Desk API Client is a lightweight static library written in Java that wraps the Desk.com API V2.</description>
     <url>https://github.com/forcedotcom/DeskApiClient-Java</url>
 
@@ -63,6 +63,10 @@
             <id>bintray-desk-public</id>
             <url>https://api.bintray.com/maven/${bintray.user}/${bintray.repo}/${bintray.package}</url>
         </repository>
+        <snapshotRepository>
+            <id>oss-snapshot-local</id>
+            <url>https://oss.jfrog.org/artifactory/oss-snapshot-local</url>
+        </snapshotRepository>
     </distributionManagement>
 
     <issueManagement>
@@ -82,17 +86,6 @@
         <name>Desk.com</name>
         <url>http://desk.com</url>
     </organization>
-
-    <repositories>
-        <repository>
-            <id>central</id>
-            <url>http://repo1.maven.org/maven2/</url>
-        </repository>
-        <repository>
-            <id>sonatype-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </repository>
-    </repositories>
 
     <build>
         <plugins>
