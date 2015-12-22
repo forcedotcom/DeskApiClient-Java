@@ -32,12 +32,12 @@ import com.desk.java.apiclient.model.Customer;
 import com.desk.java.apiclient.model.Embed;
 import com.desk.java.apiclient.model.SortDirection;
 
-import retrofit.http.Body;
-import retrofit.http.GET;
-import retrofit.http.PATCH;
-import retrofit.http.POST;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.CustomerService.COMPANIES_URI;

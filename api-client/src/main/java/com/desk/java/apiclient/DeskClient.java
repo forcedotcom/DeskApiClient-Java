@@ -65,9 +65,9 @@ import java.util.List;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
-import retrofit.CallAdapter;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
+import retrofit2.CallAdapter;
+import retrofit2.GsonConverterFactory;
+import retrofit2.Retrofit;
 
 import static com.desk.java.apiclient.DeskClientBuilder.API_BASE_PATH;
 import static com.desk.java.apiclient.DeskClientBuilder.AuthType.OAUTH;

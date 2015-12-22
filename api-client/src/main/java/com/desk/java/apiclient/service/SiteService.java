@@ -29,8 +29,8 @@ package com.desk.java.apiclient.service;
 import com.desk.java.apiclient.model.Site;
 import com.desk.java.apiclient.model.SiteBilling;
 
-import retrofit.Call;
-import retrofit.http.GET;
+import retrofit2.Call;
+import retrofit2.http.GET;
 
 /**
  * <p>

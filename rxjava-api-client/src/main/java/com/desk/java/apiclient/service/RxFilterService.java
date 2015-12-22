@@ -30,8 +30,8 @@ import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.Filter;
 
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.FilterService.COMPANY_FILTERS_URI;

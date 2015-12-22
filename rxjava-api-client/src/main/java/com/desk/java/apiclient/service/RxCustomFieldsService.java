@@ -29,8 +29,8 @@ package com.desk.java.apiclient.service;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.CustomField;
 
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.CustomFieldsService.CUSTOM_FIELDS_URI;

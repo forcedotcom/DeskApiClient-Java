@@ -29,7 +29,7 @@ package com.desk.java.apiclient.service;
 import com.desk.java.apiclient.model.Site;
 import com.desk.java.apiclient.model.SiteBilling;
 
-import retrofit.http.GET;
+import retrofit2.http.GET;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.SiteService.SITE_URI;

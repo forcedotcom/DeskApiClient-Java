@@ -47,8 +47,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 
-import retrofit.CallAdapter.Factory;
-import retrofit.RxJavaCallAdapterFactory;
+import retrofit2.CallAdapter.Factory;
+import retrofit2.RxJavaCallAdapterFactory;
 
 /**
  * <p>

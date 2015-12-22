@@ -34,11 +34,11 @@ import com.desk.java.apiclient.model.Topic;
 
 import org.jetbrains.annotations.Nullable;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Header;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * <p>
