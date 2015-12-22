@@ -48,6 +48,7 @@ public class Customer implements Serializable {
     private String title;
     private String language;
     private String background;
+    private String companyName;
     private CustomerContact[] emails;
     private CustomerContact[] addresses;
     private CustomerContact[] phoneNumbers;
@@ -268,5 +269,13 @@ public class Customer implements Serializable {
     @Nullable
     public Link getCompanyLink() {
         return getLinks().getCompany();
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }
