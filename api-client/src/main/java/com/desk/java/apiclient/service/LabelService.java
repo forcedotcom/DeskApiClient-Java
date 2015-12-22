@@ -29,9 +29,9 @@ package com.desk.java.apiclient.service;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Label;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * <p>

@@ -30,9 +30,9 @@ import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Company;
 import com.desk.java.apiclient.model.SortDirection;
 
-import retrofit.http.GET;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.CompanyService.COMPANY_URI;

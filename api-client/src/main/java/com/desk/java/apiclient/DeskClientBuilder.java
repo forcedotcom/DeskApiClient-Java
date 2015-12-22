@@ -8,8 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import retrofit.CallAdapter;
-import retrofit.Retrofit;
+import retrofit2.CallAdapter;
+import retrofit2.Retrofit;
 
 import static com.desk.java.apiclient.DeskClientBuilder.AuthType.API_TOKEN;
 import static com.desk.java.apiclient.DeskClientBuilder.AuthType.OAUTH;

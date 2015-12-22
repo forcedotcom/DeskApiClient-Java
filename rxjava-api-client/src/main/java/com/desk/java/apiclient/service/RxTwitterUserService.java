@@ -28,8 +28,8 @@ package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.TwitterUser;
 
-import retrofit.http.Body;
-import retrofit.http.POST;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.TwitterUserService.TWITTER_USERS_URI;
