@@ -24,17 +24,15 @@ dependencies {
 Create an API Token client as follows:
 
 ```
-DeskClient client = new DeskClient
-                    .Builder("mysite.desk.com", "apiToken")
-                    .create();
+DeskClientBuilder builder = new DeskClientBuilder("mysite.desk.com", "apiToken");
+DeskClient client = DeskClient.create(builder);
 ```
 
 Create an OAuth client as follows:
 
 ```
-DeskClient client = new DeskClient
-                    .Builder("mysite.desk.com", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret")
-                    .create();
+DeskClientBuilder builder = new DeskClientBuilder("mysite.desk.com", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret");
+DeskClient client = DeskClient.create(builder);
 ```
 
 ## License
