@@ -34,13 +34,23 @@ public class FilterLinks extends Links {
     private static final long serialVersionUID = 3781381339638270661L;
 
     private Link cases;
+    private Link companies;
 
     @Nullable
     public Link getCases() {
         return cases;
     }
 
-    public void setCases(@Nullable Link c) {
-        this.cases = c;
+    @Nullable
+    public Link getCompanies() {
+        return companies;
+    }
+
+    public void setCases(@Nullable Link cases) {
+        this.cases = cases;
+    }
+
+    public void setCompanies(@Nullable Link companies) {
+        this.companies = companies;
     }
 }
