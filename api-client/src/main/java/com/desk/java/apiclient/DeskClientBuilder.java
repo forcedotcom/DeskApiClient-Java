@@ -1,8 +1,8 @@
 package com.desk.java.apiclient;
 
-import com.squareup.okhttp.Cache;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.OkHttpClient;
+import okhttp3.Cache;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 
 import org.jetbrains.annotations.NotNull;
 

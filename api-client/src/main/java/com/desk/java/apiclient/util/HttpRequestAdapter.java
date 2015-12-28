@@ -26,7 +26,7 @@
 
 package com.desk.java.apiclient.util;
 
-import com.squareup.okhttp.Request;
+import okhttp3.Request;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -104,7 +104,7 @@ public class HttpRequestAdapter implements HttpRequest {
 
     @Override
     public String getRequestUrl() {
-        return request.urlString();
+        return request.url().toString();
     }
 
     @Override

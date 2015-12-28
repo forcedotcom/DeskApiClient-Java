@@ -26,7 +26,7 @@
 
 package com.desk.java.apiclient.util;
 
-import com.squareup.okhttp.Request;
+import okhttp3.Request;
 
 import org.junit.Before;
 import org.junit.Test;
