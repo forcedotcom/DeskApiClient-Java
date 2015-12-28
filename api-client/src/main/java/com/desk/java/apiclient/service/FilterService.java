@@ -49,6 +49,7 @@ public interface FilterService {
     String FILTERS_URI = "filters";
     String COMPANY_FILTERS_URI = "company_filters";
     String CUSTOMER_FILTERS_URI = "customer_filters";
+    String OPPORTUNITY_FILTERS_URI = "opportunity_filters";
 
     String FIELD_CASE_COUNTS = "case_counts";
     String FIELD_NAME = "name";
@@ -89,4 +90,14 @@ public interface FilterService {
      */
     @GET(CUSTOMER_FILTERS_URI)
     Call<ApiResponse<Filter>> getCustomerFilters(@Query("per_page") int perPage, @Query("page") int page);
+
+    /**
+     * Retrieves opportunity filters.
+     *
+     * @param perPage the total filters per page
+     * @param page the page requested
+     * @return a filter api response
+     */
+    @GET(OPPORTUNITY_FILTERS_URI)
+    Call<ApiResponse<Filter>> getOpportunityFilters(@Query("per_page") int perPage, @Query("page") int page);
 }
