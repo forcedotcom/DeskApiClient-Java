@@ -24,37 +24,55 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.desk.java.apiclient.service;
+package com.desk.java.apiclient.model;
 
-import com.desk.java.apiclient.model.ApiResponse;
-import com.desk.java.apiclient.model.OutboundMailbox;
-
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import java.io.Serializable;
 
 /**
- * <p>
- *     Service interfacing with the Desk Outbound Mailboxes endpoint
- * </p>
- *
- * Created by Matt Kranzler on 4/28/15.
+ * Created by Matt Kranzler on 12/28/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
- *
- * @see <a href="http://dev.desk.com/API/outbound-mailboxes/">http://dev.desk.com/API/outbound-mailboxes/</a>
  */
-public interface OutboundMailboxService {
+public class OpportunityStage implements Serializable {
 
-    String OUTBOUND_MAILBOX_URI = "mailboxes/outbound";
+    private static final long serialVersionUID = 8122722623798786167L;
 
-    /**
-     * Retrieve a paginated list of outbound mailboxes
-     * @see <a href="http://dev.desk.com/API/outbound-mailboxes/#list">http://dev.desk.com/API/outbound-mailboxes/#list</a>
-     *
-     * @param perPage the amount of outbound mailboxes per page
-     * @param page the page
-     * @return a outbound mailbox api response
-     */
-    @GET(OUTBOUND_MAILBOX_URI)
-    Call<ApiResponse<OutboundMailbox>> getOutboundMailboxes(@Query("per_page") int perPage, @Query("page") int page);
+    private int id;
+    private String name;
+    private int probability;
+    private OpportunityStageType opportunityStageType;
+    private Links _links;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getProbability() {
+        return probability;
+    }
+
+    public OpportunityStageType getOpportunityStageType() {
+        return opportunityStageType;
+    }
+
+    public Links getLinks() {
+        return _links;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OpportunityStage that = (OpportunityStage) o;
+
+        return id == that.id;
+
+    }
+
+    @Override public int hashCode() {
+        return id;
+    }
 }

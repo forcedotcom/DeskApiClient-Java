@@ -24,37 +24,31 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.desk.java.apiclient.service;
+package com.desk.java.apiclient.model;
 
-import com.desk.java.apiclient.model.ApiResponse;
-import com.desk.java.apiclient.model.OutboundMailbox;
-
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
+import com.google.gson.annotations.SerializedName;
 
 /**
- * <p>
- *     Service interfacing with the Desk Outbound Mailboxes endpoint
- * </p>
- *
- * Created by Matt Kranzler on 4/28/15.
+ * Created by Matt Kranzler on 12/28/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
- *
- * @see <a href="http://dev.desk.com/API/outbound-mailboxes/">http://dev.desk.com/API/outbound-mailboxes/</a>
  */
-public interface OutboundMailboxService {
+public enum OpportunityStageType {
 
-    String OUTBOUND_MAILBOX_URI = "mailboxes/outbound";
+    @SerializedName("closed_lost")
+    CLOSED_LOST,
+
+    @SerializedName("closed_won")
+    CLOSED_WON,
+
+    @SerializedName("open")
+    OPEN;
 
     /**
-     * Retrieve a paginated list of outbound mailboxes
-     * @see <a href="http://dev.desk.com/API/outbound-mailboxes/#list">http://dev.desk.com/API/outbound-mailboxes/#list</a>
-     *
-     * @param perPage the amount of outbound mailboxes per page
-     * @param page the page
-     * @return a outbound mailbox api response
+     * Returns a lowercase toString() value
+     * @return the lowercase value
      */
-    @GET(OUTBOUND_MAILBOX_URI)
-    Call<ApiResponse<OutboundMailbox>> getOutboundMailboxes(@Query("per_page") int perPage, @Query("page") int page);
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
+    }
 }
