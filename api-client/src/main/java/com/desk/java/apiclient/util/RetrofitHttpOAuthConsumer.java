@@ -26,7 +26,7 @@
 
 package com.desk.java.apiclient.util;
 
-import com.squareup.okhttp.Request;
+import okhttp3.Request;
 
 import oauth.signpost.AbstractOAuthConsumer;
 import oauth.signpost.http.HttpRequest;

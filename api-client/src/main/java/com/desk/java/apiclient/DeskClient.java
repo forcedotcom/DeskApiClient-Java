@@ -52,9 +52,9 @@ import com.desk.java.apiclient.util.RetrofitHttpOAuthConsumer;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squareup.okhttp.Cache;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.OkHttpClient;
+import okhttp3.Cache;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 
 import org.jetbrains.annotations.NotNull;
 
