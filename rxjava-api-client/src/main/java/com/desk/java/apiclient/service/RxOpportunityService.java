@@ -24,21 +24,38 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.desk.java.apiclient.model;
+package com.desk.java.apiclient.service;
 
-import com.google.gson.annotations.SerializedName;
+import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.Opportunity;
 
-public enum LabelType {
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+import rx.Observable;
 
-    @SerializedName("case")
-	CASE,
+import static com.desk.java.apiclient.service.OpportunityService.*;
 
-    @SerializedName("company")
-    COMPANY,
+/**
+ * <p>
+ *     Service to interact with Desk Opportunities endpoint.
+ * </p>
+ *
+ * Created by Matt Kranzler on 12/28/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public interface RxOpportunityService {
 
-    @SerializedName("macro")
-    MACRO,
-
-    @SerializedName("opportunity")
-    OPPORTUNITY
+    /**
+     * Retrieve a paginated list of opportunities by filter
+     *
+     * @param filterId the id of the filter
+     * @param perPage the amount per page
+     * @param page the page to retrieve
+     * @return an opportunity api response
+     */
+    @GET(FILTERS_URI + "/{id}/" + OPPORTUNITIES_URI)
+    Observable<ApiResponse<Opportunity>> getOpportunitiesByFilter(@Path("id") int filterId,
+                                                                  @Query("per_page") int perPage,
+                                                                  @Query("page") int page);
 }

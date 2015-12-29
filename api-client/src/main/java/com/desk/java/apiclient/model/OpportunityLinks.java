@@ -26,19 +26,50 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 
-public enum LabelType {
+/**
+ * Created by Matt Kranzler on 12/28/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public class OpportunityLinks extends Links implements Serializable {
 
-    @SerializedName("case")
-	CASE,
+    private static final long serialVersionUID = 6181860433635272199L;
 
-    @SerializedName("company")
-    COMPANY,
+    private Link labels;
+    private Link opportunityStage;
+    private Link company;
+    private Link user;
 
-    @SerializedName("macro")
-    MACRO,
+    public Link getLabels() {
+        return labels;
+    }
 
-    @SerializedName("opportunity")
-    OPPORTUNITY
+    public void setLabels(Link labels) {
+        this.labels = labels;
+    }
+
+    public Link getOpportunityStage() {
+        return opportunityStage;
+    }
+
+    public void setOpportunityStage(Link opportunityStage) {
+        this.opportunityStage = opportunityStage;
+    }
+
+    public Link getCompany() {
+        return company;
+    }
+
+    public void setCompany(Link company) {
+        this.company = company;
+    }
+
+    public Link getUser() {
+        return user;
+    }
+
+    public void setUser(Link user) {
+        this.user = user;
+    }
 }

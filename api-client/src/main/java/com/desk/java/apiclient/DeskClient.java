@@ -38,6 +38,7 @@ import com.desk.java.apiclient.service.GroupService;
 import com.desk.java.apiclient.service.InboundMailboxService;
 import com.desk.java.apiclient.service.LabelService;
 import com.desk.java.apiclient.service.MacroService;
+import com.desk.java.apiclient.service.OpportunityService;
 import com.desk.java.apiclient.service.OpportunityStageService;
 import com.desk.java.apiclient.service.OutboundMailboxService;
 import com.desk.java.apiclient.service.PermissionService;
@@ -113,6 +114,7 @@ public class DeskClient {
     private ArticleService articleService;
     private InboundMailboxService inboundMailboxService;
     private OpportunityStageService opportunityStageService;
+    private OpportunityService opportunityService;
 
     /**
      * Creates a {@link DeskClient} using the provided {@link DeskClientBuilder}.
@@ -414,6 +416,19 @@ public class DeskClient {
             opportunityStageService = restAdapter.create(OpportunityStageService.class);
         }
         return opportunityStageService;
+    }
+
+    /**
+     * Get the Desk Opportunity service
+     *
+     * @return the default Desk Opportunity service
+     */
+    @NotNull
+    public OpportunityService opportunities() {
+        if (opportunityService == null) {
+            opportunityService = restAdapter.create(OpportunityService.class);
+        }
+        return opportunityService;
     }
 
     protected Retrofit getRestAdapter() {
