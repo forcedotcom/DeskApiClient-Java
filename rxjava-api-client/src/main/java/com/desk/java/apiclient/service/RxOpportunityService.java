@@ -52,10 +52,19 @@ public interface RxOpportunityService {
      * @param filterId the id of the filter
      * @param perPage the amount per page
      * @param page the page to retrieve
-     * @return an opportunity api response
+     * @return an opportunity api response observable
      */
     @GET(FILTERS_URI + "/{id}/" + OPPORTUNITIES_URI)
-    Observable<ApiResponse<Opportunity>> getOpportunitiesByFilter(@Path("id") int filterId,
+    Observable<ApiResponse<Opportunity>> getOpportunitiesByFilterObservable(@Path("id") int filterId,
                                                                   @Query("per_page") int perPage,
                                                                   @Query("page") int page);
+
+    /**
+     * Retrieve an opportunity by id
+     *
+     * @param id the id of the opportunity
+     * @return the opportunity observable
+     */
+    @GET(OPPORTUNITIES_URI + "/{id}")
+    Observable<Opportunity> getOpportunityObservable(@Path("id") int id);
 }

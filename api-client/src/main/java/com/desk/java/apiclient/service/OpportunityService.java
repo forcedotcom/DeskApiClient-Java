@@ -59,4 +59,13 @@ public interface OpportunityService {
     Call<ApiResponse<Opportunity>> getOpportunitiesByFilter(@Path("id") int filterId,
                                                             @Query("per_page") int perPage,
                                                             @Query("page") int page);
+
+    /**
+     * Retrieve an opportunity by id
+     *
+     * @param id the id of the opportunity
+     * @return the opportunity
+     */
+    @GET(OPPORTUNITIES_URI + "/{id}")
+    Call<Opportunity> getOpportunity(@Path("id") int id);
 }
