@@ -1,0 +1,40 @@
+{
+  "id": 27,
+  "site_id": 114,
+  "type": "OpportunityEmail",
+  "message": null,
+  "created_at": "2015-12-29T17:31:59Z",
+  "updated_at": "2015-12-29T17:31:59Z",
+  "status": null,
+  "title": null,
+  "priority": null,
+  "due_date": null,
+  "start_at": null,
+  "end_at": null,
+  "location": null,
+  "to": "test@test.com",
+  "cc": "cc@cc.com",
+  "bcc": "bcc@bcc.com",
+  "subject": "subject",
+  "body": "Seitan mixtape fixie etsy. Loko mixtape vhs sartorial park quinoa. Meh chia microdosing iphone narwhal asymmetrical yolo. Loko taxidermy yolo narwhal forage freegan listicle diy.",
+  "phone": null,
+  "direction": null,
+  "_links": {
+    "self": {
+      "href": "/api/v2/opportunities/1/activities/27",
+      "class": "opportunity_activity"
+    },
+    "user": {
+      "href": "/api/v2/users/175",
+      "class": "user"
+    },
+    "customer": {
+      "href": "/api/v2/customers/472",
+      "class": "customer"
+    },
+    "opportunity": {
+      "href": "/api/v2/opportunities/1",
+      "class": "opportunity"
+    }
+  }
+}

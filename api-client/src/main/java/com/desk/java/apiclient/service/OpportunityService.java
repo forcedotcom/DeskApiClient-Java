@@ -27,7 +27,9 @@
 package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.IOpportunityActivity;
 import com.desk.java.apiclient.model.Opportunity;
+import com.desk.java.apiclient.model.OpportunityTimeline;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -46,6 +48,8 @@ public interface OpportunityService {
 
     String FILTERS_URI = "opportunity_filters";
     String OPPORTUNITIES_URI = "opportunities";
+    String HISTORY_URI = "history";
+    String ACTIVITIES_URI = "activities";
 
     /**
      * Retrieve a paginated list of opportunities by filter
@@ -68,4 +72,22 @@ public interface OpportunityService {
      */
     @GET(OPPORTUNITIES_URI + "/{id}")
     Call<Opportunity> getOpportunity(@Path("id") int id);
+
+    /**
+     * Retrieve the opportunity timeline (history)
+     *
+     * @param opportunityId the opportunity id
+     * @return the opportunity timeline
+     */
+    @GET(OPPORTUNITIES_URI + "/{id}/" + HISTORY_URI)
+    Call<OpportunityTimeline> getOpportunityTimeline(@Path("id") int opportunityId);
+
+    /**
+     * Retrieve opportunity activities and events.
+     *
+     * @param opportunityId the opportunity id
+     * @return the activities and events api response
+     */
+    @GET(OPPORTUNITIES_URI + "/{id}/" + ACTIVITIES_URI)
+    Call<ApiResponse<IOpportunityActivity>> getOpportunityActivities(@Path("id") int opportunityId);
 }

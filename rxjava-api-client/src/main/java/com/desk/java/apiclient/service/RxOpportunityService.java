@@ -27,14 +27,20 @@
 package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.IOpportunityActivity;
 import com.desk.java.apiclient.model.Opportunity;
+import com.desk.java.apiclient.model.OpportunityTimeline;
 
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.OpportunityService.*;
+import static com.desk.java.apiclient.service.OpportunityService.FILTERS_URI;
+import static com.desk.java.apiclient.service.OpportunityService.HISTORY_URI;
+import static com.desk.java.apiclient.service.OpportunityService.OPPORTUNITIES_URI;
 
 /**
  * <p>
@@ -67,4 +73,22 @@ public interface RxOpportunityService {
      */
     @GET(OPPORTUNITIES_URI + "/{id}")
     Observable<Opportunity> getOpportunityObservable(@Path("id") int id);
+
+    /**
+     * Retrieve the opportunity timeline (history)
+     *
+     * @param opportunityId the opportunity id
+     * @return the opportunity timeline observable
+     */
+    @GET(OPPORTUNITIES_URI + "/{id}/" + HISTORY_URI)
+    Observable<OpportunityTimeline> getOpportunityTimelineObservable(@Path("id") int opportunityId);
+
+    /**
+     * Retrieve opportunity activities and events.
+     *
+     * @param opportunityId the opportunity id
+     * @return the activities and events api response observable
+     */
+    @GET(OPPORTUNITIES_URI + "/{id}/" + ACTIVITIES_URI)
+    Observable<ApiResponse<IOpportunityActivity>> getOpportunityActivitiesObservable(@Path("id") int opportunityId);
 }

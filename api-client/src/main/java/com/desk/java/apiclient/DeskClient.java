@@ -28,6 +28,7 @@ package com.desk.java.apiclient;
 
 import com.desk.java.apiclient.DeskClientBuilder.AuthType;
 import com.desk.java.apiclient.model.CaseLock;
+import com.desk.java.apiclient.model.IOpportunityActivity;
 import com.desk.java.apiclient.service.ArticleService;
 import com.desk.java.apiclient.service.CaseService;
 import com.desk.java.apiclient.service.CompanyService;
@@ -48,6 +49,7 @@ import com.desk.java.apiclient.service.TwitterUserService;
 import com.desk.java.apiclient.service.UserService;
 import com.desk.java.apiclient.util.ApiTokenSigningInterceptor;
 import com.desk.java.apiclient.util.DeskClientUtils;
+import com.desk.java.apiclient.util.IOpportunityActivityAdapter;
 import com.desk.java.apiclient.util.ISO8601DateAdapter;
 import com.desk.java.apiclient.util.OAuthSigningInterceptor;
 import com.desk.java.apiclient.util.RetrofitHttpOAuthConsumer;
@@ -446,6 +448,7 @@ public class DeskClient {
         return new GsonBuilder()
                 .registerTypeAdapter(Date.class, new ISO8601DateAdapter())
                 .registerTypeAdapter(CaseLock.class, CaseLock.TYPE_ADAPTER)
+                .registerTypeAdapter(IOpportunityActivity.class, new IOpportunityActivityAdapter())
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
     }
