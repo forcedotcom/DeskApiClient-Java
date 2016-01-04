@@ -24,21 +24,35 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.desk.java.apiclient.model;
+package com.desk.java.apiclient.service;
 
-import com.google.gson.annotations.SerializedName;
+import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.OpportunityStage;
 
-public enum LabelType {
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
-    @SerializedName("case")
-	CASE,
+/**
+ * <p>
+ *     Service to interact with Desk Opportunity Stages endpoint.
+ * </p>
+ *
+ * Created by Matt Kranzler on 12/28/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public interface OpportunityStageService {
 
-    @SerializedName("company")
-    COMPANY,
+    // URIs
+    String OPPORTUNITY_STAGE_URI = "opportunity_stages";
 
-    @SerializedName("macro")
-    MACRO,
-
-    @SerializedName("opportunity")
-    OPPORTUNITY
+    /**
+     * Retrieve a paginated list of opportunity stages
+     *
+     * @param perPage the amount per page
+     * @param page the page to retrieve
+     * @return an opportunity stage api response
+     */
+    @GET(OPPORTUNITY_STAGE_URI)
+    Call<ApiResponse<OpportunityStage>> getOpportunityStages(@Query("per_page") int perPage, @Query("page") int page);
 }

@@ -26,19 +26,23 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
+/**
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public class SystemEventLinks extends Links {
 
-public enum LabelType {
+    private static final long serialVersionUID = 5750581577751068354L;
 
-    @SerializedName("case")
-	CASE,
+    private Link invoker;
 
-    @SerializedName("company")
-    COMPANY,
+    public Link getInvoker() {
+        return invoker;
+    }
 
-    @SerializedName("macro")
-    MACRO,
+    public void setInvoker(Link invoker) {
+        this.invoker = invoker;
+    }
 
-    @SerializedName("opportunity")
-    OPPORTUNITY
+
 }

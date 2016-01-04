@@ -28,17 +28,61 @@ package com.desk.java.apiclient.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public enum LabelType {
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
-    @SerializedName("case")
-	CASE,
+/**
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public class SystemEvent implements Serializable {
 
-    @SerializedName("company")
-    COMPANY,
+    private static final long serialVersionUID = 5024045018751443965L;
 
-    @SerializedName("macro")
-    MACRO,
+    private long id;
+    private EventType type;
+    private String context;
+    private Date createdAt;
+    private List<SystemEventChange> changes;
+    @SerializedName("_links")
+    private SystemEventLinks links;
 
-    @SerializedName("opportunity")
-    OPPORTUNITY
+    public long getId() {
+        return id;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public List<SystemEventChange> getChanges() {
+        return changes;
+    }
+
+    public SystemEventLinks getLinks() {
+        return links;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SystemEvent systemEvent = (SystemEvent) o;
+
+        return id == systemEvent.id;
+
+    }
+
+    @Override public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
 }

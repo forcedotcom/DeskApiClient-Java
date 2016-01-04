@@ -28,17 +28,24 @@ package com.desk.java.apiclient.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public enum LabelType {
+/**
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public enum OpportunityActivityStatus {
 
-    @SerializedName("case")
-	CASE,
+    @SerializedName("Completed")
+    COMPLETED,
 
-    @SerializedName("company")
-    COMPANY,
+    @SerializedName("Deferred")
+    DEFERRED,
 
-    @SerializedName("macro")
-    MACRO,
+    @SerializedName("Not Started")
+    NOT_STARTED,
 
-    @SerializedName("opportunity")
-    OPPORTUNITY
+    @SerializedName("In Progress")
+    IN_PROGRESS,
+
+    @SerializedName("Waiting on someone else")
+    WAITING_ON_SOMEONE_ELSE;
 }

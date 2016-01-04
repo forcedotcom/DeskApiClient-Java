@@ -26,19 +26,50 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.Date;
 
-public enum LabelType {
+/**
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public class OpportunityEvent extends OpportunityActivity {
 
-    @SerializedName("case")
-	CASE,
+    private static final long serialVersionUID = 4913758388022209018L;
 
-    @SerializedName("company")
-    COMPANY,
+    private String title;
+    private String location;
+    private Date startAt;
+    private Date endAt;
 
-    @SerializedName("macro")
-    MACRO,
+    public String getTitle() {
+        return title;
+    }
 
-    @SerializedName("opportunity")
-    OPPORTUNITY
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Date getStartAt() {
+        return startAt;
+    }
+
+    public void setStartAt(Date startAt) {
+        this.startAt = startAt;
+    }
+
+    public Date getEndAt() {
+        return endAt;
+    }
+
+    public void setEndAt(Date endAt) {
+        this.endAt = endAt;
+    }
 }

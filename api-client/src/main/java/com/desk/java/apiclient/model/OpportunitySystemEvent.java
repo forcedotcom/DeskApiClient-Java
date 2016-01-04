@@ -26,19 +26,10 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
-
-public enum LabelType {
-
-    @SerializedName("case")
-	CASE,
-
-    @SerializedName("company")
-    COMPANY,
-
-    @SerializedName("macro")
-    MACRO,
-
-    @SerializedName("opportunity")
-    OPPORTUNITY
+/**
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public class OpportunitySystemEvent extends SystemEvent implements IOpportunityActivity {
+    private static final long serialVersionUID = -2854148088867234142L;
 }

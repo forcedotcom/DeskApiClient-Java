@@ -26,19 +26,19 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
-
-public enum LabelType {
-
-    @SerializedName("case")
-	CASE,
-
-    @SerializedName("company")
-    COMPANY,
-
-    @SerializedName("macro")
-    MACRO,
-
-    @SerializedName("opportunity")
-    OPPORTUNITY
+/**
+ * <p>
+ *     Opportunity activity types which are the current possible values for {@link OpportunityActivity#type}.
+ *     Ideally this would be an enum but for some reason the api does not treat type as an enum.
+ * </p>
+ *
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public class OpportunityActivityTypes {
+    public static final String NOTE = "OpportunityNote";
+    public static final String CALL = "OpportunityCall";
+    public static final String EVENT = "OpportunityEvent";
+    public static final String EMAIL = "OpportunityEmail";
+    public static final String TASK = "OpportunityTask";
 }

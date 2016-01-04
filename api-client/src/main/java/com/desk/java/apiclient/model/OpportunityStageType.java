@@ -28,17 +28,27 @@ package com.desk.java.apiclient.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public enum LabelType {
+/**
+ * Created by Matt Kranzler on 12/28/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public enum OpportunityStageType {
 
-    @SerializedName("case")
-	CASE,
+    @SerializedName("closed_lost")
+    CLOSED_LOST,
 
-    @SerializedName("company")
-    COMPANY,
+    @SerializedName("closed_won")
+    CLOSED_WON,
 
-    @SerializedName("macro")
-    MACRO,
+    @SerializedName("open")
+    OPEN;
 
-    @SerializedName("opportunity")
-    OPPORTUNITY
+    /**
+     * Returns a lowercase toString() value
+     * @return the lowercase value
+     */
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
+    }
 }

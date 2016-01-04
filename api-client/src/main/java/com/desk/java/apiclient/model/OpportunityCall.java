@@ -26,19 +26,57 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
+/**
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public class OpportunityCall extends OpportunityActivity {
 
-public enum LabelType {
+    private static final long serialVersionUID = -4766057453543382680L;
 
-    @SerializedName("case")
-	CASE,
+    private String title;
+    private String message;
+    private OpportunityActivityStatus status;
+    private String phone;
+    private int direction;
 
-    @SerializedName("company")
-    COMPANY,
+    public String getTitle() {
+        return title;
+    }
 
-    @SerializedName("macro")
-    MACRO,
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    @SerializedName("opportunity")
-    OPPORTUNITY
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public OpportunityActivityStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OpportunityActivityStatus status) {
+        this.status = status;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
 }

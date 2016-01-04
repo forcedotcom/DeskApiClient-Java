@@ -28,17 +28,54 @@ package com.desk.java.apiclient.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public enum LabelType {
+import java.io.Serializable;
 
-    @SerializedName("case")
-	CASE,
+/**
+ * Created by Matt Kranzler on 12/28/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public class OpportunityStage implements Serializable {
 
-    @SerializedName("company")
-    COMPANY,
+    private static final long serialVersionUID = 8122722623798786167L;
 
-    @SerializedName("macro")
-    MACRO,
+    private int id;
+    private String name;
+    private int probability;
+    private OpportunityStageType opportunityStageType;
+    @SerializedName("_links")
+    private Links links;
 
-    @SerializedName("opportunity")
-    OPPORTUNITY
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getProbability() {
+        return probability;
+    }
+
+    public OpportunityStageType getOpportunityStageType() {
+        return opportunityStageType;
+    }
+
+    public Links getLinks() {
+        return links;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OpportunityStage that = (OpportunityStage) o;
+
+        return id == that.id;
+
+    }
+
+    @Override public int hashCode() {
+        return id;
+    }
 }

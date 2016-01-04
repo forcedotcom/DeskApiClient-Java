@@ -60,9 +60,9 @@ public class ApiTokenSigningInterceptorTest {
     public void authorizeRequestDoesAddAuthorizationHeader() throws Exception {
         Request unauthorizedRequest = new Request.Builder().url("https://test.desk.com").build();
         assertFalse(doesHaveAuthorizationHeader(unauthorizedRequest));
-        OkHttpClient okHttpClient = new OkHttpClient();
-        okHttpClient.interceptors().add(apiTokenSigningInterceptor);
-        Call call = okHttpClient.newCall(unauthorizedRequest);
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.interceptors().add(apiTokenSigningInterceptor);
+        Call call = builder.build().newCall(unauthorizedRequest);
         Response response = call.execute();
         assertTrue(doesHaveAuthorizationHeader(response.request()));
     }

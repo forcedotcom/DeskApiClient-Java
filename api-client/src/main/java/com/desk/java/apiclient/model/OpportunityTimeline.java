@@ -26,19 +26,18 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
+/**
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public class OpportunityTimeline extends ApiResponse<OpportunitySystemEvent> {
 
-public enum LabelType {
+    private static final long serialVersionUID = -1043228308467222731L;
 
-    @SerializedName("case")
-	CASE,
+    private int opportunityEventsCount;
+    private int opportunityTasksCount;
+    private int opportunityCallsCount;
+    private int opportunityEmailsCount;
+    private int opportunityNotesCount;
 
-    @SerializedName("company")
-    COMPANY,
-
-    @SerializedName("macro")
-    MACRO,
-
-    @SerializedName("opportunity")
-    OPPORTUNITY
 }

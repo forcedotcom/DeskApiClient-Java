@@ -28,17 +28,79 @@ package com.desk.java.apiclient.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public enum LabelType {
+import java.io.Serializable;
+import java.util.Date;
 
-    @SerializedName("case")
-	CASE,
+/**
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public class OpportunityActivity implements Serializable, IOpportunityActivity {
 
-    @SerializedName("company")
-    COMPANY,
+    private static final long serialVersionUID = -3707695292397393657L;
 
-    @SerializedName("macro")
-    MACRO,
+    private long id;
+    private int siteId;
+    private String type;
+    private Date createdAt;
+    private Date updatedAt;
+    @SerializedName("_links")
+    private OpportunityActivityLinks links;
 
-    @SerializedName("opportunity")
-    OPPORTUNITY
+    public long getId() {
+        return id;
+    }
+
+    public int getSiteId() {
+        return siteId;
+    }
+
+    public void setSiteId(int siteId) {
+        this.siteId = siteId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public OpportunityActivityLinks getLinks() {
+        return links;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OpportunityActivity that = (OpportunityActivity) o;
+
+        if (id != that.id) return false;
+        return siteId == that.siteId;
+
+    }
+
+    @Override public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + siteId;
+        return result;
+    }
 }

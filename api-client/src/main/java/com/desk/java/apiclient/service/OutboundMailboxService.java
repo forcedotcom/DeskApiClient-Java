@@ -51,7 +51,7 @@ public interface OutboundMailboxService {
      * Retrieve a paginated list of outbound mailboxes
      * @see <a href="http://dev.desk.com/API/outbound-mailboxes/#list">http://dev.desk.com/API/outbound-mailboxes/#list</a>
      *
-     * @param perPage the amount of labels per page
+     * @param perPage the amount of outbound mailboxes per page
      * @param page the page
      * @return a outbound mailbox api response
      */

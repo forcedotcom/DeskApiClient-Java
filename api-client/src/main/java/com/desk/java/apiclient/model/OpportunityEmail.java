@@ -26,19 +26,59 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
+/**
+ * TODO - need to add attachments when we know the model
+ *
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public class OpportunityEmail extends OpportunityActivity {
 
-public enum LabelType {
+    private static final long serialVersionUID = -4011757761004706958L;
 
-    @SerializedName("case")
-	CASE,
+    private String to;
+    private String cc;
+    private String bcc;
+    private String subject;
+    private String body;
 
-    @SerializedName("company")
-    COMPANY,
+    public String getTo() {
+        return to;
+    }
 
-    @SerializedName("macro")
-    MACRO,
+    public void setTo(String to) {
+        this.to = to;
+    }
 
-    @SerializedName("opportunity")
-    OPPORTUNITY
+    public String getCc() {
+        return cc;
+    }
+
+    public void setCc(String cc) {
+        this.cc = cc;
+    }
+
+    public String getBcc() {
+        return bcc;
+    }
+
+    public void setBcc(String bcc) {
+        this.bcc = bcc;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
 }

@@ -26,19 +26,37 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
+/**
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public class OpportunityActivityLinks extends Links {
 
-public enum LabelType {
+    private static final long serialVersionUID = 22132577570945432L;
 
-    @SerializedName("case")
-	CASE,
+    private Link user;
+    private Link customer;
+    private Link opportunity;
+    private Link attachments;
+    private Link outboundMailbox;
 
-    @SerializedName("company")
-    COMPANY,
+    public Link getUser() {
+        return user;
+    }
 
-    @SerializedName("macro")
-    MACRO,
+    public Link getCustomer() {
+        return customer;
+    }
 
-    @SerializedName("opportunity")
-    OPPORTUNITY
+    public Link getOpportunity() {
+        return opportunity;
+    }
+
+    public Link getAttachments() {
+        return attachments;
+    }
+
+    public Link getOutboundMailbox() {
+        return outboundMailbox;
+    }
 }

@@ -24,21 +24,50 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.desk.java.apiclient.model;
+package com.desk.java.apiclient.util;
 
-import com.google.gson.annotations.SerializedName;
+import com.desk.java.apiclient.model.IOpportunityActivity;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
-public enum LabelType {
+import org.jetbrains.annotations.Nullable;
 
-    @SerializedName("case")
-	CASE,
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.net.URL;
+import java.util.Date;
 
-    @SerializedName("company")
-    COMPANY,
+/**
+ * <p>
+ *     A collection of utility methods to aid in writing unit tests.
+ * </p>
+ */
+public class TestUtils {
 
-    @SerializedName("macro")
-    MACRO,
+    @Nullable
+    public static <T> T readMockJsonFile(Type type, String jsonFile) {
+        if (!jsonFile.startsWith("/")) {
+            jsonFile = "/" + jsonFile;
+        }
 
-    @SerializedName("opportunity")
-    OPPORTUNITY
+        try {
+            URL url = TestUtils.class.getResource(jsonFile);
+            String pathWithoutPercents = url.getFile().replace("%20", " ");
+            return getDeskClientGson().fromJson(new FileReader(new File(pathWithoutPercents)), type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Gson getDeskClientGson() {
+        return new GsonBuilder()
+                .registerTypeAdapter(Date.class, new ISO8601DateAdapter())
+                .registerTypeAdapter(IOpportunityActivity.class, new IOpportunityActivityAdapter())
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .create();
+    }
 }

@@ -26,19 +26,18 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 
-public enum LabelType {
-
-    @SerializedName("case")
-	CASE,
-
-    @SerializedName("company")
-    COMPANY,
-
-    @SerializedName("macro")
-    MACRO,
-
-    @SerializedName("opportunity")
-    OPPORTUNITY
+/**
+ * <p>
+ *     Marker interface which marks an object which can be returned in the /opportunities/:id/activities
+ *     endpoint. The endpoint returns both {@link OpportunitySystemEvent} and {@link OpportunityActivity}
+ *     objects so this interface allows us to create a custom gson type adapter to deserialize to
+ *     either object type.
+ * </p>
+ *
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2015 Desk.com. All rights reserved.
+ */
+public interface IOpportunityActivity extends Serializable {
 }
