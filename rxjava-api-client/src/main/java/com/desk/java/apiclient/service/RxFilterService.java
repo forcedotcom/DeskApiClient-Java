@@ -67,11 +67,12 @@ public interface RxFilterService {
      *
      * @param perPage the total filters per page
      * @param page    the page requested
+     * @param fields the fields requested
      * @return a filter api response
      * @see <a href="http://dev.desk.com/API/company_filters/#list">http://dev.desk.com/API/company_filters/#list</a>
      */
     @GET(COMPANY_FILTERS_URI)
-    Observable<ApiResponse<Filter>> getCompanyFiltersObservable(@Query("per_page") int perPage, @Query("page") int page);
+    Observable<ApiResponse<Filter>> getCompanyFiltersObservable(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
 
     /**
      * Retrieves customer filters.

@@ -34,9 +34,9 @@ import java.io.Serializable;
 
 public class Filter implements Serializable {
 
-    public static final int NO_CASES = 0;
+    public static final int NONE = 0;
 
-    private static final long serialVersionUID = -7733302564247416575L;
+    private static final long serialVersionUID = 92239016721005170L;
 
     private int id;
     private String name;
@@ -100,12 +100,12 @@ public class Filter implements Serializable {
     }
 
     /**
-     * Gets the cases count or {#NO_CASES} if there are no cases
-     * @return the cases count or {#NO_CASES}
+     * Gets the cases count or {#NONE} if there are no cases
+     * @return the cases count or {#NONE}
      */
     public int getCaseCount() {
         if (getCasesLink() == null) {
-            return NO_CASES;
+            return NONE;
         }
         return getCasesLink().getCount();
     }
@@ -117,6 +117,26 @@ public class Filter implements Serializable {
     @Nullable
     public Link getCasesLink() {
         return getLinks().getCases();
+    }
+
+    /**
+     * Gets the companies count or {#NONE} if there are no companies
+     * @return the companies count or {#NONE}
+     */
+    public int getCompanyCount() {
+        if (getCompaniesLink() == null) {
+            return NONE;
+        }
+        return getCompaniesLink().getCount();
+    }
+
+    /**
+     * Gets the companies link
+     * @return the companies link or null
+     */
+    @Nullable
+    public Link getCompaniesLink() {
+        return getLinks().getCompanies();
     }
 
 }
