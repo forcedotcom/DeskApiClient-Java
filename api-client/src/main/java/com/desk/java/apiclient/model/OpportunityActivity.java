@@ -26,6 +26,8 @@
 
 package com.desk.java.apiclient.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -42,7 +44,8 @@ public class OpportunityActivity implements Serializable, IOpportunityActivity {
     private String type;
     private Date createdAt;
     private Date updatedAt;
-    private OpportunityActivityLinks _links;
+    @SerializedName("_links")
+    private OpportunityActivityLinks links;
 
     public long getId() {
         return id;
@@ -81,7 +84,7 @@ public class OpportunityActivity implements Serializable, IOpportunityActivity {
     }
 
     public OpportunityActivityLinks getLinks() {
-        return _links;
+        return links;
     }
 
     @Override public boolean equals(Object o) {

@@ -26,6 +26,8 @@
 
 package com.desk.java.apiclient.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +45,8 @@ public class SystemEvent implements Serializable {
     private String context;
     private Date createdAt;
     private List<SystemEventChange> changes;
-    private SystemEventLinks _links;
+    @SerializedName("_links")
+    private SystemEventLinks links;
 
     public long getId() {
         return id;
@@ -66,7 +69,7 @@ public class SystemEvent implements Serializable {
     }
 
     public SystemEventLinks getLinks() {
-        return _links;
+        return links;
     }
 
     @Override public boolean equals(Object o) {

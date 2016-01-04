@@ -26,10 +26,12 @@
 
 package com.desk.java.apiclient.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Matt Kranzler on 12/28/15.
@@ -52,8 +54,9 @@ public class Opportunity implements Serializable {
     private String[] labels;
     private int[] labelIds;
     private Date closeDate;
-    private HashMap<String, String> customFields;
-    private OpportunityLinks _links;
+    private Map<String, String> customFields;
+    @SerializedName("_links")
+    private OpportunityLinks links;
 
     public int getId() {
         return id;
@@ -107,12 +110,12 @@ public class Opportunity implements Serializable {
         return closeDate;
     }
 
-    public HashMap<String, String> getCustomFields() {
+    public Map<String, String> getCustomFields() {
         return customFields;
     }
 
     public OpportunityLinks getLinks() {
-        return _links;
+        return links;
     }
 
     @Override public boolean equals(Object o) {

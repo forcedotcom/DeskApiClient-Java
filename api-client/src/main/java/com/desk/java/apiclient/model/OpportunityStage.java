@@ -26,6 +26,8 @@
 
 package com.desk.java.apiclient.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -40,7 +42,8 @@ public class OpportunityStage implements Serializable {
     private String name;
     private int probability;
     private OpportunityStageType opportunityStageType;
-    private Links _links;
+    @SerializedName("_links")
+    private Links links;
 
     public int getId() {
         return id;
@@ -59,7 +62,7 @@ public class OpportunityStage implements Serializable {
     }
 
     public Links getLinks() {
-        return _links;
+        return links;
     }
 
     @Override public boolean equals(Object o) {
