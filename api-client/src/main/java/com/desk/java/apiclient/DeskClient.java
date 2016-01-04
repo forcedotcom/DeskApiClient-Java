@@ -454,11 +454,11 @@ public class DeskClient {
     }
 
     private OkHttpClient createOkHttpClient() {
-        OkHttpClient okHttpClient = new OkHttpClient();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
         // if we have response cache let's use it!
         if (responseCache != null) {
-            okHttpClient.setCache(responseCache);
+            builder.cache(responseCache);
         }
 
         // add auth interceptors
@@ -467,10 +467,10 @@ public class DeskClient {
                 if (oAuthConsumer == null) {
                     throw new IllegalStateException("a RetrofitHttpOAuthConsumer must be created before creating OKClient");
                 }
-                okHttpClient.interceptors().add(new OAuthSigningInterceptor(oAuthConsumer));
+                builder.interceptors().add(new OAuthSigningInterceptor(oAuthConsumer));
                 break;
             case API_TOKEN:
-                okHttpClient.interceptors().add(new ApiTokenSigningInterceptor(apiToken));
+                builder.interceptors().add(new ApiTokenSigningInterceptor(apiToken));
                 break;
             default:
                 throw new IllegalStateException("AuthType " + authType + " isn't supported.");
@@ -478,15 +478,15 @@ public class DeskClient {
 
         // add all other application interceptors
         if (applicationInterceptors != null && !applicationInterceptors.isEmpty()) {
-            okHttpClient.interceptors().addAll(applicationInterceptors);
+            builder.interceptors().addAll(applicationInterceptors);
         }
 
         // add all other network interceptors
         if (networkInterceptors != null && !networkInterceptors.isEmpty()) {
-            okHttpClient.networkInterceptors().addAll(networkInterceptors);
+            builder.networkInterceptors().addAll(networkInterceptors);
         }
 
-        return okHttpClient;
+        return builder.build();
     }
 
     private RetrofitHttpOAuthConsumer createOAuthConsumer() {
