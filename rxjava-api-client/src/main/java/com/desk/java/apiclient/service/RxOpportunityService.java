@@ -27,6 +27,7 @@
 package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.Embed;
 import com.desk.java.apiclient.model.IOpportunityActivity;
 import com.desk.java.apiclient.model.Opportunity;
 import com.desk.java.apiclient.model.OpportunityTimeline;
@@ -58,21 +59,24 @@ public interface RxOpportunityService {
      * @param filterId the id of the filter
      * @param perPage the amount per page
      * @param page the page to retrieve
+     * @param embed the fields to embed
      * @return an opportunity api response observable
      */
     @GET(FILTERS_URI + "/{id}/" + OPPORTUNITIES_URI)
     Observable<ApiResponse<Opportunity>> getOpportunitiesByFilterObservable(@Path("id") int filterId,
                                                                   @Query("per_page") int perPage,
-                                                                  @Query("page") int page);
+                                                                  @Query("page") int page,
+                                                                            @Query("embed") Embed embed);
 
     /**
      * Retrieve an opportunity by id
      *
      * @param id the id of the opportunity
+     * @param embed the fields to embed
      * @return the opportunity observable
      */
     @GET(OPPORTUNITIES_URI + "/{id}")
-    Observable<Opportunity> getOpportunityObservable(@Path("id") int id);
+    Observable<Opportunity> getOpportunityObservable(@Path("id") int id, @Query("embed") Embed embed);
 
     /**
      * Retrieve the opportunity timeline (history)

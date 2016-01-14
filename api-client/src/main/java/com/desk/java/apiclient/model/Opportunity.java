@@ -28,6 +28,8 @@ package com.desk.java.apiclient.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -57,6 +59,8 @@ public class Opportunity implements Serializable {
     private Map<String, String> customFields;
     @SerializedName("_links")
     private OpportunityLinks links;
+    @SerializedName("_embedded")
+    private OpportunityEmbedded embedded;
 
     public int getId() {
         return id;
@@ -116,6 +120,49 @@ public class Opportunity implements Serializable {
 
     public OpportunityLinks getLinks() {
         return links;
+    }
+
+    public OpportunityEmbedded getEmbedded() {
+        return embedded;
+    }
+
+    @Nullable
+    public OpportunityStage getOpportunityStage() {
+        return embedded != null ? embedded.getOpportunityStage() : null;
+    }
+
+    @Nullable
+    public Customer getFirstCustomer() {
+        return (embedded != null && embedded.getCustomers() != null && embedded.getCustomers().size() > 0)
+                ? embedded.getCustomers().get(0) : null;
+    }
+
+    public int getCompanyId() {
+        if (links != null && links.getCompany() != null) {
+            return links.getCompany().getLinkId();
+        }
+        return 0;
+    }
+
+    public int getOpportunityStageId() {
+        if (links != null && links.getOpportunityStage() != null) {
+            return links.getOpportunityStage().getLinkId();
+        }
+        return 0;
+    }
+
+    public int getLockedById() {
+        if (links != null && links.getLockedBy() != null) {
+            return links.getLockedBy().getLinkId();
+        }
+        return 0;
+    }
+
+    public int getUserId() {
+        if (links != null && links.getUser() != null) {
+            return links.getUser().getLinkId();
+        }
+        return 0;
     }
 
     @Override public boolean equals(Object o) {

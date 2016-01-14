@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -26,69 +26,28 @@
 
 package com.desk.java.apiclient.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
- * Created by Matt Kranzler on 12/28/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Created by Matt Kranzler on 1/13/16.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public class OpportunityLinks extends Links implements Serializable {
+public class OpportunityEmbedded implements Serializable {
 
-    private static final long serialVersionUID = 6181860433635272199L;
+    private static final long serialVersionUID = 8895568368558374424L;
 
-    private Link labels;
-    private Link opportunityStage;
-    private Link company;
-    private Link user;
-    private Link customer;
-    private Link lockedBy;
-    private Link activities;
+    private OpportunityStage opportunityStage;
+    @SerializedName("customer")
+    private List<Customer> customers;
 
-    public Link getLabels() {
-        return labels;
-    }
-
-    public void setLabels(Link labels) {
-        this.labels = labels;
-    }
-
-    public Link getOpportunityStage() {
+    public OpportunityStage getOpportunityStage() {
         return opportunityStage;
     }
 
-    public void setOpportunityStage(Link opportunityStage) {
-        this.opportunityStage = opportunityStage;
-    }
-
-    public Link getCompany() {
-        return company;
-    }
-
-    public void setCompany(Link company) {
-        this.company = company;
-    }
-
-    public Link getUser() {
-        return user;
-    }
-
-    public void setUser(Link user) {
-        this.user = user;
-    }
-
-    public Link getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Link customer) {
-        this.customer = customer;
-    }
-
-    public Link getLockedBy() {
-        return lockedBy;
-    }
-
-    public Link getActivities() {
-        return activities;
+    public List<Customer> getCustomers() {
+        return customers;
     }
 }
