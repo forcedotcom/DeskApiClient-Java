@@ -27,6 +27,7 @@
 package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.Embed;
 import com.desk.java.apiclient.model.IOpportunityActivity;
 import com.desk.java.apiclient.model.Opportunity;
 import com.desk.java.apiclient.model.OpportunityTimeline;
@@ -51,27 +52,33 @@ public interface OpportunityService {
     String HISTORY_URI = "history";
     String ACTIVITIES_URI = "activities";
 
+    String EMBED_OPPORTUNITY_STAGE = "opportunity_stage";
+    String EMBED_CUSTOMER = "customer";
+
     /**
      * Retrieve a paginated list of opportunities by filter
      *
      * @param filterId the id of the filter
      * @param perPage the amount per page
      * @param page the page to retrieve
+     * @param embed the fields to embed
      * @return an opportunity api response
      */
     @GET(FILTERS_URI + "/{id}/" + OPPORTUNITIES_URI)
     Call<ApiResponse<Opportunity>> getOpportunitiesByFilter(@Path("id") int filterId,
                                                             @Query("per_page") int perPage,
-                                                            @Query("page") int page);
+                                                            @Query("page") int page,
+                                                            @Query("embed") Embed embed);
 
     /**
      * Retrieve an opportunity by id
      *
      * @param id the id of the opportunity
+     * @param embed the fields to embed
      * @return the opportunity
      */
     @GET(OPPORTUNITIES_URI + "/{id}")
-    Call<Opportunity> getOpportunity(@Path("id") int id);
+    Call<Opportunity> getOpportunity(@Path("id") int id, @Query("embed") Embed embed);
 
     /**
      * Retrieve the opportunity timeline (history)
