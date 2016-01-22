@@ -30,6 +30,7 @@ import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Case;
 import com.desk.java.apiclient.model.Customer;
 import com.desk.java.apiclient.model.Embed;
+import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.SortDirection;
 
 import retrofit2.Call;
@@ -55,6 +56,18 @@ public interface CustomerService {
     // URIs
     String COMPANIES_URI = "companies";
     String CUSTOMERS_URI = "customers";
+    String FILTERS_URI = "customer_filters";
+
+    // Fields
+    String FIELD_ID = "id";
+    String FIELD_FIRST_NAME = "first_name";
+    String FIELD_LAST_NAME = "last_name";
+    String FIELD_COMPANY = "company";
+    String FIELD_TITLE = "title";
+    String FIELD_EMAILS = "emails";
+    String FIELD_PHONE_NUMBERS = "phone_numbers";
+    String FIELD_ADDRESSES = "addresses";
+    String FIELD_CUSTOM_FIELDS = "custom_fields";
 
     // Sorts fields
     String SORT_FIELD_CREATED_AT = "created_at";
@@ -64,6 +77,24 @@ public interface CustomerService {
     // Embeds
     String EMBED_FACEBOOK_USER = "facebook_user";
     String EMBED_TWITTER_USER = "twitter_user";
+
+    /**
+     * Retrieves customers for a given filter
+     *
+     * @param filterId      the id of the filter
+     * @param perPage       the total filters per page
+     * @param page          the page requested
+     * @param sortField     the field to sort on
+     * @param sortDirection the direction to sort
+     * @param embed         what to embed
+     * @param fields        the fields requested
+     * @return a customer api response
+     * @see <a href="http://dev.desk.com/API/customers/#list">http://dev.desk.com/API/customers/#list</a>
+     */
+    @GET(FILTERS_URI + "/{id}/" + CUSTOMERS_URI)
+    Call<ApiResponse<Customer>> getCustomersByFilterObservable(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+                                                                 @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
+                                                                 @Query("embed") Embed embed, @Query("fields") Fields fields);
 
     /**
      * Retrieve a single customer
