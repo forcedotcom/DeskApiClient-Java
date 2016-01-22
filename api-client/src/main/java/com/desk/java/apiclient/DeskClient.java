@@ -53,6 +53,8 @@ import com.desk.java.apiclient.util.IOpportunityActivityAdapter;
 import com.desk.java.apiclient.util.ISO8601DateAdapter;
 import com.desk.java.apiclient.util.OAuthSigningInterceptor;
 import com.desk.java.apiclient.util.RetrofitHttpOAuthConsumer;
+import com.desk.java.apiclient.util.StringUtils;
+import com.desk.java.apiclient.util.UserAgentInterceptor;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -92,6 +94,7 @@ public class DeskClient {
     private final String consumerSecret;
     private final String accessToken;
     private final String accessTokenSecret;
+    private final String userAgent;
     private final Cache responseCache;
     private final List<Interceptor> applicationInterceptors;
     private final List<Interceptor> networkInterceptors;
@@ -138,6 +141,7 @@ public class DeskClient {
         this.consumerSecret = builder.consumerSecret;
         this.accessToken = builder.accessToken;
         this.accessTokenSecret = builder.accessTokenSecret;
+        this.userAgent = builder.userAgent;
         this.responseCache = builder.responseCache;
         this.applicationInterceptors = builder.applicationInterceptors;
         this.networkInterceptors = builder.networkInterceptors;
@@ -474,6 +478,11 @@ public class DeskClient {
                 break;
             default:
                 throw new IllegalStateException("AuthType " + authType + " isn't supported.");
+        }
+
+        // add user agent interceptor if we have a user agent defined
+        if (!StringUtils.isEmpty(userAgent)) {
+            builder.interceptors().add(new UserAgentInterceptor(userAgent));
         }
 
         // add all other application interceptors

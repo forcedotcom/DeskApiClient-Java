@@ -44,6 +44,7 @@ public class DeskClientBuilder {
     String consumerSecret;
     String accessToken;
     String accessTokenSecret;
+    String userAgent;
     AuthType authType;
     List<CallAdapter.Factory> callAdapters;
 
@@ -74,6 +75,16 @@ public class DeskClientBuilder {
         this.accessToken = accessToken;
         this.accessTokenSecret = accessTokenSecret;
         this.authType = OAUTH;
+    }
+
+    /**
+     * Sets the user agent header
+     * @param userAgent the user agent
+     * @return the builder instance
+     */
+    public DeskClientBuilder userAgent(String userAgent) {
+        this.userAgent = userAgent;
+        return this;
     }
 
     /**
