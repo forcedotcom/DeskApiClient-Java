@@ -90,7 +90,7 @@ public class OpportunityActivityAdapter implements JsonDeserializer<IOpportunity
                     if (HISTORY.equalsIgnoreCase(clazz.getAsString())) {
                         return gson.fromJson(jsonElement, OpportunitySystemEvent.class);
 
-                    // if the class is of type 'opportunity_activity' then it's an opportunity activity
+                    // if the class is of type 'opportunity_activity' or 'attachment'
                     } else if (OPPORTUNITY_ACTIVITY.equalsIgnoreCase(clazz.getAsString()) ||
                             OPPORTUNITY_ATTACHMENT.equalsIgnoreCase(clazz.getAsString())) {
 
