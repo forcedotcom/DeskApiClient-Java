@@ -139,4 +139,24 @@ public class Filter implements Serializable {
         return getLinks().getCompanies();
     }
 
+    /**
+     * Gets the customer count or {#NONE} if there are no customers
+     * @return the customer count or {#NONE}
+     */
+    public int getCustomerCount() {
+        if (getCustomersLink() == null) {
+            return NONE;
+        }
+        return getCustomersLink().getCount();
+    }
+
+    /**
+     * Gets the customers link
+     * @return the customers link or null
+     */
+    @Nullable
+    public Link getCustomersLink() {
+        return getLinks().getCustomers();
+    }
+
 }
