@@ -35,6 +35,7 @@ public class FilterLinks extends Links {
 
     private Link cases;
     private Link companies;
+    private Link customers;
 
     @Nullable
     public Link getCases() {
@@ -46,11 +47,20 @@ public class FilterLinks extends Links {
         return companies;
     }
 
+    @Nullable
+    public Link getCustomers() {
+        return customers;
+    }
+
     public void setCases(@Nullable Link cases) {
         this.cases = cases;
     }
 
     public void setCompanies(@Nullable Link companies) {
         this.companies = companies;
+    }
+
+    public void setCustomers(@Nullable Link customers) {
+        this.customers = customers;
     }
 }
