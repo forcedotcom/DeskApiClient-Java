@@ -41,14 +41,18 @@ public class OpportunityActivity implements Serializable, IOpportunityActivity {
 
     private long id;
     private int siteId;
-    private String type;
+    private OpportunityEventType type;
     private Date createdAt;
     private Date updatedAt;
     @SerializedName("_links")
-    private OpportunityActivityLinks links;
+    OpportunityActivityLinks links;
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public int getSiteId() {
@@ -59,11 +63,11 @@ public class OpportunityActivity implements Serializable, IOpportunityActivity {
         this.siteId = siteId;
     }
 
-    public String getType() {
+    public OpportunityEventType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(OpportunityEventType type) {
         this.type = type;
     }
 
@@ -85,6 +89,10 @@ public class OpportunityActivity implements Serializable, IOpportunityActivity {
 
     public OpportunityActivityLinks getLinks() {
         return links;
+    }
+
+    public void setLinks(OpportunityActivityLinks links) {
+        this.links = links;
     }
 
     @Override public boolean equals(Object o) {

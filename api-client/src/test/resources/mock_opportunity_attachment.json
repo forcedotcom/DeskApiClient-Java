@@ -1,0 +1,29 @@
+{
+  "id": 6,
+  "type": "opportunity_attachment",
+  "created_at": "2016-01-21T22:56:23Z",
+  "updated_at": "2016-01-21T22:56:23Z",
+  "erased_at": null,
+  "size": 10,
+  "url": "/api/v2/opportunities/1/activities/11/attachments/6/url",
+  "file_name": "sample2.png",
+  "content_type": "image/png",
+  "_links": {
+    "opportunity": {
+      "href": "/api/v2/opportunities/1",
+      "class": "opportunity"
+    },
+    "uploaded_by": {
+      "href": "/api/v2/users/4",
+      "class": "user"
+    },
+    "activity": {
+      "href": "/api/v2/opportunities/1/activities/11",
+      "class": "activity"
+    },
+    "self": {
+      "href": "/api/v2/opportunities/1/activities/11/attachments/6/url",
+      "class": "attachment"
+    }
+  }
+}

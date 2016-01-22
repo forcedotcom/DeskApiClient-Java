@@ -34,18 +34,18 @@ import com.google.gson.annotations.SerializedName;
  */
 public enum OpportunityActivityStatus {
 
-    @SerializedName("Completed")
-    COMPLETED,
-
-    @SerializedName("Deferred")
-    DEFERRED,
-
-    @SerializedName("Not Started")
+    @SerializedName("not_started")
     NOT_STARTED,
 
-    @SerializedName("In Progress")
+    @SerializedName("in_progress")
     IN_PROGRESS,
 
-    @SerializedName("Waiting on someone else")
-    WAITING_ON_SOMEONE_ELSE;
+    @SerializedName("completed")
+    COMPLETED,
+
+    @SerializedName("waiting")
+    WAITING,
+
+    @SerializedName("deferred")
+    DEFERRED
 }

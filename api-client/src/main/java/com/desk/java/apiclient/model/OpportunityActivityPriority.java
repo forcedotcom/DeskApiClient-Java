@@ -34,12 +34,12 @@ import com.google.gson.annotations.SerializedName;
  */
 public enum OpportunityActivityPriority {
 
-    @SerializedName("High")
+    @SerializedName("high")
     HIGH,
 
-    @SerializedName("Normal")
-    LOW,
+    @SerializedName("normal")
+    NORMAL,
 
-    @SerializedName("Low")
-    NORMAL
+    @SerializedName("low")
+    LOW
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Salesforce.com, Inc.
+ * Copyright (c) 2015, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -29,29 +29,35 @@ package com.desk.java.apiclient.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Matt Kranzler on 1/14/16.
- * Copyright (c) 2016 Desk.com. All rights reserved.
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
-public class OpportunityAttachment extends Attachment implements IOpportunityActivity {
+public enum OpportunityEventType {
 
-    private static final long serialVersionUID = 2633496287407407208L;
+    @SerializedName("note")
+    NOTE,
 
-    @SerializedName("_links")
-    OpportunityAttachmentLinks links;
+    @SerializedName("email")
+    EMAIL,
 
-    public OpportunityAttachmentLinks getLinks() {
-        return links;
-    }
+    @SerializedName("task")
+    TASK,
 
-    public int getUploadedById() {
-        return (links != null && links.getUploadedBy() != null) ? links.getUploadedBy().getLinkId() : 0;
-    }
+    @SerializedName("event")
+    EVENT,
 
-    public int getActivityId() {
-        return (links != null && links.getActivity() != null) ? links.getActivity().getLinkId() : 0;
-    }
+    @SerializedName("call")
+    CALL,
 
-    public int getOpportunityId() {
-        return (links != null && links.getOpportunity() != null) ? links.getOpportunity().getLinkId() : 0;
+    @SerializedName("opportunity_attachment")
+    ATTACHMENT;
+
+    /**
+     * Returns a lowercase toString() value
+     * @return the lowercase value
+     */
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
     }
 }

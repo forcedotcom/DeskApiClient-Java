@@ -27,6 +27,7 @@
 package com.desk.java.apiclient.util;
 
 import com.desk.java.apiclient.model.IOpportunityActivity;
+import com.desk.java.apiclient.model.OpportunityAttachment;
 import com.desk.java.apiclient.model.OpportunityCall;
 import com.desk.java.apiclient.model.OpportunityEmail;
 import com.desk.java.apiclient.model.OpportunityNote;
@@ -43,19 +44,19 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * <p>
- *     Unit tests for {@link IOpportunityActivityAdapter}
+ *     Unit tests for {@link OpportunityActivityAdapter}
  * </p>
  *
  * Created by Matt Kranzler on 12/30/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
-public class IOpportunityActivityAdapterTest {
+public class OpportunityActivityAdapterTest {
 
-    private IOpportunityActivityAdapter adapter;
+    private OpportunityActivityAdapter adapter;
 
     @Before
     public void setUp() throws Exception {
-        adapter = new IOpportunityActivityAdapter();
+        adapter = new OpportunityActivityAdapter();
     }
 
     @Test
@@ -111,5 +112,16 @@ public class IOpportunityActivityAdapterTest {
         IOpportunityActivity activity = adapter.deserialize(json, null, null);
         assertNotNull(activity);
         assertTrue(activity instanceof OpportunityTask);
+    }
+
+    @Test
+    public void deserializeDoesReturnOpportunityAttachment() throws Exception {
+        JsonObject json = TestUtils.readMockJsonFile(
+                new TypeToken<JsonObject>(){}.getType(),
+                "mock_opportunity_attachment.json"
+        );
+        IOpportunityActivity activity = adapter.deserialize(json, null, null);
+        assertNotNull(activity);
+        assertTrue(activity instanceof OpportunityAttachment);
     }
 }

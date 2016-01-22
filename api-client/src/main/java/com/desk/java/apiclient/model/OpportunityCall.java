@@ -72,8 +72,8 @@ public class OpportunityCall extends OpportunityActivity {
         this.phone = phone;
     }
 
-    public int getDirection() {
-        return direction;
+    public OpportunityDirection getDirection() {
+        return OpportunityDirection.valueOf(direction);
     }
 
     public void setDirection(int direction) {

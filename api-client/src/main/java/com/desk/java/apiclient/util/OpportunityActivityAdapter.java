@@ -27,10 +27,11 @@
 package com.desk.java.apiclient.util;
 
 import com.desk.java.apiclient.model.IOpportunityActivity;
-import com.desk.java.apiclient.model.OpportunityActivityTypes;
+import com.desk.java.apiclient.model.OpportunityAttachment;
 import com.desk.java.apiclient.model.OpportunityCall;
 import com.desk.java.apiclient.model.OpportunityEmail;
 import com.desk.java.apiclient.model.OpportunityEvent;
+import com.desk.java.apiclient.model.OpportunityEventType;
 import com.desk.java.apiclient.model.OpportunityNote;
 import com.desk.java.apiclient.model.OpportunitySystemEvent;
 import com.desk.java.apiclient.model.OpportunityTask;
@@ -56,18 +57,18 @@ import java.util.Date;
  * Created by Matt Kranzler on 12/29/15.
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
-public class IOpportunityActivityAdapter implements JsonDeserializer<IOpportunityActivity> {
+public class OpportunityActivityAdapter implements JsonDeserializer<IOpportunityActivity> {
 
     static final String LINKS = "_links";
     static final String SELF = "self";
     static final String CLASS = "class";
     static final String HISTORY = "history";
-    static final String OPPORTUNITY_ACTIVITY = "opportunity_activity";
+    static final String OPPORTUNITY_ATTACHMENT = "opportunity_attachment";
     static final String TYPE = "type";
 
     private final Gson gson;
 
-    public IOpportunityActivityAdapter() {
+    public OpportunityActivityAdapter() {
         gson = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new ISO8601DateAdapter())
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -88,24 +89,22 @@ public class IOpportunityActivityAdapter implements JsonDeserializer<IOpportunit
                     if (HISTORY.equalsIgnoreCase(clazz.getAsString())) {
                         return gson.fromJson(jsonElement, OpportunitySystemEvent.class);
 
-                    // if the class is of type 'opportunity_activity' then it's an opportunity activity
-                    } else if (OPPORTUNITY_ACTIVITY.equalsIgnoreCase(clazz.getAsString())) {
+                    // if the class is of type 'opportunity_activity' or 'attachment'
+                    } else {
                         JsonPrimitive activityType = element.getAsJsonPrimitive(TYPE);
 
-                        if (OpportunityActivityTypes.CALL.equalsIgnoreCase(activityType.getAsString())) {
+                        if (OpportunityEventType.CALL.name().equalsIgnoreCase(activityType.getAsString())) {
                             return gson.fromJson(jsonElement, OpportunityCall.class);
-
-                        } else if (OpportunityActivityTypes.EMAIL.equalsIgnoreCase(activityType.getAsString())) {
+                        } else if (OpportunityEventType.EMAIL.name().equalsIgnoreCase(activityType.getAsString())) {
                             return gson.fromJson(jsonElement, OpportunityEmail.class);
-
-                        } else if (OpportunityActivityTypes.EVENT.equalsIgnoreCase(activityType.getAsString())) {
+                        } else if (OpportunityEventType.EVENT.name().equalsIgnoreCase(activityType.getAsString())) {
                             return gson.fromJson(jsonElement, OpportunityEvent.class);
-
-                        } else if (OpportunityActivityTypes.NOTE.equalsIgnoreCase(activityType.getAsString())) {
+                        } else if (OpportunityEventType.NOTE.name().equalsIgnoreCase(activityType.getAsString())) {
                             return gson.fromJson(jsonElement, OpportunityNote.class);
-
-                        } else if (OpportunityActivityTypes.TASK.equalsIgnoreCase(activityType.getAsString())) {
+                        } else if (OpportunityEventType.TASK.name().equalsIgnoreCase(activityType.getAsString())) {
                             return gson.fromJson(jsonElement, OpportunityTask.class);
+                        } else if (OPPORTUNITY_ATTACHMENT.equalsIgnoreCase(activityType.getAsString())) {
+                            return gson.fromJson(jsonElement, OpportunityAttachment.class);
                         }
                     }
                 }

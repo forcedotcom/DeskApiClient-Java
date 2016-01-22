@@ -27,18 +27,30 @@
 package com.desk.java.apiclient.model;
 
 /**
- * <p>
- *     Opportunity activity types which are the current possible values for {@link OpportunityActivity#type}.
- *     Ideally this would be an enum but for some reason the api does not treat type as an enum.
- * </p>
- *
- * Created by Matt Kranzler on 12/29/15.
+ * Created by Jerrell Mardis
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
-public class OpportunityActivityTypes {
-    public static final String NOTE = "OpportunityNote";
-    public static final String CALL = "OpportunityCall";
-    public static final String EVENT = "OpportunityEvent";
-    public static final String EMAIL = "OpportunityEmail";
-    public static final String TASK = "OpportunityTask";
+public enum OpportunityDirection {
+
+    INBOUND,
+    OUTBOUND,
+    UNKNOWN;
+
+    /**
+     * Returns a lowercase toString() value
+     * @return the lowercase value
+     */
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
+    }
+
+    public static OpportunityDirection valueOf(int direction) {
+        if (direction == 1) {
+            return OpportunityDirection.INBOUND;
+        } else if (direction == 2) {
+            return OpportunityDirection.OUTBOUND;
+        }
+        return OpportunityDirection.UNKNOWN;
+    }
 }
