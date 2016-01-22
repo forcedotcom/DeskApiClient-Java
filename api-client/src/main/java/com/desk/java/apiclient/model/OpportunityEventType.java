@@ -26,57 +26,38 @@
 
 package com.desk.java.apiclient.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
- * Created by Matt Kranzler on 12/29/15.
+ * Created by Jerrell Mardis
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
-public class OpportunityCall extends OpportunityActivity {
+public enum OpportunityEventType {
 
-    private static final long serialVersionUID = -4766057453543382680L;
+    @SerializedName("note")
+    NOTE,
 
-    private String title;
-    private String message;
-    private OpportunityActivityStatus status;
-    private String phone;
-    private int direction;
+    @SerializedName("email")
+    EMAIL,
 
-    public String getTitle() {
-        return title;
-    }
+    @SerializedName("task")
+    TASK,
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    @SerializedName("event")
+    EVENT,
 
-    public String getMessage() {
-        return message;
-    }
+    @SerializedName("call")
+    CALL,
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+    @SerializedName("opportunity_attachment")
+    ATTACHMENT;
 
-    public OpportunityActivityStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OpportunityActivityStatus status) {
-        this.status = status;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public OpportunityDirection getDirection() {
-        return OpportunityDirection.valueOf(direction);
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
+    /**
+     * Returns a lowercase toString() value
+     * @return the lowercase value
+     */
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
     }
 }

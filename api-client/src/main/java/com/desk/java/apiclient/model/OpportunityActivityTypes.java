@@ -36,9 +36,10 @@ package com.desk.java.apiclient.model;
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public class OpportunityActivityTypes {
-    public static final String NOTE = "OpportunityNote";
-    public static final String CALL = "OpportunityCall";
-    public static final String EVENT = "OpportunityEvent";
-    public static final String EMAIL = "OpportunityEmail";
-    public static final String TASK = "OpportunityTask";
+    public static final String NOTE = "note";
+    public static final String CALL = "call";
+    public static final String EVENT = "event";
+    public static final String EMAIL = "email";
+    public static final String TASK = "task";
+    public static final String ATTACHMENT = "opportunity_attachment";
 }

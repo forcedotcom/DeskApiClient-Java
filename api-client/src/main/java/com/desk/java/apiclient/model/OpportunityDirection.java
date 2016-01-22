@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Salesforce.com, Inc.
+ * Copyright (c) 2015, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -26,29 +26,31 @@
 
 package com.desk.java.apiclient.model;
 
-import java.io.Serializable;
-
 /**
- * Created by Matt Kranzler on 1/14/16.
- * Copyright (c) 2016 Desk.com. All rights reserved.
+ * Created by Jerrell Mardis
+ * Copyright (c) 2015 Desk.com. All rights reserved.
  */
-public class OpportunityAttachmentLinks implements Serializable {
+public enum OpportunityDirection {
 
-    private static final long serialVersionUID = 8817007622710706909L;
+    INBOUND,
+    OUTBOUND,
+    UNKNOWN;
 
-    private Link uploadedBy;
-    private Link activity;
-    private Link opportunity;
-
-    public Link getUploadedBy() {
-        return uploadedBy;
+    /**
+     * Returns a lowercase toString() value
+     * @return the lowercase value
+     */
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
     }
 
-    public Link getActivity() {
-        return activity;
-    }
-
-    public Link getOpportunity() {
-        return opportunity;
+    public static OpportunityDirection valueOf(int direction) {
+        if (direction == 1) {
+            return OpportunityDirection.INBOUND;
+        } else if (direction == 2) {
+            return OpportunityDirection.OUTBOUND;
+        }
+        return OpportunityDirection.UNKNOWN;
     }
 }

@@ -39,6 +39,8 @@ public class OpportunityActivityLinks extends Links {
     private Link opportunity;
     private Link attachments;
     private Link outboundMailbox;
+    private Link uploadedBy;
+    private Link activity;
 
     public Link getUser() {
         return user;
@@ -58,5 +60,13 @@ public class OpportunityActivityLinks extends Links {
 
     public Link getOutboundMailbox() {
         return outboundMailbox;
+    }
+
+    public Link getUploadedBy() {
+        return uploadedBy;
+    }
+
+    public Link getActivity() {
+        return activity;
     }
 }

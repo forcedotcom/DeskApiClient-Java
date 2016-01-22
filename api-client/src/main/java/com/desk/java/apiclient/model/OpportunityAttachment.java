@@ -26,24 +26,19 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by Matt Kranzler on 1/14/16.
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public class OpportunityAttachment extends Attachment implements Serializable {
+public class OpportunityAttachment extends OpportunityActivity {
 
-    private static final long serialVersionUID = 2633496287407407208L;
-
-    @SerializedName("_links")
-    OpportunityAttachmentLinks links;
-
-    public OpportunityAttachmentLinks getLinks() {
-        return links;
-    }
+    private String fileName;
+    private String contentType;
+    private int size;
+    private String url;
+    private Date erasedAt;
 
     public int getUploadedById() {
         return (links != null && links.getUploadedBy() != null) ? links.getUploadedBy().getLinkId() : 0;
@@ -55,5 +50,58 @@ public class OpportunityAttachment extends Attachment implements Serializable {
 
     public int getOpportunityId() {
         return (links != null && links.getOpportunity() != null) ? links.getOpportunity().getLinkId() : 0;
+    }
+
+    public Date getErasedAt() {
+        return erasedAt;
+    }
+
+    public void setErasedAt(Date erasedAt) {
+        this.erasedAt = erasedAt;
+    }
+
+    public String getFileName() {
+        return this.fileName;
+    }
+
+    public void setFileName(String fn) {
+        this.fileName = fn;
+    }
+
+    public String getContentType() {
+        return this.contentType;
+    }
+
+    public void setContentType(String ct) {
+        this.contentType = ct;
+    }
+
+    public int getSize() {
+        return this.size;
+    }
+
+    public void setSize(int s) {
+        this.size = s;
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+
+    public void setUrl(String u) {
+        this.url = u;
+    }
+
+    public String getFileExtension() {
+        String fn = getFileName();
+        int start = fn.lastIndexOf(".");
+
+        if (start >= 0) {
+            int end = fn.length();
+            String ext = fn.substring(start + 1, end);
+            return ext.toUpperCase();
+        } else {
+            return "";
+        }
     }
 }
