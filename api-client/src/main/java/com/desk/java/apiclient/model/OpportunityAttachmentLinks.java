@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -26,20 +26,29 @@
 
 package com.desk.java.apiclient.model;
 
+import java.io.Serializable;
+
 /**
- * <p>
- *     Opportunity activity types which are the current possible values for {@link OpportunityActivity#type}.
- *     Ideally this would be an enum but for some reason the api does not treat type as an enum.
- * </p>
- *
- * Created by Matt Kranzler on 12/29/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Created by Matt Kranzler on 1/14/16.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public class OpportunityActivityTypes {
-    public static final String NOTE = "note";
-    public static final String CALL = "call";
-    public static final String EVENT = "event";
-    public static final String EMAIL = "email";
-    public static final String TASK = "task";
-    public static final String ATTACHMENT = "opportunity_attachment";
+public class OpportunityAttachmentLinks implements Serializable {
+
+    private static final long serialVersionUID = 8817007622710706909L;
+
+    private Link uploadedBy;
+    private Link activity;
+    private Link opportunity;
+
+    public Link getUploadedBy() {
+        return uploadedBy;
+    }
+
+    public Link getActivity() {
+        return activity;
+    }
+
+    public Link getOpportunity() {
+        return opportunity;
+    }
 }
