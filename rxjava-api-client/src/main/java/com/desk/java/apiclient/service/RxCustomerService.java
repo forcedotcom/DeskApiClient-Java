@@ -30,6 +30,7 @@ import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Case;
 import com.desk.java.apiclient.model.Customer;
 import com.desk.java.apiclient.model.Embed;
+import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.SortDirection;
 
 import retrofit2.http.Body;
@@ -40,6 +41,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
+import static com.desk.java.apiclient.service.CustomerService.FILTERS_URI;
 import static com.desk.java.apiclient.service.CustomerService.COMPANIES_URI;
 import static com.desk.java.apiclient.service.CustomerService.CUSTOMERS_URI;
 
@@ -54,6 +56,24 @@ import static com.desk.java.apiclient.service.CustomerService.CUSTOMERS_URI;
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxCustomerService {
+
+    /**
+     * Retrieves customers for a given filter
+     *
+     * @param filterId      the id of the filter
+     * @param perPage       the total filters per page
+     * @param page          the page requested
+     * @param sortField     the field to sort on
+     * @param sortDirection the direction to sort
+     * @param embed         what to embed
+     * @param fields        the fields requested
+     * @return a customer api response
+     * @see <a href="http://dev.desk.com/API/customers/#list">http://dev.desk.com/API/customers/#list</a>
+     */
+    @GET(FILTERS_URI + "/{id}/" + CUSTOMERS_URI)
+    Observable<ApiResponse<Customer>> getCustomersByFilterObservable(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+                                                             @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
+                                                             @Query("embed") Embed embed, @Query("fields") Fields fields);
 
     /**
      * Retrieve a single customer
