@@ -28,20 +28,22 @@ package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Embed;
+import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.IOpportunityActivity;
 import com.desk.java.apiclient.model.Opportunity;
 import com.desk.java.apiclient.model.OpportunityTimeline;
+import com.desk.java.apiclient.model.SortDirection;
 
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
-import static com.desk.java.apiclient.service.OpportunityService.*;
+import static com.desk.java.apiclient.service.OpportunityService.ACTIVITIES_URI;
 import static com.desk.java.apiclient.service.OpportunityService.FILTERS_URI;
 import static com.desk.java.apiclient.service.OpportunityService.HISTORY_URI;
 import static com.desk.java.apiclient.service.OpportunityService.OPPORTUNITIES_URI;
+import static com.desk.java.apiclient.service.OpportunityService.SEARCH_URI;
 
 /**
  * <p>
@@ -95,4 +97,21 @@ public interface RxOpportunityService {
      */
     @GET(OPPORTUNITIES_URI + "/{id}/" + ACTIVITIES_URI)
     Observable<ApiResponse<IOpportunityActivity>> getOpportunityActivitiesObservable(@Path("id") int opportunityId);
+
+    /**
+     * Search for opportunities
+     *
+     * @param query the query to search for
+     * @param perPage the total opportunities per page
+     * @param page the page requested
+     * @param sortField the field to sort on
+     * @param sortDirection the direction to sort
+     * @param embed what to embed
+     * @param fields the fields requested
+     * @return an opportunity api response observable
+     */
+    @GET(OPPORTUNITIES_URI + "/" + SEARCH_URI)
+    Observable<ApiResponse<Opportunity>> searchOpportunities(@Query("q") String query, @Query("per_page") int perPage, @Query("page") int page,
+                                                       @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
+                                                       @Query("embed") Embed embed, @Query("fields") Fields fields);
 }

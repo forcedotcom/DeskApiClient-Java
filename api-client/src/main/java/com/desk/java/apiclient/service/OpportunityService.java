@@ -28,9 +28,11 @@ package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Embed;
+import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.IOpportunityActivity;
 import com.desk.java.apiclient.model.Opportunity;
 import com.desk.java.apiclient.model.OpportunityTimeline;
+import com.desk.java.apiclient.model.SortDirection;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -51,7 +53,11 @@ public interface OpportunityService {
     String OPPORTUNITIES_URI = "opportunities";
     String HISTORY_URI = "history";
     String ACTIVITIES_URI = "activities";
+    String SEARCH_URI = "search";
 
+    String SORT_FIELD_UPDATED_AT = "updated_at";
+
+    // Embeds
     String EMBED_OPPORTUNITY_STAGE = "opportunity_stage";
     String EMBED_CUSTOMER = "customer";
 
@@ -97,4 +103,21 @@ public interface OpportunityService {
      */
     @GET(OPPORTUNITIES_URI + "/{id}/" + ACTIVITIES_URI)
     Call<ApiResponse<IOpportunityActivity>> getOpportunityActivities(@Path("id") int opportunityId);
+
+    /**
+     * Search for opportunities
+     *
+     * @param query the query to search for
+     * @param perPage the total opportunities per page
+     * @param page the page requested
+     * @param sortField the field to sort on
+     * @param sortDirection the direction to sort
+     * @param embed what to embed
+     * @param fields the fields requested
+     * @return an opportunity api response
+     */
+    @GET(OPPORTUNITIES_URI + "/" + SEARCH_URI)
+    Call<ApiResponse<Opportunity>> searchOpportunities(@Query("q") String query, @Query("per_page") int perPage, @Query("page") int page,
+                                                       @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
+                                                       @Query("embed") Embed embed, @Query("fields") Fields fields);
 }
