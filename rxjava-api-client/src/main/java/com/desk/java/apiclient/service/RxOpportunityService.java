@@ -111,7 +111,7 @@ public interface RxOpportunityService {
      * @return an opportunity api response observable
      */
     @GET(OPPORTUNITIES_URI + "/" + SEARCH_URI)
-    Observable<ApiResponse<Opportunity>> searchOpportunities(@Query("q") String query, @Query("per_page") int perPage, @Query("page") int page,
+    Observable<ApiResponse<Opportunity>> searchOpportunitiesObservable(@Query("q") String query, @Query("per_page") int perPage, @Query("page") int page,
                                                        @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                                        @Query("embed") Embed embed, @Query("fields") Fields fields);
 }
