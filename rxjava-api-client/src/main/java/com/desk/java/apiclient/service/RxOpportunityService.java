@@ -93,10 +93,14 @@ public interface RxOpportunityService {
      * Retrieve opportunity activities and events.
      *
      * @param opportunityId the opportunity id
+     * @param perPage the amount per page
+     * @param page the page to retrieve
      * @return the activities and events api response observable
      */
     @GET(OPPORTUNITIES_URI + "/{id}/" + ACTIVITIES_URI)
-    Observable<ApiResponse<IOpportunityActivity>> getOpportunityActivitiesObservable(@Path("id") int opportunityId);
+    Observable<ApiResponse<IOpportunityActivity>> getOpportunityActivitiesObservable(@Path("id") int opportunityId,
+                                                                                     @Query("per_page") int perPage,
+                                                                                     @Query("page") int page);
 
     /**
      * Search for opportunities

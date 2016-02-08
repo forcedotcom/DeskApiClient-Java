@@ -99,10 +99,14 @@ public interface OpportunityService {
      * Retrieve opportunity activities and events.
      *
      * @param opportunityId the opportunity id
+     * @param perPage the amount per page
+     * @param page the page to retrieve
      * @return the activities and events api response
      */
     @GET(OPPORTUNITIES_URI + "/{id}/" + ACTIVITIES_URI)
-    Call<ApiResponse<IOpportunityActivity>> getOpportunityActivities(@Path("id") int opportunityId);
+    Call<ApiResponse<IOpportunityActivity>> getOpportunityActivities(@Path("id") int opportunityId,
+                                                                     @Query("per_page") int perPage,
+                                                                     @Query("page") int page);
 
     /**
      * Search for opportunities
