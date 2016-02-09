@@ -54,6 +54,7 @@ public interface FilterService {
     String FIELD_CASE_COUNTS = "case_counts";
     String FIELD_COMPANY_COUNT = "company_count";
     String FIELD_CUSTOMER_COUNT = "customer_count";
+    String FIELD_OPPORTUNITY_COUNT = "opportunity_count";
     String FIELD_NAME = "name";
     String FIELD_POSITION = "position";
     String FIELD_ACTIVE = "active";
@@ -100,8 +101,9 @@ public interface FilterService {
      *
      * @param perPage the total filters per page
      * @param page the page requested
+     * @param fields the fields requested
      * @return a filter api response
      */
     @GET(OPPORTUNITY_FILTERS_URI)
-    Call<ApiResponse<Filter>> getOpportunityFilters(@Query("per_page") int perPage, @Query("page") int page);
+    Call<ApiResponse<Filter>> getOpportunityFilters(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
 }
