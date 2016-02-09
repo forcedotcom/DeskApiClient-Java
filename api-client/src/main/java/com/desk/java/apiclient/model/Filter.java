@@ -159,4 +159,24 @@ public class Filter implements Serializable {
         return getLinks().getCustomers();
     }
 
+    /**
+     * Gets the opportunities link
+     * @return the opportunities link or null
+     */
+    @Nullable
+    public Link getOpportunitiesLink() {
+        return getLinks().getOpportunities();
+    }
+
+    /**
+     * Gets the opportunity count or {#NONE} if there are no opportunities
+     * @return the opportunity count or {#NONE}
+     */
+    public int getOpportunityCount() {
+        if (getOpportunitiesLink() == null) {
+            return NONE;
+        }
+        return getOpportunitiesLink().getCount();
+    }
+
 }
