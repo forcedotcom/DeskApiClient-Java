@@ -77,6 +77,7 @@ public interface CaseService {
     String FIELD_LABELS = "labels";
     String FIELD_LABEL_IDS = "label_ids";
     String FIELD_UPDATED_AT = "updated_at";
+    String FIELD_CREATED_AT = "created_at";
     String FIELD_PRIORITY = "priority";
     String FIELD_CUSTOM_FIELDS = "custom_fields";
 
