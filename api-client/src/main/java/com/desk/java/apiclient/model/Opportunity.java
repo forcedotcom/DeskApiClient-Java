@@ -55,7 +55,7 @@ public class Opportunity implements Serializable {
     private String description;
     private String[] labels;
     private int[] labelIds;
-    private Date closeDate;
+    private String closeDate;
     private Map<String, String> customFields;
     @SerializedName("_links")
     private OpportunityLinks links;
@@ -110,7 +110,7 @@ public class Opportunity implements Serializable {
         return labelIds;
     }
 
-    public Date getCloseDate() {
+    public String getCloseDate() {
         return closeDate;
     }
 
