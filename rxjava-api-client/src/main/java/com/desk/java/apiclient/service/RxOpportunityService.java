@@ -28,6 +28,7 @@ package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Embed;
+import com.desk.java.apiclient.model.FeatureCheck;
 import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.IOpportunityActivity;
 import com.desk.java.apiclient.model.Opportunity;
@@ -54,6 +55,14 @@ import static com.desk.java.apiclient.service.OpportunityService.SEARCH_URI;
  * Copyright (c) 2015 Desk.com. All rights reserved.
  */
 public interface RxOpportunityService {
+
+    /**
+     * Checks to see if opportunities are enabled for the site.
+     *
+     * @return an observable feature check object indicating if it's enabled or disabled
+     */
+    @GET(OPPORTUNITIES_URI + "/enabled")
+    Observable<FeatureCheck> isEnabled();
 
     /**
      * Retrieve a paginated list of opportunities by filter
