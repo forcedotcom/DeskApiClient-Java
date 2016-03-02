@@ -150,6 +150,19 @@ public interface CaseService {
     Call<Case> updateCaseLock(@Path("id") int caseId, @Body CaseLock caseLock);
 
     /**
+     * Locks or unlocks a case
+     * @see <a href="http://dev.desk.com/API/cases/#update">http://dev.desk.com/API/cases/#update</a>
+     *
+     * @param caseId the id of the case
+     * @param caseLock the case lock
+     * @param embed  what to embed
+     * @param fields the fields requested
+     * @return a case
+     */
+    @PATCH(CASES_URI + "/{id}")
+    Call<Case> updateCaseLock(@Path("id") int caseId, @Body CaseLock caseLock, @Query("embed") Embed embed, @Query("fields") Fields fields);
+
+    /**
      * Updates a case
      * @see <a href="http://dev.desk.com/API/cases/#update">http://dev.desk.com/API/cases/#update</a>
      *

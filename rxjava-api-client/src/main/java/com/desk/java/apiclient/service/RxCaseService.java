@@ -127,6 +127,20 @@ public interface RxCaseService {
     Observable<Case> updateCaseLockObservable(@Path("id") int caseId, @Body CaseLock caseLock);
 
     /**
+     * Locks or unlocks a case
+     *
+     * @param caseId   the id of the case
+     * @param caseLock the case lock
+     * @param embed  what to embed
+     * @param fields the fields requested
+     * @return a case
+     * @see <a href="http://dev.desk.com/API/cases/#update">http://dev.desk.com/API/cases/#update</a>
+     */
+    @PATCH(CASES_URI + "/{id}")
+    Observable<Case> updateCaseLockObservable(@Path("id") int caseId, @Body CaseLock caseLock,
+                                              @Query("embed") Embed embed, @Query("fields") Fields fields);
+
+    /**
      * Updates a case
      *
      * @param caseId      the id of the case
