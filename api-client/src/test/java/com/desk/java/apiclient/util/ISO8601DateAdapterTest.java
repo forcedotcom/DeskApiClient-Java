@@ -64,7 +64,7 @@ public class ISO8601DateAdapterTest {
 
     @Before
     public void setUp() throws Exception {
-        dateAdapter = new ISO8601DateAdapter();
+        dateAdapter = ISO8601DateAdapter.TYPE_ADAPTER;
         dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
         dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     }

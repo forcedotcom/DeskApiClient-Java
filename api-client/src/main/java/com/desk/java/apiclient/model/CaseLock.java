@@ -27,6 +27,7 @@
 package com.desk.java.apiclient.model;
 
 
+import com.desk.java.apiclient.util.ISO8601DateAdapter;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -72,7 +73,10 @@ public class CaseLock implements Serializable {
         private Gson mGson;
 
         public GsonTypeAdapter() {
-            mGson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).serializeNulls().create();
+            mGson = new GsonBuilder()
+                    .registerTypeAdapter(Date.class, ISO8601DateAdapter.TYPE_ADAPTER)
+                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    .serializeNulls().create();
         }
 
         @Override

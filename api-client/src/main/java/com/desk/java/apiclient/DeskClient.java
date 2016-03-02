@@ -49,18 +49,15 @@ import com.desk.java.apiclient.service.TwitterUserService;
 import com.desk.java.apiclient.service.UserService;
 import com.desk.java.apiclient.util.ApiTokenSigningInterceptor;
 import com.desk.java.apiclient.util.DeskClientUtils;
-import com.desk.java.apiclient.util.OpportunityActivityAdapter;
 import com.desk.java.apiclient.util.ISO8601DateAdapter;
 import com.desk.java.apiclient.util.OAuthSigningInterceptor;
+import com.desk.java.apiclient.util.OpportunityActivityAdapter;
 import com.desk.java.apiclient.util.RetrofitHttpOAuthConsumer;
 import com.desk.java.apiclient.util.StringUtils;
 import com.desk.java.apiclient.util.UserAgentInterceptor;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import okhttp3.Cache;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -71,6 +68,9 @@ import java.util.List;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
+import okhttp3.Cache;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 import retrofit2.CallAdapter;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
@@ -450,7 +450,7 @@ public class DeskClient {
 
     private Gson createGson() {
         return new GsonBuilder()
-                .registerTypeAdapter(Date.class, new ISO8601DateAdapter())
+                .registerTypeAdapter(Date.class, ISO8601DateAdapter.TYPE_ADAPTER)
                 .registerTypeAdapter(CaseLock.class, CaseLock.TYPE_ADAPTER)
                 .registerTypeAdapter(IOpportunityActivity.class, new OpportunityActivityAdapter())
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

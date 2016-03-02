@@ -49,9 +49,11 @@ import java.util.TimeZone;
  */
 public class ISO8601DateAdapter implements JsonSerializer<Date>, JsonDeserializer<Date> {
 
+    public static final ISO8601DateAdapter TYPE_ADAPTER = new ISO8601DateAdapter();
+
     private final DateFormat dateFormat;
 
-    public ISO8601DateAdapter() {
+    private ISO8601DateAdapter() {
         this.dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
         this.dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
