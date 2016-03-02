@@ -44,6 +44,8 @@ public class OpportunityStage implements Serializable {
     private OpportunityStageType opportunityStageType;
     @SerializedName("_links")
     private Links links;
+    private String description;
+    private int position;
 
     public int getId() {
         return id;
@@ -65,6 +67,14 @@ public class OpportunityStage implements Serializable {
         return links;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
     @Override public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -72,7 +82,6 @@ public class OpportunityStage implements Serializable {
         OpportunityStage that = (OpportunityStage) o;
 
         return id == that.id;
-
     }
 
     @Override public int hashCode() {
