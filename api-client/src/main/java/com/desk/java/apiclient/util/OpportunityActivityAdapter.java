@@ -70,7 +70,7 @@ public class OpportunityActivityAdapter implements JsonDeserializer<IOpportunity
 
     public OpportunityActivityAdapter() {
         gson = new GsonBuilder()
-                .registerTypeAdapter(Date.class, new ISO8601DateAdapter())
+                .registerTypeAdapter(Date.class, ISO8601DateAdapter.TYPE_ADAPTER)
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
     }
