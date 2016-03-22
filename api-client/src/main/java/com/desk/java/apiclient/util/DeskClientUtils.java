@@ -13,7 +13,7 @@ import static com.desk.java.apiclient.DeskClientBuilder.PROTOCOL_CONNECT;
  * </p>
  *
  * Created by Jerrell Mardis
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public final class DeskClientUtils {
 

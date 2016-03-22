@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -34,7 +34,7 @@ import java.io.Serializable;
  * Represents a request body for updating a mobile device setting
  * </p>
  * Created by Matt Kranzler on 5/7/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public class SettingUpdate implements Serializable {
 

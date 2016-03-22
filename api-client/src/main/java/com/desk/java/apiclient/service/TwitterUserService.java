@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -38,7 +38,7 @@ import retrofit2.http.POST;
  * </p>
  *
  * Created by Matt Kranzler on 5/20/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/twitter_users/">http://dev.desk.com/API/twitter_users/</a>
  */
