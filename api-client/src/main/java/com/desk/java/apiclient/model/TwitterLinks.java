@@ -26,33 +26,23 @@
 
 package com.desk.java.apiclient.model;
 
-
-import org.jetbrains.annotations.Nullable;
-
 import java.io.Serializable;
 
-public class CustomerEmbedded implements Serializable {
+/**
+ * Created by Jerrell Mardis
+ * Copyright (c) 2016 Desk.com. All rights reserved.
+ */
+public class TwitterLinks extends Links implements Serializable {
 
-    private static final long serialVersionUID = -7276031741873728138L;
+  private static final long serialVersionUID = 6181860433635272199L;
 
-    private FacebookUser facebookUser;
-    private TwitterUser twitterUser;
+  private Link tweets;
 
-    @Nullable
-    public FacebookUser getFacebookUser() {
-        return facebookUser;
-    }
+  public Link getTweets() {
+    return tweets;
+  }
 
-    public void setFacebookUser(@Nullable FacebookUser fb) {
-        this.facebookUser = fb;
-    }
-
-    @Nullable
-    public TwitterUser getTwitterUser() {
-        return twitterUser;
-    }
-
-    public void setTwitterUser(@Nullable TwitterUser t) {
-        this.twitterUser = t;
-    }
+  public void setTweets(Link tweets) {
+    this.tweets = tweets;
+  }
 }

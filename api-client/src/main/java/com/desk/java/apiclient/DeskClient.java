@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -45,6 +45,7 @@ import com.desk.java.apiclient.service.OutboundMailboxService;
 import com.desk.java.apiclient.service.PermissionService;
 import com.desk.java.apiclient.service.SiteService;
 import com.desk.java.apiclient.service.TopicService;
+import com.desk.java.apiclient.service.TwitterAccountService;
 import com.desk.java.apiclient.service.TwitterUserService;
 import com.desk.java.apiclient.service.UserService;
 import com.desk.java.apiclient.util.ApiTokenSigningInterceptor;
@@ -84,7 +85,7 @@ import static com.desk.java.apiclient.DeskClientBuilder.AuthType.OAUTH;
  * </p>
  *
  * Created by Matt Kranzler on 4/27/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public class DeskClient {
 
@@ -120,6 +121,7 @@ public class DeskClient {
     private InboundMailboxService inboundMailboxService;
     private OpportunityStageService opportunityStageService;
     private OpportunityService opportunityService;
+    private TwitterAccountService twitterAccountService;
 
     /**
      * Creates a {@link DeskClient} using the provided {@link DeskClientBuilder}.
@@ -435,6 +437,19 @@ public class DeskClient {
             opportunityService = restAdapter.create(OpportunityService.class);
         }
         return opportunityService;
+    }
+
+  /**
+   * Get the Desk Twitter Accounts service
+   *
+   * @return the default Desk Twitter Accounts service
+   */
+  @NotNull
+    public TwitterAccountService twitterAccounts() {
+        if (twitterAccountService == null) {
+            twitterAccountService = restAdapter.create(TwitterAccountService.class);
+        }
+        return twitterAccountService;
     }
 
     protected Retrofit getRestAdapter() {

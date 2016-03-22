@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -43,7 +43,7 @@ import static com.desk.java.apiclient.service.OutboundMailboxService.OUTBOUND_MA
  * @see <a href="http://dev.desk.com/API/outbound-mailboxes/">http://dev.desk.com/API/outbound-mailboxes/</a>
  *
  * Created by Jerrell Mardis
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public interface RxOutboundMailboxService {
 

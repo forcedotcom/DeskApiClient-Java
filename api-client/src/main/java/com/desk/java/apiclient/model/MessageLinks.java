@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -45,6 +45,7 @@ public class MessageLinks extends Links implements Serializable {
     private Link enteredBy;
     @SerializedName("case")
     private Link caseLink;
+    private Link twitterAccount;
 
     @Nullable
     public Link getHiddenBy() {
@@ -105,4 +106,12 @@ public class MessageLinks extends Links implements Serializable {
         return caseLink;
     }
 
+    @Nullable
+    public Link getTwitterAccount() {
+        return twitterAccount;
+    }
+
+    public void setTwitterAccount(Link twitterAccount) {
+        this.twitterAccount = twitterAccount;
+    }
 }

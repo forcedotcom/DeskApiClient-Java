@@ -24,35 +24,34 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.desk.java.apiclient.model;
+package com.desk.java.apiclient.service;
 
+import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.TwitterAccount;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import rx.Observable;
 
-import org.jetbrains.annotations.Nullable;
+import static com.desk.java.apiclient.service.TwitterAccountService.TWITTER_ACCOUNT_URI;
 
-import java.io.Serializable;
+/**
+ * <p>
+ *     Service interfacing with the Desk Twitter Account endpoint
+ * </p>
+ *
+ * Created by Jerrell Mardis
+ * Copyright (c) 2016 Desk.com. All rights reserved.
+ *
+ * @see <a href="http://dev.desk.com/API/twitter-accounts/">http://dev.desk.com/API/twitter-accounts/</a>
+ */
+public interface RxTwitterAccountService {
 
-public class CustomerEmbedded implements Serializable {
+    /**
+     * Retrieves a list of all Twitter Accounts
+     * @see <a href="http://dev.desk.com/API/twitter-accounts/#list">http://dev.desk.com/API/twitter-accounts/#list</a>
+     *
+     * @return a company
+     */
+    @GET(TWITTER_ACCOUNT_URI) Observable<ApiResponse<TwitterAccount>> getAccounts();
 
-    private static final long serialVersionUID = -7276031741873728138L;
-
-    private FacebookUser facebookUser;
-    private TwitterUser twitterUser;
-
-    @Nullable
-    public FacebookUser getFacebookUser() {
-        return facebookUser;
-    }
-
-    public void setFacebookUser(@Nullable FacebookUser fb) {
-        this.facebookUser = fb;
-    }
-
-    @Nullable
-    public TwitterUser getTwitterUser() {
-        return twitterUser;
-    }
-
-    public void setTwitterUser(@Nullable TwitterUser t) {
-        this.twitterUser = t;
-    }
 }
