@@ -56,6 +56,7 @@ public class Opportunity implements Serializable {
     private String[] labels;
     private int[] labelIds;
     private String closeDate;
+    private String closedAt;
     private Map<String, String> customFields;
     @SerializedName("_links")
     private OpportunityLinks links;
@@ -135,6 +136,14 @@ public class Opportunity implements Serializable {
     public Customer getFirstCustomer() {
         return (embedded != null && embedded.getCustomers() != null && embedded.getCustomers().size() > 0)
                 ? embedded.getCustomers().get(0) : null;
+    }
+
+    public String getClosedAt() {
+        return closedAt;
+    }
+
+    public void setClosedAt(String closedAt) {
+        this.closedAt = closedAt;
     }
 
     public int getCompanyId() {
