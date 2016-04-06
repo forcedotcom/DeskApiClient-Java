@@ -32,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import rx.Observable;
 
+import retrofit2.http.Query;
 import static com.desk.java.apiclient.service.TwitterAccountService.TWITTER_ACCOUNT_URI;
 
 /**
@@ -50,8 +51,9 @@ public interface RxTwitterAccountService {
      * Retrieves a list of all Twitter Accounts
      * @see <a href="http://dev.desk.com/API/twitter-accounts/#list">http://dev.desk.com/API/twitter-accounts/#list</a>
      *
+     * @param username the user to use during the relationship lookup
      * @return a company
      */
-    @GET(TWITTER_ACCOUNT_URI) Observable<ApiResponse<TwitterAccount>> getAccounts();
+    @GET(TWITTER_ACCOUNT_URI) Observable<ApiResponse<TwitterAccount>> getAccounts(@Query("username") String username);
 
 }
