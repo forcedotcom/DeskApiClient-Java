@@ -73,7 +73,7 @@ import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.CallAdapter;
-import retrofit2.GsonConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.Retrofit;
 
 import static com.desk.java.apiclient.DeskClientBuilder.API_BASE_PATH;
@@ -81,7 +81,7 @@ import static com.desk.java.apiclient.DeskClientBuilder.AuthType.OAUTH;
 
 /**
  * <p>
- *     Client which interfaces with the Desk API.
+ * Client which interfaces with the Desk API.
  * </p>
  *
  * Created by Matt Kranzler on 4/27/15.
@@ -161,6 +161,7 @@ public class DeskClient {
 
     /**
      * Gets the hostname
+     *
      * @return the hostname
      */
     public String getHostname() {
@@ -169,6 +170,7 @@ public class DeskClient {
 
     /**
      * Gets the url with the path provided.
+     *
      * @param path the path
      * @return the url
      */
@@ -178,11 +180,12 @@ public class DeskClient {
 
     /**
      * Signs the provided URL with OAuth credentials
+     *
      * @param url the url to sign
      * @return the signed url
-     * @throws OAuthCommunicationException if an error occurs communicating with the OAuth server
+     * @throws OAuthCommunicationException     if an error occurs communicating with the OAuth server
      * @throws OAuthExpectationFailedException if consumer key or consumer secret are not set in the OAuthConsumer
-     * @throws OAuthMessageSignerException if an error occurs while signing the url
+     * @throws OAuthMessageSignerException     if an error occurs while signing the url
      */
     public String signUrl(String url) throws OAuthCommunicationException, OAuthExpectationFailedException, OAuthMessageSignerException {
         if (OAUTH == authType) {
@@ -439,12 +442,12 @@ public class DeskClient {
         return opportunityService;
     }
 
-  /**
-   * Get the Desk Twitter Accounts service
-   *
-   * @return the default Desk Twitter Accounts service
-   */
-  @NotNull
+    /**
+     * Get the Desk Twitter Accounts service
+     *
+     * @return the default Desk Twitter Accounts service
+     */
+    @NotNull
     public TwitterAccountService twitterAccounts() {
         if (twitterAccountService == null) {
             twitterAccountService = restAdapter.create(TwitterAccountService.class);

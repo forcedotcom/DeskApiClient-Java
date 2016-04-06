@@ -31,6 +31,7 @@ import com.desk.java.apiclient.model.TwitterAccount;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
+import retrofit2.http.Query;
 /**
  * <p>
  *     Service interfacing with the Desk Twitter Account endpoint
@@ -50,9 +51,10 @@ public interface TwitterAccountService {
      * Retrieves a list of all Twitter Accounts
      * @see <a href="http://dev.desk.com/API/twitter-accounts/#list">http://dev.desk.com/API/twitter-accounts/#list</a>
      *
+     * @param username the user to use during the relationship lookup
      * @return a company
      */
     @GET(TWITTER_ACCOUNT_URI)
-    Call<ApiResponse<TwitterAccount>> getAccounts();
+    Call<ApiResponse<TwitterAccount>> getAccounts(@Query("username") String username);
 
 }

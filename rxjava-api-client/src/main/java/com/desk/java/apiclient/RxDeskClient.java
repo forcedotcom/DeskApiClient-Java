@@ -51,7 +51,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collections;
 
 import retrofit2.CallAdapter.Factory;
-import retrofit2.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
  * <p>
