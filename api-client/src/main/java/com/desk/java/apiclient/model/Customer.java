@@ -94,7 +94,20 @@ public class Customer implements Serializable {
     }
 
     public String getName() {
-        return firstName + " " + lastName;
+        StringBuilder name = new StringBuilder();
+
+        if (!StringUtils.isEmpty(getFirstName())) {
+            name.append(getFirstName());
+        }
+
+        if (!StringUtils.isEmpty(getLastName())) {
+            if (name.length() > 0) {
+                name.append(" ");
+            }
+            name.append(getLastName());
+        }
+
+        return name.toString();
     }
 
     public String getTitle() {
