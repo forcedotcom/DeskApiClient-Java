@@ -1,0 +1,40 @@
+{
+  "id": 14,
+  "site_id": 114,
+  "type": "note",
+  "message": "+1 waistcoat bespoke pinterest austin selvage locavore hella. Jean shorts twee actually venmo chillwave. Wayfarers mixtape whatever chicharrones cred mumblecore kitsch occupy. Readymade food truck swag mixtape fap lumbersexual blog.",
+  "created_at": "2015-12-29T17:31:52Z",
+  "updated_at": "2015-12-29T17:31:52Z",
+  "status": null,
+  "title": null,
+  "priority": null,
+  "due_date": null,
+  "start_at": null,
+  "end_at": null,
+  "location": null,
+  "to": null,
+  "cc": null,
+  "bcc": null,
+  "subject": null,
+  "body": null,
+  "phone": null,
+  "direction": null,
+  "_links": {
+    "self": {
+      "href": "/api/v2/opportunities/1/activities/14",
+      "class": "opportunity_activity"
+    },
+    "user": {
+      "href": "/api/v2/users/175",
+      "class": "user"
+    },
+    "customer": {
+      "href": "/api/v2/customers/481",
+      "class": "customer"
+    },
+    "opportunity": {
+      "href": "/api/v2/opportunities/1",
+      "class": "opportunity"
+    }
+  }
+}

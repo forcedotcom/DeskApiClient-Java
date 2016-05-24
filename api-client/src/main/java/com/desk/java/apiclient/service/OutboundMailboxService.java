@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -29,9 +29,9 @@ package com.desk.java.apiclient.service;
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.OutboundMailbox;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * <p>
@@ -39,7 +39,7 @@ import retrofit.http.Query;
  * </p>
  *
  * Created by Matt Kranzler on 4/28/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/outbound-mailboxes/">http://dev.desk.com/API/outbound-mailboxes/</a>
  */
@@ -51,7 +51,7 @@ public interface OutboundMailboxService {
      * Retrieve a paginated list of outbound mailboxes
      * @see <a href="http://dev.desk.com/API/outbound-mailboxes/#list">http://dev.desk.com/API/outbound-mailboxes/#list</a>
      *
-     * @param perPage the amount of labels per page
+     * @param perPage the amount of outbound mailboxes per page
      * @param page the page
      * @return a outbound mailbox api response
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -48,6 +48,7 @@ public class Customer implements Serializable {
     private String title;
     private String language;
     private String background;
+    private String companyName;
     private CustomerContact[] emails;
     private CustomerContact[] addresses;
     private CustomerContact[] phoneNumbers;
@@ -93,7 +94,20 @@ public class Customer implements Serializable {
     }
 
     public String getName() {
-        return firstName + " " + lastName;
+        StringBuilder name = new StringBuilder();
+
+        if (!StringUtils.isEmpty(getFirstName())) {
+            name.append(getFirstName());
+        }
+
+        if (!StringUtils.isEmpty(getLastName())) {
+            if (name.length() > 0) {
+                name.append(" ");
+            }
+            name.append(getLastName());
+        }
+
+        return name.toString();
     }
 
     public String getTitle() {
@@ -268,5 +282,13 @@ public class Customer implements Serializable {
     @Nullable
     public Link getCompanyLink() {
         return getLinks().getCompany();
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

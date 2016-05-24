@@ -1,15 +1,15 @@
 package com.desk.java.apiclient;
 
-import com.squareup.okhttp.Cache;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.OkHttpClient;
+import okhttp3.Cache;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import retrofit.CallAdapter;
-import retrofit.Retrofit;
+import retrofit2.CallAdapter;
+import retrofit2.Retrofit;
 
 import static com.desk.java.apiclient.DeskClientBuilder.AuthType.API_TOKEN;
 import static com.desk.java.apiclient.DeskClientBuilder.AuthType.OAUTH;
@@ -20,7 +20,7 @@ import static com.desk.java.apiclient.DeskClientBuilder.AuthType.OAUTH;
  * </p>
  *
  * Created by Jerrell Mardis
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public class DeskClientBuilder {
 
@@ -44,6 +44,7 @@ public class DeskClientBuilder {
     String consumerSecret;
     String accessToken;
     String accessTokenSecret;
+    String userAgent;
     AuthType authType;
     List<CallAdapter.Factory> callAdapters;
 
@@ -74,6 +75,16 @@ public class DeskClientBuilder {
         this.accessToken = accessToken;
         this.accessTokenSecret = accessTokenSecret;
         this.authType = OAUTH;
+    }
+
+    /**
+     * Sets the user agent header
+     * @param userAgent the user agent
+     * @return the builder instance
+     */
+    public DeskClientBuilder userAgent(String userAgent) {
+        this.userAgent = userAgent;
+        return this;
     }
 
     /**

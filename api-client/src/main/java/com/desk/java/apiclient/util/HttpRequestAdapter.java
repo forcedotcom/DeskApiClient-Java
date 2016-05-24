@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -26,7 +26,7 @@
 
 package com.desk.java.apiclient.util;
 
-import com.squareup.okhttp.Request;
+import okhttp3.Request;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,7 +42,7 @@ import okio.Buffer;
  * </p>
  * <p>
  * Created by Jerrell Mardis
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public class HttpRequestAdapter implements HttpRequest {
 
@@ -104,7 +104,7 @@ public class HttpRequestAdapter implements HttpRequest {
 
     @Override
     public String getRequestUrl() {
-        return request.urlString();
+        return request.url().toString();
     }
 
     @Override

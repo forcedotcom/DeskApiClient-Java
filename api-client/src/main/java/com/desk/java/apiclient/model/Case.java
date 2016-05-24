@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -519,5 +519,19 @@ public class Case implements Serializable {
      */
     public void setLockedByLink(@Nullable Link lockedBy) {
         getLinks().setLockedBy(lockedBy);
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Case aCase = (Case) o;
+
+        return id == aCase.id;
+
+    }
+
+    @Override public int hashCode() {
+        return id;
     }
 }

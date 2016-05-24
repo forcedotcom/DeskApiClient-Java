@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -26,10 +26,10 @@
 
 package com.desk.java.apiclient.util;
 
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +45,7 @@ import static org.junit.Assert.assertTrue;
  * Unit tests for {@link OAuthSigningInterceptor}
  *
  * Created by Matt Kranzler on 6/22/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class OAuthSigningInterceptorTest {
@@ -69,9 +69,9 @@ public class OAuthSigningInterceptorTest {
     public void authorizeRequestDoesAuthorizeRequest() throws IOException {
         Request unauthorizedRequest = new Request.Builder().url("https://test.desk.com").build();
         assertFalse(doesHaveAuthorizationHeader(unauthorizedRequest));
-        OkHttpClient okHttpClient = new OkHttpClient();
-        okHttpClient.interceptors().add(oAuthSigningInterceptor);
-        Call call = okHttpClient.newCall(unauthorizedRequest);
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.interceptors().add(oAuthSigningInterceptor);
+        Call call = builder.build().newCall(unauthorizedRequest);
         Response response = call.execute();
         assertTrue(doesHaveAuthorizationHeader(response.request()));
     }

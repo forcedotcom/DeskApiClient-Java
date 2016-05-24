@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -27,6 +27,7 @@
 package com.desk.java.apiclient.model;
 
 
+import com.desk.java.apiclient.util.ISO8601DateAdapter;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -40,7 +41,7 @@ import java.util.Date;
 
 /**
  * Created by Matt Kranzler on 5/4/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public class CaseLock implements Serializable {
 
@@ -72,7 +73,10 @@ public class CaseLock implements Serializable {
         private Gson mGson;
 
         public GsonTypeAdapter() {
-            mGson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).serializeNulls().create();
+            mGson = new GsonBuilder()
+                    .registerTypeAdapter(Date.class, ISO8601DateAdapter.TYPE_ADAPTER)
+                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    .serializeNulls().create();
         }
 
         @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -30,10 +30,10 @@ import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Company;
 import com.desk.java.apiclient.model.SortDirection;
 
-import retrofit.Call;
-import retrofit.http.GET;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * <p>
@@ -41,16 +41,19 @@ import retrofit.http.Query;
  * </p>
  *
  * Created by Matt Kranzler on 5/6/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/companies/">http://dev.desk.com/API/companies/</a>
  */
 public interface CompanyService {
 
+    // URIs
     String COMPANY_URI = "companies";
+    String FILTERS_URI = "company_filters";
 
     String SORT_FIELD_CREATED_AT = "created_at";
     String SORT_FIELD_UPDATED_AT = "updated_at";
+    String SORT_FIELD_NAME = "name";
 
     /**
      * Retrieve a single company
@@ -78,4 +81,19 @@ public interface CompanyService {
     Call<ApiResponse<Company>> searchCompanies(@Query("q") String query, @Query("per_page") int perPage,
                                          @Query("page") int page, @Query("sort_field") String sortField,
                                          @Query("sort_direction") SortDirection sortDirection);
+
+    /**
+     * Retrieves companies for a given filter
+     * @see <a href="http://dev.desk.com/API/cases/#list">http://dev.desk.com/API/companies/#list</a>
+     *
+     * @param filterId the id of the filter
+     * @param perPage the total filters per page
+     * @param page the page requested
+     * @param sortField the field to sort on
+     * @param sortDirection the direction to sort
+     * @return a company api response
+     */
+    @GET(FILTERS_URI + "/{id}/" + COMPANY_URI)
+    Call<ApiResponse<Company>> getCompaniesByFilter(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+                                             @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection);
 }

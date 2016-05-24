@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -30,9 +30,9 @@ import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Group;
 import com.desk.java.apiclient.model.User;
 
-import retrofit.http.GET;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.GroupService.GROUPS_URI;
@@ -45,7 +45,7 @@ import static com.desk.java.apiclient.service.GroupService.GROUPS_URI;
  * @see <a href="http://dev.desk.com/API/groups/">http://dev.desk.com/API/groups/</a>
  *
  * Created by Jerrell Mardis
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public interface RxGroupService {
 

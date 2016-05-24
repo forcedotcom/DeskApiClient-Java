@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -37,13 +37,13 @@ import com.desk.java.apiclient.model.MacroResponse;
 import com.desk.java.apiclient.model.Message;
 import com.desk.java.apiclient.model.SortDirection;
 
-import retrofit.Call;
-import retrofit.http.Body;
-import retrofit.http.GET;
-import retrofit.http.PATCH;
-import retrofit.http.POST;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * <p>
@@ -53,7 +53,7 @@ import retrofit.http.Query;
  * </p>
  *
  * Created by Matt Kranzler on 5/1/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  *
  * @see <a href="http://dev.desk.com/API/cases/">http://dev.desk.com/API/cases/</a>
  */
@@ -77,6 +77,7 @@ public interface CaseService {
     String FIELD_LABELS = "labels";
     String FIELD_LABEL_IDS = "label_ids";
     String FIELD_UPDATED_AT = "updated_at";
+    String FIELD_CREATED_AT = "created_at";
     String FIELD_PRIORITY = "priority";
     String FIELD_CUSTOM_FIELDS = "custom_fields";
 
@@ -147,6 +148,19 @@ public interface CaseService {
      */
     @PATCH(CASES_URI + "/{id}")
     Call<Case> updateCaseLock(@Path("id") int caseId, @Body CaseLock caseLock);
+
+    /**
+     * Locks or unlocks a case
+     * @see <a href="http://dev.desk.com/API/cases/#update">http://dev.desk.com/API/cases/#update</a>
+     *
+     * @param caseId the id of the case
+     * @param caseLock the case lock
+     * @param embed  what to embed
+     * @param fields the fields requested
+     * @return a case
+     */
+    @PATCH(CASES_URI + "/{id}")
+    Call<Case> updateCaseLock(@Path("id") int caseId, @Body CaseLock caseLock, @Query("embed") Embed embed, @Query("fields") Fields fields);
 
     /**
      * Updates a case

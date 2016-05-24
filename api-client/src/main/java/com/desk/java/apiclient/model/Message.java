@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -47,6 +47,7 @@ public class Message implements Serializable {
     private String body;
     private MessageDirection direction;
     private MessageStatus status;
+    private CaseStatus ticketStatus;
     private String to;
     private String from;
     private String cc;
@@ -338,6 +339,14 @@ public class Message implements Serializable {
     @Nullable
     public Link getOutboundMailboxLink() {
         return getLinks().getOutboundMailbox();
+    }
+
+    public CaseStatus getTicketStatus() {
+        return ticketStatus;
+    }
+
+    public void setTicketStatus(CaseStatus ticketStatus) {
+        this.ticketStatus = ticketStatus;
     }
 
     /**

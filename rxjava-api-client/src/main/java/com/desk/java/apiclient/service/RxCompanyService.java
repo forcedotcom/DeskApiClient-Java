@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -30,12 +30,13 @@ import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Company;
 import com.desk.java.apiclient.model.SortDirection;
 
-import retrofit.http.GET;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.CompanyService.COMPANY_URI;
+import static com.desk.java.apiclient.service.CompanyService.FILTERS_URI;
 
 /**
  * <p>
@@ -45,7 +46,7 @@ import static com.desk.java.apiclient.service.CompanyService.COMPANY_URI;
  * @see <a href="http://dev.desk.com/API/companies/">http://dev.desk.com/API/companies/</a>
  *
  * Created by Jerrell Mardis
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public interface RxCompanyService {
 
@@ -75,4 +76,19 @@ public interface RxCompanyService {
     Observable<ApiResponse<Company>> searchCompaniesObservable(@Query("q") String query, @Query("per_page") int perPage,
                                                                @Query("page") int page, @Query("sort_field") String sortField,
                                                                @Query("sort_direction") SortDirection sortDirection);
+
+    /**
+     * Retrieves companies for a given filter
+     * @see <a href="http://dev.desk.com/API/cases/#list">http://dev.desk.com/API/companies/#list</a>
+     *
+     * @param filterId the id of the filter
+     * @param perPage the total filters per page
+     * @param page the page requested
+     * @param sortField the field to sort on
+     * @param sortDirection the direction to sort
+     * @return a company api response
+     */
+    @GET(FILTERS_URI + "/{id}/" + COMPANY_URI)
+    Observable<ApiResponse<Company>> getCompaniesByFilterObservable(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+                                                    @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection);
 }

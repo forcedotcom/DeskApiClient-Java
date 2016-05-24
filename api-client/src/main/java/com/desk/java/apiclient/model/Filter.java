@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -34,9 +34,9 @@ import java.io.Serializable;
 
 public class Filter implements Serializable {
 
-    public static final int NO_CASES = 0;
+    public static final int NONE = 0;
 
-    private static final long serialVersionUID = -7733302564247416575L;
+    private static final long serialVersionUID = 92239016721005170L;
 
     private int id;
     private String name;
@@ -100,12 +100,12 @@ public class Filter implements Serializable {
     }
 
     /**
-     * Gets the cases count or {#NO_CASES} if there are no cases
-     * @return the cases count or {#NO_CASES}
+     * Gets the cases count or {#NONE} if there are no cases
+     * @return the cases count or {#NONE}
      */
     public int getCaseCount() {
         if (getCasesLink() == null) {
-            return NO_CASES;
+            return NONE;
         }
         return getCasesLink().getCount();
     }
@@ -117,6 +117,66 @@ public class Filter implements Serializable {
     @Nullable
     public Link getCasesLink() {
         return getLinks().getCases();
+    }
+
+    /**
+     * Gets the companies count or {#NONE} if there are no companies
+     * @return the companies count or {#NONE}
+     */
+    public int getCompanyCount() {
+        if (getCompaniesLink() == null) {
+            return NONE;
+        }
+        return getCompaniesLink().getCount();
+    }
+
+    /**
+     * Gets the companies link
+     * @return the companies link or null
+     */
+    @Nullable
+    public Link getCompaniesLink() {
+        return getLinks().getCompanies();
+    }
+
+    /**
+     * Gets the customer count or {#NONE} if there are no customers
+     * @return the customer count or {#NONE}
+     */
+    public int getCustomerCount() {
+        if (getCustomersLink() == null) {
+            return NONE;
+        }
+        return getCustomersLink().getCount();
+    }
+
+    /**
+     * Gets the customers link
+     * @return the customers link or null
+     */
+    @Nullable
+    public Link getCustomersLink() {
+        return getLinks().getCustomers();
+    }
+
+    /**
+     * Gets the opportunities link
+     * @return the opportunities link or null
+     */
+    @Nullable
+    public Link getOpportunitiesLink() {
+        return getLinks().getOpportunities();
+    }
+
+    /**
+     * Gets the opportunity count or {#NONE} if there are no opportunities
+     * @return the opportunity count or {#NONE}
+     */
+    public int getOpportunityCount() {
+        if (getOpportunitiesLink() == null) {
+            return NONE;
+        }
+        return getOpportunitiesLink().getCount();
     }
 
 }

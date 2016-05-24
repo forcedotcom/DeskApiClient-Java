@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -28,6 +28,7 @@ package com.desk.java.apiclient;
 
 import com.desk.java.apiclient.DeskClientBuilder.AuthType;
 import com.desk.java.apiclient.model.CaseLock;
+import com.desk.java.apiclient.model.IOpportunityActivity;
 import com.desk.java.apiclient.service.ArticleService;
 import com.desk.java.apiclient.service.CaseService;
 import com.desk.java.apiclient.service.CompanyService;
@@ -38,23 +39,26 @@ import com.desk.java.apiclient.service.GroupService;
 import com.desk.java.apiclient.service.InboundMailboxService;
 import com.desk.java.apiclient.service.LabelService;
 import com.desk.java.apiclient.service.MacroService;
+import com.desk.java.apiclient.service.OpportunityService;
+import com.desk.java.apiclient.service.OpportunityStageService;
 import com.desk.java.apiclient.service.OutboundMailboxService;
 import com.desk.java.apiclient.service.PermissionService;
 import com.desk.java.apiclient.service.SiteService;
 import com.desk.java.apiclient.service.TopicService;
+import com.desk.java.apiclient.service.TwitterAccountService;
 import com.desk.java.apiclient.service.TwitterUserService;
 import com.desk.java.apiclient.service.UserService;
 import com.desk.java.apiclient.util.ApiTokenSigningInterceptor;
 import com.desk.java.apiclient.util.DeskClientUtils;
 import com.desk.java.apiclient.util.ISO8601DateAdapter;
 import com.desk.java.apiclient.util.OAuthSigningInterceptor;
+import com.desk.java.apiclient.util.OpportunityActivityAdapter;
 import com.desk.java.apiclient.util.RetrofitHttpOAuthConsumer;
+import com.desk.java.apiclient.util.StringUtils;
+import com.desk.java.apiclient.util.UserAgentInterceptor;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squareup.okhttp.Cache;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.OkHttpClient;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -65,20 +69,23 @@ import java.util.List;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
-import retrofit.CallAdapter;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
+import okhttp3.Cache;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import retrofit2.CallAdapter;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.Retrofit;
 
 import static com.desk.java.apiclient.DeskClientBuilder.API_BASE_PATH;
 import static com.desk.java.apiclient.DeskClientBuilder.AuthType.OAUTH;
 
 /**
  * <p>
- *     Client which interfaces with the Desk API.
+ * Client which interfaces with the Desk API.
  * </p>
  *
  * Created by Matt Kranzler on 4/27/15.
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public class DeskClient {
 
@@ -88,6 +95,7 @@ public class DeskClient {
     private final String consumerSecret;
     private final String accessToken;
     private final String accessTokenSecret;
+    private final String userAgent;
     private final Cache responseCache;
     private final List<Interceptor> applicationInterceptors;
     private final List<Interceptor> networkInterceptors;
@@ -111,6 +119,9 @@ public class DeskClient {
     private TopicService topicService;
     private ArticleService articleService;
     private InboundMailboxService inboundMailboxService;
+    private OpportunityStageService opportunityStageService;
+    private OpportunityService opportunityService;
+    private TwitterAccountService twitterAccountService;
 
     /**
      * Creates a {@link DeskClient} using the provided {@link DeskClientBuilder}.
@@ -132,6 +143,7 @@ public class DeskClient {
         this.consumerSecret = builder.consumerSecret;
         this.accessToken = builder.accessToken;
         this.accessTokenSecret = builder.accessTokenSecret;
+        this.userAgent = builder.userAgent;
         this.responseCache = builder.responseCache;
         this.applicationInterceptors = builder.applicationInterceptors;
         this.networkInterceptors = builder.networkInterceptors;
@@ -149,6 +161,7 @@ public class DeskClient {
 
     /**
      * Gets the hostname
+     *
      * @return the hostname
      */
     public String getHostname() {
@@ -157,6 +170,7 @@ public class DeskClient {
 
     /**
      * Gets the url with the path provided.
+     *
      * @param path the path
      * @return the url
      */
@@ -166,11 +180,12 @@ public class DeskClient {
 
     /**
      * Signs the provided URL with OAuth credentials
+     *
      * @param url the url to sign
      * @return the signed url
-     * @throws OAuthCommunicationException if an error occurs communicating with the OAuth server
+     * @throws OAuthCommunicationException     if an error occurs communicating with the OAuth server
      * @throws OAuthExpectationFailedException if consumer key or consumer secret are not set in the OAuthConsumer
-     * @throws OAuthMessageSignerException if an error occurs while signing the url
+     * @throws OAuthMessageSignerException     if an error occurs while signing the url
      */
     public String signUrl(String url) throws OAuthCommunicationException, OAuthExpectationFailedException, OAuthMessageSignerException {
         if (OAUTH == authType) {
@@ -401,6 +416,45 @@ public class DeskClient {
         return inboundMailboxService;
     }
 
+    /**
+     * Get the Desk Opportunity Stage service
+     *
+     * @return the default Desk Opportunity Stage service
+     */
+    @NotNull
+    public OpportunityStageService opportunityStages() {
+        if (opportunityStageService == null) {
+            opportunityStageService = restAdapter.create(OpportunityStageService.class);
+        }
+        return opportunityStageService;
+    }
+
+    /**
+     * Get the Desk Opportunity service
+     *
+     * @return the default Desk Opportunity service
+     */
+    @NotNull
+    public OpportunityService opportunities() {
+        if (opportunityService == null) {
+            opportunityService = restAdapter.create(OpportunityService.class);
+        }
+        return opportunityService;
+    }
+
+    /**
+     * Get the Desk Twitter Accounts service
+     *
+     * @return the default Desk Twitter Accounts service
+     */
+    @NotNull
+    public TwitterAccountService twitterAccounts() {
+        if (twitterAccountService == null) {
+            twitterAccountService = restAdapter.create(TwitterAccountService.class);
+        }
+        return twitterAccountService;
+    }
+
     protected Retrofit getRestAdapter() {
         return restAdapter;
     }
@@ -414,18 +468,19 @@ public class DeskClient {
 
     private Gson createGson() {
         return new GsonBuilder()
-                .registerTypeAdapter(Date.class, new ISO8601DateAdapter())
+                .registerTypeAdapter(Date.class, ISO8601DateAdapter.TYPE_ADAPTER)
                 .registerTypeAdapter(CaseLock.class, CaseLock.TYPE_ADAPTER)
+                .registerTypeAdapter(IOpportunityActivity.class, new OpportunityActivityAdapter())
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .create();
     }
 
     private OkHttpClient createOkHttpClient() {
-        OkHttpClient okHttpClient = new OkHttpClient();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
         // if we have response cache let's use it!
         if (responseCache != null) {
-            okHttpClient.setCache(responseCache);
+            builder.cache(responseCache);
         }
 
         // add auth interceptors
@@ -434,26 +489,31 @@ public class DeskClient {
                 if (oAuthConsumer == null) {
                     throw new IllegalStateException("a RetrofitHttpOAuthConsumer must be created before creating OKClient");
                 }
-                okHttpClient.interceptors().add(new OAuthSigningInterceptor(oAuthConsumer));
+                builder.interceptors().add(new OAuthSigningInterceptor(oAuthConsumer));
                 break;
             case API_TOKEN:
-                okHttpClient.interceptors().add(new ApiTokenSigningInterceptor(apiToken));
+                builder.interceptors().add(new ApiTokenSigningInterceptor(apiToken));
                 break;
             default:
                 throw new IllegalStateException("AuthType " + authType + " isn't supported.");
         }
 
+        // add user agent interceptor if we have a user agent defined
+        if (!StringUtils.isEmpty(userAgent)) {
+            builder.interceptors().add(new UserAgentInterceptor(userAgent));
+        }
+
         // add all other application interceptors
         if (applicationInterceptors != null && !applicationInterceptors.isEmpty()) {
-            okHttpClient.interceptors().addAll(applicationInterceptors);
+            builder.interceptors().addAll(applicationInterceptors);
         }
 
         // add all other network interceptors
         if (networkInterceptors != null && !networkInterceptors.isEmpty()) {
-            okHttpClient.networkInterceptors().addAll(networkInterceptors);
+            builder.networkInterceptors().addAll(networkInterceptors);
         }
 
-        return okHttpClient;
+        return builder.build();
     }
 
     private RetrofitHttpOAuthConsumer createOAuthConsumer() {

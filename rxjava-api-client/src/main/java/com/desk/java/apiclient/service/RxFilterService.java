@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -30,12 +30,14 @@ import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.Filter;
 
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.FilterService.COMPANY_FILTERS_URI;
+import static com.desk.java.apiclient.service.FilterService.CUSTOMER_FILTERS_URI;
 import static com.desk.java.apiclient.service.FilterService.FILTERS_URI;
+import static com.desk.java.apiclient.service.FilterService.OPPORTUNITY_FILTERS_URI;
 
 /**
  * <p>
@@ -45,7 +47,7 @@ import static com.desk.java.apiclient.service.FilterService.FILTERS_URI;
  * @see <a href="http://dev.desk.com/API/filters/">http://dev.desk.com/API/filters/</a>
  *
  * Created by Jerrell Mardis
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public interface RxFilterService {
 
@@ -66,9 +68,33 @@ public interface RxFilterService {
      *
      * @param perPage the total filters per page
      * @param page    the page requested
+     * @param fields the fields requested
      * @return a filter api response
      * @see <a href="http://dev.desk.com/API/company_filters/#list">http://dev.desk.com/API/company_filters/#list</a>
      */
     @GET(COMPANY_FILTERS_URI)
-    Observable<ApiResponse<Filter>> getCompanyFiltersObservable(@Query("per_page") int perPage, @Query("page") int page);
+    Observable<ApiResponse<Filter>> getCompanyFiltersObservable(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
+
+    /**
+     * Retrieves customer filters.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @param fields the fields requested
+     * @return a filter api response
+     * @see <a href="http://dev.desk.com/API/customer_filters/#list">http://dev.desk.com/API/customer_filters/#list</a>
+     */
+    @GET(CUSTOMER_FILTERS_URI)
+    Observable<ApiResponse<Filter>> getCustomerFiltersObservable(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
+
+    /**
+     * Retrieves opportunity filters.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @param fields the fields requested
+     * @return a filter api response
+     */
+    @GET(OPPORTUNITY_FILTERS_URI)
+    Observable<ApiResponse<Filter>> getOpportunityFiltersObservable(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
 }

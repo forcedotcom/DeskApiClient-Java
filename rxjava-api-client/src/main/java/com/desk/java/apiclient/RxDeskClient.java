@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -36,10 +36,13 @@ import com.desk.java.apiclient.service.RxGroupService;
 import com.desk.java.apiclient.service.RxInboundMailboxService;
 import com.desk.java.apiclient.service.RxLabelService;
 import com.desk.java.apiclient.service.RxMacroService;
+import com.desk.java.apiclient.service.RxOpportunityService;
+import com.desk.java.apiclient.service.RxOpportunityStageService;
 import com.desk.java.apiclient.service.RxOutboundMailboxService;
 import com.desk.java.apiclient.service.RxPermissionService;
 import com.desk.java.apiclient.service.RxSiteService;
 import com.desk.java.apiclient.service.RxTopicService;
+import com.desk.java.apiclient.service.RxTwitterAccountService;
 import com.desk.java.apiclient.service.RxTwitterUserService;
 import com.desk.java.apiclient.service.RxUserService;
 
@@ -47,8 +50,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 
-import retrofit.CallAdapter.Factory;
-import retrofit.RxJavaCallAdapterFactory;
+import retrofit2.CallAdapter.Factory;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 
 /**
  * <p>
@@ -56,7 +59,7 @@ import retrofit.RxJavaCallAdapterFactory;
  * </p>
  *
  * Created by Jerrell Mardis
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public class RxDeskClient extends DeskClient {
 
@@ -76,6 +79,9 @@ public class RxDeskClient extends DeskClient {
     private RxTopicService rxTopicService;
     private RxArticleService rxArticleService;
     private RxInboundMailboxService rxInboundMailboxService;
+    private RxOpportunityStageService rxOpportunityStageService;
+    private RxOpportunityService rxOpportunityService;
+    private RxTwitterAccountService rxTwitterAccountService;
 
     /**
      * Creates a {@link RxDeskClient} using the builder provided and adds a {@link RxJavaCallAdapterFactory}.
@@ -221,5 +227,29 @@ public class RxDeskClient extends DeskClient {
             rxInboundMailboxService = getRestAdapter().create(RxInboundMailboxService.class);
         }
         return rxInboundMailboxService;
+    }
+
+    @NotNull
+    public RxOpportunityStageService opportunityStagesRx() {
+        if (rxOpportunityStageService == null) {
+            rxOpportunityStageService = getRestAdapter().create(RxOpportunityStageService.class);
+        }
+        return rxOpportunityStageService;
+    }
+
+    @NotNull
+    public RxOpportunityService opportunitiesRx() {
+        if (rxOpportunityService == null) {
+            rxOpportunityService = getRestAdapter().create(RxOpportunityService.class);
+        }
+        return rxOpportunityService;
+    }
+
+    @NotNull
+    public RxTwitterAccountService twitterAccountsRx() {
+        if (rxTwitterAccountService == null) {
+            rxTwitterAccountService = getRestAdapter().create(RxTwitterAccountService.class);
+        }
+        return rxTwitterAccountService;
     }
 }

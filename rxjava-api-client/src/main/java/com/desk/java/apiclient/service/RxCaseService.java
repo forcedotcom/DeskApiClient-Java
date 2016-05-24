@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -37,12 +37,12 @@ import com.desk.java.apiclient.model.MacroResponse;
 import com.desk.java.apiclient.model.Message;
 import com.desk.java.apiclient.model.SortDirection;
 
-import retrofit.http.Body;
-import retrofit.http.GET;
-import retrofit.http.PATCH;
-import retrofit.http.POST;
-import retrofit.http.Path;
-import retrofit.http.Query;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.CaseService.ATTACHMENTS_URI;
@@ -63,7 +63,7 @@ import static com.desk.java.apiclient.service.CaseService.REPLIES_URI;
  * @see <a href="http://dev.desk.com/API/cases/">http://dev.desk.com/API/cases/</a>
  *
  * Created by Jerrell Mardis
- * Copyright (c) 2015 Desk.com. All rights reserved.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public interface RxCaseService {
 
@@ -125,6 +125,20 @@ public interface RxCaseService {
      */
     @PATCH(CASES_URI + "/{id}")
     Observable<Case> updateCaseLockObservable(@Path("id") int caseId, @Body CaseLock caseLock);
+
+    /**
+     * Locks or unlocks a case
+     *
+     * @param caseId   the id of the case
+     * @param caseLock the case lock
+     * @param embed  what to embed
+     * @param fields the fields requested
+     * @return a case
+     * @see <a href="http://dev.desk.com/API/cases/#update">http://dev.desk.com/API/cases/#update</a>
+     */
+    @PATCH(CASES_URI + "/{id}")
+    Observable<Case> updateCaseLockObservable(@Path("id") int caseId, @Body CaseLock caseLock,
+                                              @Query("embed") Embed embed, @Query("fields") Fields fields);
 
     /**
      * Updates a case

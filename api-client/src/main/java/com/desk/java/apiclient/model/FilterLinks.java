@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Salesforce.com, Inc.
+ * Copyright (c) 2016, Salesforce.com, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided
@@ -34,13 +34,43 @@ public class FilterLinks extends Links {
     private static final long serialVersionUID = 3781381339638270661L;
 
     private Link cases;
+    private Link companies;
+    private Link customers;
+    private Link opportunities;
 
     @Nullable
     public Link getCases() {
         return cases;
     }
 
-    public void setCases(@Nullable Link c) {
-        this.cases = c;
+    @Nullable
+    public Link getCompanies() {
+        return companies;
+    }
+
+    @Nullable
+    public Link getCustomers() {
+        return customers;
+    }
+
+    @Nullable
+    public Link getOpportunities() {
+        return opportunities;
+    }
+
+    public void setCases(@Nullable Link cases) {
+        this.cases = cases;
+    }
+
+    public void setCompanies(@Nullable Link companies) {
+        this.companies = companies;
+    }
+
+    public void setCustomers(@Nullable Link customers) {
+        this.customers = customers;
+    }
+
+    public void setOpportunities(@Nullable Link opportunities) {
+        this.opportunities = opportunities;
     }
 }
