@@ -49,6 +49,7 @@ public class Customer implements Serializable {
     private String language;
     private String background;
     private String companyName;
+    private String displayName;
     private CustomerContact[] emails;
     private CustomerContact[] addresses;
     private CustomerContact[] phoneNumbers;
@@ -290,5 +291,13 @@ public class Customer implements Serializable {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 }
