@@ -68,6 +68,7 @@ public interface CustomerService {
     String FIELD_PHONE_NUMBERS = "phone_numbers";
     String FIELD_ADDRESSES = "addresses";
     String FIELD_CUSTOM_FIELDS = "custom_fields";
+    String FIELD_DISPLAY_NAME = "display_name";
 
     // Sorts fields
     String SORT_FIELD_CREATED_AT = "created_at";
