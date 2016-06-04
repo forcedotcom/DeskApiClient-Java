@@ -39,6 +39,8 @@ public class Link implements Serializable {
 
     private String href;
     private int count;
+    @SerializedName("user_messages_count")
+    private int userMessagesCount;
     @SerializedName("class")
     private String className;
 
@@ -64,6 +66,14 @@ public class Link implements Serializable {
 
     public void setCount(int c) {
         this.count = c;
+    }
+
+    public int getUserMessagesCount() {
+        return userMessagesCount;
+    }
+
+    public void setUserMessagesCount(int userMessagesCount) {
+        this.userMessagesCount = userMessagesCount;
     }
 
     public String getClassName() {
