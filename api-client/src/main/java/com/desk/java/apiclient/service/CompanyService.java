@@ -28,6 +28,7 @@ package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Company;
+import com.desk.java.apiclient.model.FeatureCheck;
 import com.desk.java.apiclient.model.SortDirection;
 
 import retrofit2.Call;
@@ -54,6 +55,14 @@ public interface CompanyService {
     String SORT_FIELD_CREATED_AT = "created_at";
     String SORT_FIELD_UPDATED_AT = "updated_at";
     String SORT_FIELD_NAME = "name";
+
+    /**
+     * Checks to see if the company 360 enhancements are enabled for the site.
+     *
+     * @return a feature check object indicating if it's enabled or disabled
+     */
+    @GET(COMPANY_URI + "/enhancements_enabled")
+    Call<FeatureCheck> areEnhancementsEnabled();
 
     /**
      * Retrieve a single company

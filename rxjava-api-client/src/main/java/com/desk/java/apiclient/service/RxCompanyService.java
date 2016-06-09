@@ -28,6 +28,7 @@ package com.desk.java.apiclient.service;
 
 import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Company;
+import com.desk.java.apiclient.model.FeatureCheck;
 import com.desk.java.apiclient.model.SortDirection;
 
 import retrofit2.http.GET;
@@ -49,6 +50,14 @@ import static com.desk.java.apiclient.service.CompanyService.FILTERS_URI;
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public interface RxCompanyService {
+
+    /**
+     * Checks to see if the company 360 enhancements are enabled for the site.
+     *
+     * @return a feature check object indicating if it's enabled or disabled
+     */
+    @GET(COMPANY_URI + "/enhancements_enabled")
+    Observable<FeatureCheck> areEnhancementsEnabled();
 
     /**
      * Retrieve a single company
