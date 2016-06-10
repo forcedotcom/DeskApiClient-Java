@@ -32,15 +32,16 @@ import com.desk.java.apiclient.model.FeatureCheck;
 import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.IOpportunityActivity;
 import com.desk.java.apiclient.model.Opportunity;
+import com.desk.java.apiclient.model.OpportunityAttachment;
 import com.desk.java.apiclient.model.OpportunityTimeline;
 import com.desk.java.apiclient.model.SortDirection;
-
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
 import static com.desk.java.apiclient.service.OpportunityService.ACTIVITIES_URI;
+import static com.desk.java.apiclient.service.OpportunityService.ATTACHMENTS_URI;
 import static com.desk.java.apiclient.service.OpportunityService.FILTERS_URI;
 import static com.desk.java.apiclient.service.OpportunityService.HISTORY_URI;
 import static com.desk.java.apiclient.service.OpportunityService.OPPORTUNITIES_URI;
@@ -127,4 +128,15 @@ public interface RxOpportunityService {
     Observable<ApiResponse<Opportunity>> searchOpportunitiesObservable(@Query("q") String query, @Query("per_page") int perPage, @Query("page") int page,
                                                        @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                                        @Query("embed") Embed embed, @Query("fields") Fields fields);
+
+    /**
+     * Retrieves a paginated list of all attachments for an opportunity
+     *
+     * @param opportunityId  the id of the opportunity
+     * @param perPage the total attachments per page
+     * @param page    the page requested
+     * @return an attachment api response
+     */
+    @GET(OPPORTUNITIES_URI + "/{id}/" + ATTACHMENTS_URI)
+    Observable<ApiResponse<OpportunityAttachment>> getAttachmentsObservable(@Path("id") int opportunityId, @Query("per_page") int perPage, @Query("page") int page);
 }
