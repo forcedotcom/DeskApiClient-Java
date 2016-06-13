@@ -30,6 +30,7 @@ import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Case;
 import com.desk.java.apiclient.model.Customer;
 import com.desk.java.apiclient.model.Embed;
+import com.desk.java.apiclient.model.FeatureCheck;
 import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.SortDirection;
 
@@ -68,6 +69,7 @@ public interface CustomerService {
     String FIELD_PHONE_NUMBERS = "phone_numbers";
     String FIELD_ADDRESSES = "addresses";
     String FIELD_CUSTOM_FIELDS = "custom_fields";
+    String FIELD_DISPLAY_NAME = "display_name";
 
     // Sorts fields
     String SORT_FIELD_CREATED_AT = "created_at";
@@ -77,6 +79,14 @@ public interface CustomerService {
     // Embeds
     String EMBED_FACEBOOK_USER = "facebook_user";
     String EMBED_TWITTER_USER = "twitter_user";
+
+    /**
+     * Checks to see if the customer 360 enhancements are enabled for the site.
+     *
+     * @return a feature check object indicating if it's enabled or disabled
+     */
+    @GET(CUSTOMERS_URI + "/enhancements_enabled")
+    Call<FeatureCheck> areEnhancementsEnabled();
 
     /**
      * Retrieves customers for a given filter

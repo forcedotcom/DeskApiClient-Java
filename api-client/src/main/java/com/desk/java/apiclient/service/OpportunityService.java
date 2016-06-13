@@ -32,9 +32,9 @@ import com.desk.java.apiclient.model.FeatureCheck;
 import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.IOpportunityActivity;
 import com.desk.java.apiclient.model.Opportunity;
+import com.desk.java.apiclient.model.OpportunityAttachment;
 import com.desk.java.apiclient.model.OpportunityTimeline;
 import com.desk.java.apiclient.model.SortDirection;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -55,6 +55,7 @@ public interface OpportunityService {
     String HISTORY_URI = "history";
     String ACTIVITIES_URI = "activities";
     String SEARCH_URI = "search";
+    String ATTACHMENTS_URI = "attachments";
 
     String SORT_FIELD_UPDATED_AT = "updated_at";
 
@@ -133,4 +134,15 @@ public interface OpportunityService {
     Call<ApiResponse<Opportunity>> searchOpportunities(@Query("q") String query, @Query("per_page") int perPage, @Query("page") int page,
                                                        @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                                        @Query("embed") Embed embed, @Query("fields") Fields fields);
+
+    /**
+     * Retrieves a paginated list of all attachments for an opportunity
+     *
+     * @param opportunityId the id of the opportunity
+     * @param perPage the total attachments per page
+     * @param page the page requested
+     * @return an attachment api response
+     */
+    @GET(OPPORTUNITIES_URI + "/{id}/" + ATTACHMENTS_URI)
+    Call<ApiResponse<OpportunityAttachment>> getAttachments(@Path("id") int opportunityId, @Query("per_page") int perPage, @Query("page") int page);
 }

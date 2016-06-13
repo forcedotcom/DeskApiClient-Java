@@ -30,6 +30,7 @@ import com.desk.java.apiclient.model.ApiResponse;
 import com.desk.java.apiclient.model.Case;
 import com.desk.java.apiclient.model.Customer;
 import com.desk.java.apiclient.model.Embed;
+import com.desk.java.apiclient.model.FeatureCheck;
 import com.desk.java.apiclient.model.Fields;
 import com.desk.java.apiclient.model.SortDirection;
 
@@ -56,6 +57,14 @@ import static com.desk.java.apiclient.service.CustomerService.CUSTOMERS_URI;
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
 public interface RxCustomerService {
+
+    /**
+     * Checks to see if the customer 360 enhancements are enabled for the site.
+     *
+     * @return a feature check object indicating if it's enabled or disabled
+     */
+    @GET(CUSTOMERS_URI + "/enhancements_enabled")
+    Observable<FeatureCheck> areEnhancementsEnabled();
 
     /**
      * Retrieves customers for a given filter
