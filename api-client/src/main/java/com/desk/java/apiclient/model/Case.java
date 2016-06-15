@@ -60,7 +60,7 @@ public class Case implements Serializable {
         return aCase;
     }
 
-    private Integer id;
+    private int id;
     private String subject;
     private String priority;
     private String description;
