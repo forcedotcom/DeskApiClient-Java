@@ -40,7 +40,7 @@ public class Case implements Serializable {
 
     public static final int NO_ID = 0;
 
-    private static final long serialVersionUID = 8501351454459361905L;
+    private static final long serialVersionUID = -1269898807733793629L;
 
     public static Case withAssignedUser(User assignedUser) {
         Case aCase = new Case();

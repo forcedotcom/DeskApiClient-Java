@@ -26,32 +26,12 @@
 
 package com.desk.java.apiclient;
 
-import com.desk.java.apiclient.service.RxArticleService;
-import com.desk.java.apiclient.service.RxCaseService;
-import com.desk.java.apiclient.service.RxCompanyService;
-import com.desk.java.apiclient.service.RxCustomFieldsService;
-import com.desk.java.apiclient.service.RxCustomerService;
-import com.desk.java.apiclient.service.RxFilterService;
-import com.desk.java.apiclient.service.RxGroupService;
-import com.desk.java.apiclient.service.RxInboundMailboxService;
-import com.desk.java.apiclient.service.RxLabelService;
-import com.desk.java.apiclient.service.RxMacroService;
-import com.desk.java.apiclient.service.RxOpportunityService;
-import com.desk.java.apiclient.service.RxOpportunityStageService;
-import com.desk.java.apiclient.service.RxOutboundMailboxService;
-import com.desk.java.apiclient.service.RxPermissionService;
-import com.desk.java.apiclient.service.RxSiteService;
-import com.desk.java.apiclient.service.RxTopicService;
-import com.desk.java.apiclient.service.RxTwitterAccountService;
-import com.desk.java.apiclient.service.RxTwitterUserService;
-import com.desk.java.apiclient.service.RxUserService;
-
+import com.desk.java.apiclient.service.*;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Collections;
-
 import retrofit2.CallAdapter.Factory;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+
+import java.util.Collections;
 
 /**
  * <p>
@@ -82,6 +62,7 @@ public class RxDeskClient extends DeskClient {
     private RxOpportunityStageService rxOpportunityStageService;
     private RxOpportunityService rxOpportunityService;
     private RxTwitterAccountService rxTwitterAccountService;
+    private RxJobService rxJobService;
 
     /**
      * Creates a {@link RxDeskClient} using the builder provided and adds a {@link RxJavaCallAdapterFactory}.
@@ -251,5 +232,13 @@ public class RxDeskClient extends DeskClient {
             rxTwitterAccountService = getRestAdapter().create(RxTwitterAccountService.class);
         }
         return rxTwitterAccountService;
+    }
+
+    @NotNull
+    public RxJobService jobsRx() {
+        if (rxJobService == null) {
+            rxJobService = getRestAdapter().create(RxJobService.class);
+        }
+        return rxJobService;
     }
 }
