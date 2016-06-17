@@ -71,6 +71,7 @@ public interface CaseService {
     // Fields
     String FIELD_ID = "id";
     String FIELD_SUBJECT = "subject";
+    String FIELD_DESCRIPTION = "description";
     String FIELD_BLURB = "blurb";
     String FIELD_STATUS = "status";
     String FIELD_TYPE = "type";
