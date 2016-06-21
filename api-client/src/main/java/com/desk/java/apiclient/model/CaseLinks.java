@@ -75,7 +75,7 @@ public class CaseLinks extends Links implements Serializable {
         this.replies = r;
     }
 
-    @Nullable
+    @NotNull
     public Link getMessage() {
         return (message == null) ? new Link() : message;
     }

@@ -35,30 +35,9 @@ import java.util.HashMap;
 
 public class Case implements Serializable {
 
-    public static final int MIN_PRIORITY = 1;
-    public static final int MAX_PRIORITY = 10;
-
     public static final int NO_ID = 0;
 
     private static final long serialVersionUID = -1269898807733793629L;
-
-    public static Case withAssignedUser(User assignedUser) {
-        Case aCase = new Case();
-        aCase.setLinks(CaseLinks.withAssignedUserLink(assignedUser.getSelfLink()));
-        return aCase;
-    }
-
-    public static Case withAssignedGroup(Group assignedGroup) {
-        Case aCase = new Case();
-        aCase.setLinks(CaseLinks.withAssignedGroupLink(assignedGroup.getSelfLink()));
-        return aCase;
-    }
-
-    public static Case withAssignedGroupUnassignedUser(Group assignedGroup) {
-        Case aCase = new Case();
-        aCase.setLinks(CaseLinks.withAssignedGroupLinkUnassignedUser(assignedGroup.getSelfLink()));
-        return aCase;
-    }
 
     private int id;
     private String subject;
@@ -80,20 +59,12 @@ public class Case implements Serializable {
     private Message message;
     private Message reply;
 
-    public Case() {
-    }
-
-    public Case(HashMap<String, String> customFields, String cfName, String cfValue) {
-        this.customFields = customFields;
-        this.customFields.put(cfName, cfValue);
-    }
-
     public int getId() {
         return id;
     }
 
-    public void setId(int i) {
-        this.id = i;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCustomerName() {
@@ -108,48 +79,48 @@ public class Case implements Serializable {
         return subject;
     }
 
-    public void setSubject(String s) {
-        this.subject = s;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public String getPriority() {
         return priority;
     }
 
-    public void setPriority(String p) {
-        this.priority = p;
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String d) {
-        this.description = d;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getBlurb() {
         return blurb;
     }
 
-    public void setBlurb(String b) {
-        this.blurb = b;
+    public void setBlurb(String blurb) {
+        this.blurb = blurb;
     }
 
     public CaseStatus getStatus() {
         return status;
     }
 
-    public void setStatus(CaseStatus s) {
-        this.status = s;
+    public void setStatus(CaseStatus status) {
+        this.status = status;
     }
 
     public CaseType getType() {
         return type;
     }
 
-    public void setType(CaseType t) {
-        this.type = t;
+    public void setType(CaseType type) {
+        this.type = type;
     }
 
     public Date getCreatedAt() {
@@ -164,8 +135,8 @@ public class Case implements Serializable {
         return lockedUntil;
     }
 
-    public void setLockedUntil(Date lu) {
-        this.lockedUntil = lu;
+    public void setLockedUntil(Date lockedUntil) {
+        this.lockedUntil = lockedUntil;
     }
 
     @NotNull
@@ -173,8 +144,8 @@ public class Case implements Serializable {
         return labels != null ? labels : new String[0];
     }
 
-    public void setLabels(String[] lbls) {
-        this.labels = lbls;
+    public void setLabels(String[] labels) {
+        this.labels = labels;
     }
 
     @NotNull
@@ -182,16 +153,16 @@ public class Case implements Serializable {
         return labelIds != null ? labelIds : new int[0];
     }
 
-    public void setLabelIds(int[] ids) {
-        this.labelIds = ids;
+    public void setLabelIds(int[] labelIds) {
+        this.labelIds = labelIds;
     }
 
     public LabelAction getLabelAction() {
         return labelAction;
     }
 
-    public void setLabelAction(LabelAction la) {
-        this.labelAction = la;
+    public void setLabelAction(LabelAction labelAction) {
+        this.labelAction = labelAction;
     }
 
     @Nullable
@@ -206,12 +177,13 @@ public class Case implements Serializable {
         return group == null ? null : group.getName();
     }
 
+    @NotNull
     public HashMap<String, String> getCustomFields() {
-        return customFields;
+        return customFields == null ? customFields = new HashMap<>() : customFields;
     }
 
-    public void setCustomFields(HashMap<String, String> cf) {
-        this.customFields = cf;
+    public void setCustomFields(HashMap<String, String> customFields) {
+        this.customFields = customFields;
     }
 
     @NotNull
@@ -219,8 +191,8 @@ public class Case implements Serializable {
         return _embedded == null ? _embedded = new CaseEmbedded() : _embedded;
     }
 
-    public void setEmbedded(CaseEmbedded e) {
-        this._embedded = e;
+    public void setEmbedded(CaseEmbedded embedded) {
+        this._embedded = embedded;
     }
 
     @NotNull
@@ -228,24 +200,24 @@ public class Case implements Serializable {
         return _links == null ? _links = new CaseLinks() : _links;
     }
 
-    public void setLinks(CaseLinks l) {
-        this._links = l;
+    public void setLinks(CaseLinks links) {
+        this._links = links;
     }
 
     public Message getMessage() {
         return this.message;
     }
 
-    public void setMessage(Message m) {
-        this.message = m;
+    public void setMessage(Message message) {
+        this.message = message;
     }
 
     public Message getReply() {
         return this.reply;
     }
 
-    public void setReply(Message r) {
-        this.reply = r;
+    public void setReply(Message reply) {
+        this.reply = reply;
     }
 
     public void setCustomField(String name, String value) {
@@ -273,7 +245,7 @@ public class Case implements Serializable {
      * Gets the message link
      * @return the message link or null
      */
-    @Nullable
+    @NotNull
     public Link getMessageLink() {
         return getLinks().getMessage();
     }
