@@ -57,23 +57,6 @@ public class Customer implements Serializable {
     private HashMap<String, String> customFields;
     private CustomerEmbedded _embedded;
 
-    public static Customer create(String firstName, String lastName, String email,
-                                         String emailType, String phone, String phoneType) {
-        Customer customer = new Customer();
-        customer.setFirstName(firstName);
-        customer.setLastName(lastName);
-
-        if (!StringUtils.isEmpty(email)) {
-            customer.setEmails(new CustomerContact(emailType, email));
-        }
-
-        if (!StringUtils.isEmpty(phone)) {
-            customer.setPhoneNumbers(new CustomerContact(phoneType, phone));
-        }
-
-        return customer;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -86,16 +69,16 @@ public class Customer implements Serializable {
         return firstName;
     }
 
-    public void setFirstName(String fn) {
-        this.firstName = fn;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String ln) {
-        this.lastName = ln;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getName() {
@@ -119,24 +102,48 @@ public class Customer implements Serializable {
         return title;
     }
 
-    public void setTitle(String t) {
-        this.title = t;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(String l) {
-        this.language = l;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public String getBackground() {
         return background;
     }
 
-    public void setBackground(String b) {
-        this.background = b;
+    public void setBackground(String background) {
+        this.background = background;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     @NotNull
@@ -144,8 +151,8 @@ public class Customer implements Serializable {
         return emails != null ? emails : new CustomerContact[0];
     }
 
-    public void setEmails(CustomerContact... e) {
-        this.emails = e;
+    public void setEmails(CustomerContact... emails) {
+        this.emails = emails;
     }
 
     @NotNull
@@ -153,8 +160,8 @@ public class Customer implements Serializable {
         return addresses != null ? addresses : new CustomerContact[0];
     }
 
-    public void setAddresses(CustomerContact[] a) {
-        this.addresses = a;
+    public void setAddresses(CustomerContact... addresses) {
+        this.addresses = addresses;
     }
 
     @NotNull
@@ -162,24 +169,16 @@ public class Customer implements Serializable {
         return phoneNumbers != null ? phoneNumbers : new CustomerContact[0];
     }
 
-    public void setPhoneNumbers(CustomerContact... p) {
-        this.phoneNumbers = p;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String a) {
-        this.avatar = a;
+    public void setPhoneNumbers(CustomerContact... phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
     }
 
     public CustomerLinks getLinks() {
         return _links == null ? _links = new CustomerLinks() : _links;
     }
 
-    public void setLinks(CustomerLinks l) {
-        this._links = l;
+    public void setLinks(CustomerLinks links) {
+        this._links = links;
     }
 
     @NotNull
@@ -187,8 +186,8 @@ public class Customer implements Serializable {
         return customFields != null ? customFields : Collections.<String, String>emptyMap();
     }
 
-    public void setCustomFields(HashMap<String, String> cf) {
-        this.customFields = cf;
+    public void setCustomFields(HashMap<String, String> customFields) {
+        this.customFields = customFields;
     }
 
     @NotNull
@@ -196,8 +195,8 @@ public class Customer implements Serializable {
         return _embedded == null ? _embedded = new CustomerEmbedded() : _embedded;
     }
 
-    public void setEmbedded(CustomerEmbedded e) {
-        this._embedded = e;
+    public void setEmbedded(CustomerEmbedded embedded) {
+        this._embedded = embedded;
     }
 
     /**
@@ -206,8 +205,7 @@ public class Customer implements Serializable {
      */
     @Nullable
     public String getFirstEmail() {
-        if (getEmails() == null
-                || getEmails().length == 0) {
+        if (getEmails().length == 0) {
             return null;
         }
         return getEmails()[0].getValue();
@@ -219,8 +217,7 @@ public class Customer implements Serializable {
      */
     @Nullable
     public String getFirstPhone() {
-        if (getPhoneNumbers() == null
-                || getPhoneNumbers().length == 0) {
+        if (getPhoneNumbers().length == 0) {
             return null;
         }
         return getPhoneNumbers()[0].getValue();
@@ -231,26 +228,11 @@ public class Customer implements Serializable {
      * @return the handle of the first twitter user or null if no twitter user
      */
     @Nullable
-    public String getFirstTwitterHandle() {
+    public String getTwitterHandle() {
         if (getTwitterUser() == null) {
             return null;
         }
         return getTwitterUser().getHandle();
-    }
-
-    public boolean isValidCustomerForCaseType(CaseType caseType) {
-
-        if (CaseType.EMAIL.equals(caseType)) {
-            if (StringUtils.isEmpty(getFirstEmail())) {
-                return false;
-            }
-        } else if (CaseType.TWITTER.equals(caseType)) {
-            if (StringUtils.isEmpty(getFirstTwitterHandle())) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     /**
@@ -287,21 +269,5 @@ public class Customer implements Serializable {
     @Nullable
     public Link getCompanyLink() {
         return getLinks().getCompany();
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
     }
 }
