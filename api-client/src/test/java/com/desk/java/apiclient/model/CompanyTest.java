@@ -1,0 +1,123 @@
+/*
+ * Copyright (c) 2016, Salesforce.com, Inc.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided
+ * that the following conditions are met:
+ *
+ *    Redistributions of source code must retain the above copyright notice, this list of conditions and the
+ *    following disclaimer.
+ *
+ *    Redistributions in binary form must reproduce the above copyright notice, this list of conditions and
+ *    the following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *    Neither the name of Salesforce.com, Inc. nor the names of its contributors may be used to endorse or
+ *    promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ * TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+package com.desk.java.apiclient.model;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.HashMap;
+
+import static org.junit.Assert.*;
+
+/**
+ * <p> Unit tests for {@link Company} </p>
+ *
+ * Created by Matt Kranzler on 6/24/16.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
+ */
+public class CompanyTest {
+
+    private Company company;
+
+    @Before
+    public void setUp() throws Exception {
+        company = new Company();
+    }
+
+    @Test
+    public void setIdDoesSetId() throws Exception {
+        assertEquals(0, company.getId());
+        company.setId(10);
+        assertEquals(10, company.getId());
+    }
+
+    @Test
+    public void setNameDoesSetName() throws Exception {
+        assertEquals(null, company.getName());
+        company.setName("name");
+        assertEquals("name", company.getName());
+    }
+
+    @Test
+    public void getDomainsDoesNotReturnNull() throws Exception {
+        assertNotNull(company.getDomains());
+        company.setDomains(null);
+        assertNotNull(company.getDomains());
+    }
+
+    @Test
+    public void setDomainsDoesSetDomains() throws Exception {
+        assertEquals(0, company.getDomains().length);
+        String[] domains = {"domain1.com", "domain2.com", "domain3.com"};
+        company.setDomains(domains);
+        assertEquals(3, company.getDomains().length);
+        assertEquals("domain1.com", company.getDomains()[0]);
+        assertEquals("domain2.com", company.getDomains()[1]);
+        assertEquals("domain3.com", company.getDomains()[2]);
+    }
+
+    @Test
+    public void getLinksDoesNotReturnNull() throws Exception {
+        assertNotNull(company.getLinks());
+        company.setLinks(null);
+        assertNotNull(company.getLinks());
+    }
+
+    @Test
+    public void setLinksDoesSetLinks() throws Exception {
+        CompanyLinks links = new CompanyLinks();
+        Link cases = new Link("/companies/1/cases");
+        links.setCases(cases);
+        Link customers = new Link("/companies/1/customers");
+        customers.setCount(10);
+        links.setCustomers(customers);
+        company.setLinks(links);
+        assertEquals("/companies/1/cases", company.getLinks().getCases().getUrl());
+        assertEquals("/companies/1/customers", company.getLinks().getCustomers().getUrl());
+        assertEquals(10, company.getLinks().getCustomers().getCount());
+    }
+
+    @Test
+    public void getCustomFieldsDoesNotReturnNull() throws Exception {
+        assertNotNull(company.getCustomFields());
+        company.setCustomFields(null);
+        assertNotNull(company.getCustomFields());
+    }
+
+    @Test
+    public void setCustomFieldsDoesSetCustomFields() throws Exception {
+        HashMap<String, String> customFields = new HashMap<>();
+        customFields.put("key1", "value1");
+        customFields.put("key2", "value2");
+        customFields.put("key3", "value3");
+        company.setCustomFields(customFields);
+        assertEquals(3, company.getCustomFields().size());
+        assertEquals("value1", company.getCustomFields().get("key1"));
+        assertEquals("value2", company.getCustomFields().get("key2"));
+        assertEquals("value3", company.getCustomFields().get("key3"));
+    }
+}

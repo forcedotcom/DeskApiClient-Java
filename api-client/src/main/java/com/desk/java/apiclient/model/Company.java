@@ -42,12 +42,20 @@ public class Company implements Serializable {
     private CompanyLinks _links;
     private HashMap<String, String> customFields;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName(String n) {
-        this.name = n;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @NotNull
@@ -55,8 +63,8 @@ public class Company implements Serializable {
         return domains != null ? domains : new String[0];
     }
 
-    public void setDomains(String[] d) {
-        this.domains = d;
+    public void setDomains(String[] domains) {
+        this.domains = domains;
     }
 
     @NotNull
@@ -64,8 +72,8 @@ public class Company implements Serializable {
         return _links == null ? _links = new CompanyLinks() : _links;
     }
 
-    public void setLinks(CompanyLinks l) {
-        this._links = l;
+    public void setLinks(CompanyLinks links) {
+        this._links = links;
     }
 
     @NotNull
@@ -73,23 +81,7 @@ public class Company implements Serializable {
         return customFields != null ? customFields : new HashMap<String, String>();
     }
 
-    public void setCustomFields(HashMap<String, String> cf) {
-        this.customFields = cf;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getDomainsForDisplay() {
-        String domainsStr = "";
-        String[] domains;
-        if ((domains = getDomains()) != null) {
-            for (String domain : domains) {
-                domainsStr += domain + " ";
-            }
-        }
-
-        return domainsStr;
+    public void setCustomFields(HashMap<String, String> customFields) {
+        this.customFields = customFields;
     }
 }
