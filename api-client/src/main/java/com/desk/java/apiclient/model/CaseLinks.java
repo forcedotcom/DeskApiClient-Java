@@ -36,24 +36,6 @@ public class CaseLinks extends Links implements Serializable {
 
     private static final long serialVersionUID = 56094253911864534L;
 
-    public static CaseLinks withAssignedUserLink(Link assignedUser) {
-        CaseLinks caseLinks = new CaseLinks();
-        caseLinks.setAssignedUser(assignedUser);
-        return caseLinks;
-    }
-
-    public static CaseLinks withAssignedGroupLink(Link assignedGroup) {
-        CaseLinks caseLinks = new CaseLinks();
-        caseLinks.setAssignedGroup(assignedGroup);
-        return caseLinks;
-    }
-
-    public static CaseLinks withAssignedGroupLinkUnassignedUser(Link assignedGroup) {
-        CaseLinks caseLinks = withAssignedGroupLink(assignedGroup);
-        caseLinks.setAssignedUser(new Link());
-        return caseLinks;
-    }
-
     private Link replies;
     private Link message;
     private Link draft;

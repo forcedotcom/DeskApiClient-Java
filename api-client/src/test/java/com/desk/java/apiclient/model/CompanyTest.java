@@ -26,64 +26,46 @@
 
 package com.desk.java.apiclient.model;
 
+import org.junit.Before;
+import org.junit.Test;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.io.Serializable;
 import java.util.HashMap;
 
-public class Company implements Serializable {
+import static org.junit.Assert.*;
 
-    private static final long serialVersionUID = 7792122326436126562L;
+/**
+ * <p> Unit tests for {@link Company} </p>
+ *
+ * Created by Matt Kranzler on 6/24/16.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
+ */
+public class CompanyTest {
 
-    private int id;
-    private String name;
-    private String[] domains;
-    private CompanyLinks _links;
-    private HashMap<String, String> customFields;
+    private Company company;
 
-    public int getId() {
-        return id;
+    @Before
+    public void setUp() throws Exception {
+        company = new Company();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Test
+    public void getDomainsDoesNotReturnNull() throws Exception {
+        assertNotNull(company.getDomains());
+        company.setDomains(null);
+        assertNotNull(company.getDomains());
     }
 
-    @Nullable
-    public String getName() {
-        return name;
+    @Test
+    public void getLinksDoesNotReturnNull() throws Exception {
+        assertNotNull(company.getLinks());
+        company.setLinks(null);
+        assertNotNull(company.getLinks());
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @NotNull
-    public String[] getDomains() {
-        return domains != null ? domains : new String[0];
-    }
-
-    public void setDomains(String[] domains) {
-        this.domains = domains;
-    }
-
-    @NotNull
-    public CompanyLinks getLinks() {
-        return _links == null ? _links = new CompanyLinks() : _links;
-    }
-
-    public void setLinks(CompanyLinks links) {
-        this._links = links;
-    }
-
-    @NotNull
-    public HashMap<String, String> getCustomFields() {
-        return customFields != null ? customFields : new HashMap<String, String>();
-    }
-
-    public void setCustomFields(HashMap<String, String> customFields) {
-        this.customFields = customFields;
+    @Test
+    public void getCustomFieldsDoesNotReturnNull() throws Exception {
+        assertNotNull(company.getCustomFields());
+        company.setCustomFields(null);
+        assertNotNull(company.getCustomFields());
     }
 }
