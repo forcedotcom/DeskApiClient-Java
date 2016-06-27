@@ -49,35 +49,10 @@ public class CompanyTest {
     }
 
     @Test
-    public void setIdDoesSetId() throws Exception {
-        assertEquals(0, company.getId());
-        company.setId(10);
-        assertEquals(10, company.getId());
-    }
-
-    @Test
-    public void setNameDoesSetName() throws Exception {
-        assertEquals(null, company.getName());
-        company.setName("name");
-        assertEquals("name", company.getName());
-    }
-
-    @Test
     public void getDomainsDoesNotReturnNull() throws Exception {
         assertNotNull(company.getDomains());
         company.setDomains(null);
         assertNotNull(company.getDomains());
-    }
-
-    @Test
-    public void setDomainsDoesSetDomains() throws Exception {
-        assertEquals(0, company.getDomains().length);
-        String[] domains = {"domain1.com", "domain2.com", "domain3.com"};
-        company.setDomains(domains);
-        assertEquals(3, company.getDomains().length);
-        assertEquals("domain1.com", company.getDomains()[0]);
-        assertEquals("domain2.com", company.getDomains()[1]);
-        assertEquals("domain3.com", company.getDomains()[2]);
     }
 
     @Test
@@ -88,36 +63,9 @@ public class CompanyTest {
     }
 
     @Test
-    public void setLinksDoesSetLinks() throws Exception {
-        CompanyLinks links = new CompanyLinks();
-        Link cases = new Link("/companies/1/cases");
-        links.setCases(cases);
-        Link customers = new Link("/companies/1/customers");
-        customers.setCount(10);
-        links.setCustomers(customers);
-        company.setLinks(links);
-        assertEquals("/companies/1/cases", company.getLinks().getCases().getUrl());
-        assertEquals("/companies/1/customers", company.getLinks().getCustomers().getUrl());
-        assertEquals(10, company.getLinks().getCustomers().getCount());
-    }
-
-    @Test
     public void getCustomFieldsDoesNotReturnNull() throws Exception {
         assertNotNull(company.getCustomFields());
         company.setCustomFields(null);
         assertNotNull(company.getCustomFields());
-    }
-
-    @Test
-    public void setCustomFieldsDoesSetCustomFields() throws Exception {
-        HashMap<String, String> customFields = new HashMap<>();
-        customFields.put("key1", "value1");
-        customFields.put("key2", "value2");
-        customFields.put("key3", "value3");
-        company.setCustomFields(customFields);
-        assertEquals(3, company.getCustomFields().size());
-        assertEquals("value1", company.getCustomFields().get("key1"));
-        assertEquals("value2", company.getCustomFields().get("key2"));
-        assertEquals("value3", company.getCustomFields().get("key3"));
     }
 }
