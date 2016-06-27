@@ -65,6 +65,7 @@ public class Customer implements Serializable {
         return id;
     }
 
+    @Nullable
     public String getFirstName() {
         return firstName;
     }
@@ -73,6 +74,7 @@ public class Customer implements Serializable {
         this.firstName = firstName;
     }
 
+    @Nullable
     public String getLastName() {
         return lastName;
     }
@@ -81,6 +83,7 @@ public class Customer implements Serializable {
         this.lastName = lastName;
     }
 
+    @NotNull
     public String getName() {
         StringBuilder name = new StringBuilder();
 
@@ -98,6 +101,7 @@ public class Customer implements Serializable {
         return name.toString();
     }
 
+    @Nullable
     public String getTitle() {
         return title;
     }
@@ -106,6 +110,7 @@ public class Customer implements Serializable {
         this.title = title;
     }
 
+    @Nullable
     public String getLanguage() {
         return language;
     }
@@ -114,6 +119,7 @@ public class Customer implements Serializable {
         this.language = language;
     }
 
+    @Nullable
     public String getBackground() {
         return background;
     }
@@ -122,6 +128,7 @@ public class Customer implements Serializable {
         this.background = background;
     }
 
+    @Nullable
     public String getCompanyName() {
         return companyName;
     }
@@ -130,6 +137,7 @@ public class Customer implements Serializable {
         this.companyName = companyName;
     }
 
+    @Nullable
     public String getDisplayName() {
         return displayName;
     }
@@ -138,6 +146,7 @@ public class Customer implements Serializable {
         this.displayName = displayName;
     }
 
+    @Nullable
     public String getAvatar() {
         return avatar;
     }
@@ -173,6 +182,7 @@ public class Customer implements Serializable {
         this.phoneNumbers = phoneNumbers;
     }
 
+    @NotNull
     public CustomerLinks getLinks() {
         return _links == null ? _links = new CustomerLinks() : _links;
     }
