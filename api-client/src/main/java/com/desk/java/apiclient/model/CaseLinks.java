@@ -34,7 +34,7 @@ import java.io.Serializable;
 
 public class CaseLinks extends Links implements Serializable {
 
-    private static final long serialVersionUID = 56094253911864534L;
+    private static final long serialVersionUID = 6289826179576172039L;
 
     private Link replies;
     private Link message;
