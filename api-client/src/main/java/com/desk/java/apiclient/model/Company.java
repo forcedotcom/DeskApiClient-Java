@@ -28,6 +28,7 @@ package com.desk.java.apiclient.model;
 
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -50,6 +51,7 @@ public class Company implements Serializable {
         this.id = id;
     }
 
+    @Nullable
     public String getName() {
         return name;
     }
