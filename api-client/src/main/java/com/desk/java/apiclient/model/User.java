@@ -52,6 +52,7 @@ public class User implements Serializable {
         this.id = i;
     }
 
+    @NotNull
     public String getName() {
         return (name == null) ? "" : name;
     }
@@ -60,6 +61,7 @@ public class User implements Serializable {
         this.name = n;
     }
 
+    @Nullable
     public String getPublicName() {
         return publicName;
     }
@@ -68,6 +70,7 @@ public class User implements Serializable {
         this.publicName = pn;
     }
 
+    @Nullable
     public String getEmail() {
         return email;
     }
@@ -76,6 +79,7 @@ public class User implements Serializable {
         this.email = e;
     }
 
+    @Nullable
     public String getLevel() {
         return level;
     }
@@ -84,6 +88,7 @@ public class User implements Serializable {
         this.level = l;
     }
 
+    @NotNull
     public String getAvatar() {
         return (avatar == null) ? "" : avatar;
     }
@@ -114,6 +119,7 @@ public class User implements Serializable {
         return getLinks().getSelf();
     }
 
+    @Nullable
     public String getSelfLinkUrl() {
         return getSelfLink().getUrl();
     }

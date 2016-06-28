@@ -74,4 +74,8 @@ public class Links implements Serializable {
     public Link getNext() {
         return next == null ? new Link() : next;
     }
+
+    void setSelf(Link self) {
+        this.self = self;
+    }
 }
