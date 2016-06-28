@@ -301,11 +301,6 @@ public class CaseTest {
     }
 
     @Test
-    public void getAttachmentsLinkDoesReturnNull() throws Exception {
-        assertNull(c.getAttachmentsLink());
-    }
-
-    @Test
     public void getAttachmentsLinkDoesReturnAttachmentsLink() throws Exception {
         Link attachments = new Link("/attachments");
         CaseLinks links = new CaseLinks();
@@ -401,11 +396,6 @@ public class CaseTest {
     }
 
     @Test
-    public void getAssignedUserLinkDoesReturnNull() throws Exception {
-        assertNull(c.getAssignedUserLink());
-    }
-
-    @Test
     public void getAssignedUserLinkDoesReturnAssignedUserLink() throws Exception {
         Link user = new Link("/users/5");
         CaseLinks links = new CaseLinks();
@@ -417,7 +407,6 @@ public class CaseTest {
 
     @Test
     public void setAssignedUserLinkDoesSetAssignedUserLink() throws Exception {
-        assertNull(c.getAssignedUserLink());
         Link user = new Link("/users/5");
         c.setAssignedUserLink(user);
         assertNotNull(c.getAssignedUserLink());
@@ -426,7 +415,6 @@ public class CaseTest {
 
     @Test
     public void getAssignedUserIdDoesReturnNoId() throws Exception {
-        assertNull(c.getAssignedUserLink());
         assertEquals(NO_ID, c.getAssignedUserId());
     }
 
@@ -452,11 +440,6 @@ public class CaseTest {
     }
 
     @Test
-    public void getAssignedGroupLinkDoesReturnNull() throws Exception {
-        assertNull(c.getAssignedGroupLink());
-    }
-
-    @Test
     public void getAssignedGroupLinkDoesReturnAssignedGroupLink() throws Exception {
         Link group = new Link("/groups/50");
         CaseLinks links = new CaseLinks();
@@ -476,7 +459,6 @@ public class CaseTest {
 
     @Test
     public void getAssignedGroupIdDoesReturnNoId() throws Exception {
-        assertNull(c.getAssignedGroupLink());
         assertEquals(NO_ID, c.getAssignedGroupId());
     }
 
@@ -485,11 +467,6 @@ public class CaseTest {
         Link group = new Link("/groups/55");
         c.setAssignedGroupLink(group);
         assertEquals(55, c.getAssignedGroupId());
-    }
-
-    @Test
-    public void getCustomerLinkDoesReturnNull() throws Exception {
-        assertNull(c.getCustomerLink());
     }
 
     @Test
@@ -504,7 +481,6 @@ public class CaseTest {
 
     @Test
     public void getCustomerIdDoesReturnNoId() throws Exception {
-        assertNull(c.getCustomerLink());
         assertEquals(NO_ID, c.getCustomerId());
     }
 
@@ -586,23 +562,12 @@ public class CaseTest {
     }
 
     @Test
-    public void getLockedByLinkUrlDoesReturnNull() throws Exception {
-        assertNull(c.getLockedByLink());
-        assertNull(c.getLockedByLinkUrl());
-    }
-
-    @Test
     public void getLockedByLinkUrlDoesReturnLockedByLinkUrl() throws Exception {
         Link lockedBy = new Link("/users/111");
         CaseLinks links = new CaseLinks();
         links.setLockedBy(lockedBy);
         c.setLinks(links);
         assertEquals("/users/111", c.getLockedByLinkUrl());
-    }
-
-    @Test
-    public void getLockedByLinkDoesReturnNull() throws Exception {
-        assertNull(c.getLockedByLink());
     }
 
     @Test

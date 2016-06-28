@@ -235,9 +235,6 @@ public class Case implements Serializable {
      */
     @Nullable
     public String getMessageLinkUrl() {
-        if (getMessageLink() == null) {
-            return null;
-        }
         return getMessageLink().getUrl();
     }
 
@@ -256,9 +253,6 @@ public class Case implements Serializable {
      */
     @Nullable
     public String getAttachmentsLinkUrl() {
-        if (getAttachmentsLink() == null) {
-            return null;
-        }
         return getAttachmentsLink().getUrl();
     }
 
@@ -266,7 +260,7 @@ public class Case implements Serializable {
      * Gets the attachments link
      * @return the attachments link or null
      */
-    @Nullable
+    @NotNull
     public Link getAttachmentsLink() {
         return getLinks().getAttachments();
     }
@@ -310,9 +304,6 @@ public class Case implements Serializable {
      */
     @Nullable
     public String getAssignedUserLinkUrl() {
-        if (getAssignedUserLink() == null) {
-            return null;
-        }
         return getAssignedUserLink().getUrl();
     }
 
@@ -320,7 +311,7 @@ public class Case implements Serializable {
      * Returns the link to the assigned user
      * @return the link or null
      */
-    @Nullable
+    @NotNull
     public Link getAssignedUserLink() {
         return getLinks().getAssignedUser();
     }
@@ -338,9 +329,6 @@ public class Case implements Serializable {
      * @return the user id if assigned, {@link #NO_ID} if unassigned
      */
     public int getAssignedUserId() {
-        if (getAssignedUserLink() == null) {
-            return NO_ID;
-        }
         return getAssignedUserLink().getLinkId();
     }
 
@@ -350,9 +338,6 @@ public class Case implements Serializable {
      */
     @Nullable
     public String getAssignedGroupLinkUrl() {
-        if (getAssignedGroupLink() == null) {
-            return null;
-        }
         return getAssignedGroupLink().getUrl();
     }
 
@@ -360,7 +345,7 @@ public class Case implements Serializable {
      * Returns the link to the assigned group
      * @return the link or an empty link object
      */
-    @Nullable
+    @NotNull
     public Link getAssignedGroupLink() {
         return getLinks().getAssignedGroup();
     }
@@ -378,9 +363,6 @@ public class Case implements Serializable {
      * @return the user id if assigned, {@link #NO_ID} if unassigned
      */
     public int getAssignedGroupId() {
-        if (getAssignedGroupLink() == null) {
-            return NO_ID;
-        }
         return getAssignedGroupLink().getLinkId();
     }
 
@@ -388,7 +370,7 @@ public class Case implements Serializable {
      * Gets the customer link or null
      * @return the customer link or null
      */
-    @Nullable
+    @NotNull
     public Link getCustomerLink() {
         return getLinks().getCustomer();
     }
@@ -398,9 +380,6 @@ public class Case implements Serializable {
      * @return the customer id or {@link #NO_ID}
      */
     public int getCustomerId() {
-        if (getCustomerLink() == null) {
-            return NO_ID;
-        }
         return getCustomerLink().getLinkId();
     }
 
@@ -470,9 +449,6 @@ public class Case implements Serializable {
      */
     @Nullable
     public String getLockedByLinkUrl() {
-        if (getLockedByLink() == null) {
-            return null;
-        }
         return getLockedByLink().getUrl();
     }
 
@@ -480,7 +456,7 @@ public class Case implements Serializable {
      * Gets the link to the locked by user
      * @return the link to the locked by user or null
      */
-    @Nullable
+    @NotNull
     public Link getLockedByLink() {
         return getLinks().getLockedBy();
     }
