@@ -28,14 +28,14 @@ package com.desk.java.apiclient.model;
 
 
 import com.google.gson.annotations.SerializedName;
-
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 
 public class MessageLinks extends Links implements Serializable {
 
-    private static final long serialVersionUID = 8344480030924031768L;
+    private static final long serialVersionUID = 4451275198787767972L;
 
     private Link hiddenBy;
     private Link answersDisallowedBy;
@@ -47,68 +47,68 @@ public class MessageLinks extends Links implements Serializable {
     private Link caseLink;
     private Link twitterAccount;
 
-    @Nullable
+    @NotNull
     public Link getHiddenBy() {
-        return this.hiddenBy;
+        return hiddenBy == null ? new Link() : hiddenBy;
     }
 
-    public void setHiddenBy(@Nullable Link hb) {
-        this.hiddenBy = hb;
+    public void setHiddenBy(@Nullable Link hiddenBy) {
+        this.hiddenBy = hiddenBy;
     }
 
-    @Nullable
+    @NotNull
     public Link getAnswersDisallowedBy() {
-        return this.answersDisallowedBy;
+        return answersDisallowedBy == null ? new Link() : answersDisallowedBy;
     }
 
-    public void setAnswersDisallowedBy(@Nullable Link ad) {
-        this.answersDisallowedBy = ad;
+    public void setAnswersDisallowedBy(@Nullable Link answersDisallowedBy) {
+        this.answersDisallowedBy = answersDisallowedBy;
     }
 
-    @Nullable
+    @NotNull
     public Link getOutboundMailbox() {
-        return this.outboundMailbox;
+        return outboundMailbox == null ? new Link() : outboundMailbox;
     }
 
-    public void setOutboundMailbox(@Nullable Link om) {
-        this.outboundMailbox = om;
+    public void setOutboundMailbox(@Nullable Link outboundMailbox) {
+        this.outboundMailbox = outboundMailbox;
     }
 
-    @Nullable
+    @NotNull
     public Link getUser() {
-        return this.user;
+        return user == null ? new Link() : user;
     }
 
-    public void setUser(@Nullable Link u) {
-        this.user = u;
+    public void setUser(@Nullable Link user) {
+        this.user = user;
     }
 
-    @Nullable
+    @NotNull
     public Link getSentBy() {
-        return this.sentBy;
+        return sentBy == null ? new Link() : sentBy;
     }
 
-    public void setSentBy(@Nullable Link sb) {
-        this.sentBy = sb;
+    public void setSentBy(@Nullable Link sentBy) {
+        this.sentBy = sentBy;
     }
 
-    @Nullable
+    @NotNull
     public Link getEnteredBy() {
-        return this.enteredBy;
+        return enteredBy == null ? new Link() : enteredBy;
     }
 
-    public void setEnteredBy(@Nullable Link eb) {
-        this.enteredBy = eb;
+    public void setEnteredBy(@Nullable Link enteredBy) {
+        this.enteredBy = enteredBy;
     }
 
-    @Nullable
+    @NotNull
     public Link getCaseLink() {
-        return caseLink;
+        return caseLink == null ? new Link() : caseLink;
     }
 
-    @Nullable
+    @NotNull
     public Link getTwitterAccount() {
-        return twitterAccount;
+        return twitterAccount == null ? new Link() : twitterAccount;
     }
 
     public void setTwitterAccount(Link twitterAccount) {
