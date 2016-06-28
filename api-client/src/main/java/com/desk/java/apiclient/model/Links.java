@@ -28,13 +28,12 @@ package com.desk.java.apiclient.model;
 
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 
 public class Links implements Serializable {
 
-    private static final long serialVersionUID = 8515837962298929043L;
+    private static final long serialVersionUID = -8929612830762228557L;
 
     private Link self;
     private Link first;
@@ -44,35 +43,35 @@ public class Links implements Serializable {
 
     @NotNull
     public Link getSelf() {
-        return self == null ? self = new Link("") : self;
+        return self == null ? new Link() : self;
     }
 
     @NotNull
     public String getSelfUrl() {
-        return self.getUrl();
+        return self == null ? "" : self.getUrl();
     }
 
     public int getSelfId() {
-        return self.getLinkId();
+        return self == null ? 0 : self.getLinkId();
     }
 
-    @Nullable
+    @NotNull
     public Link getFirst() {
-        return first;
+        return first == null ? new Link() : first;
     }
 
-    @Nullable
+    @NotNull
     public Link getLast() {
-        return last;
+        return last == null ? new Link() : last;
     }
 
-    @Nullable
+    @NotNull
     public Link getPrevious() {
-        return previous;
+        return previous == null ? new Link() : previous;
     }
 
-    @Nullable
+    @NotNull
     public Link getNext() {
-        return next;
+        return next == null ? new Link() : next;
     }
 }
