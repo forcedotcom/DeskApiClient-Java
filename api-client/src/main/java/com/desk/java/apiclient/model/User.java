@@ -52,9 +52,9 @@ public class User implements Serializable {
         this.id = i;
     }
 
-    @NotNull
+    @Nullable
     public String getName() {
-        return (name == null) ? "" : name;
+        return name;
     }
 
     public void setName(String n) {
@@ -88,9 +88,9 @@ public class User implements Serializable {
         this.level = l;
     }
 
-    @NotNull
+    @Nullable
     public String getAvatar() {
-        return (avatar == null) ? "" : avatar;
+        return avatar;
     }
 
     public void setAvatar(String a) {

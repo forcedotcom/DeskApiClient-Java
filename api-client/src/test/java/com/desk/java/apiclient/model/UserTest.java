@@ -28,10 +28,13 @@ package com.desk.java.apiclient.model;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * <p>
@@ -48,20 +51,6 @@ public class UserTest {
     @Before
     public void setUp() throws Exception {
         user = new User();
-    }
-
-    @Test
-    public void getNameDoesNotReturnNull() {
-        assertNotNull(user.getName());
-        user.setName(null);
-        assertNotNull(user.getName());
-    }
-
-    @Test
-    public void getAvatarDoesNotReturnNull() {
-        assertNotNull(user.getAvatar());
-        user.setAvatar(null);
-        assertNotNull(user.getAvatar());
     }
 
     @Test
@@ -95,10 +84,9 @@ public class UserTest {
 
     @Test
     public void getSelfLinkUrlDoesReturnSelfUrlWhenSet() {
-        UserLinks userLinks = new UserLinks();
         String url = "foo.com";
-        Link self = new Link(url);
-        userLinks.setSelf(self);
+        UserLinks userLinks = mock(UserLinks.class);
+        when(userLinks.getSelf()).thenReturn(new Link(url));
         user.setLinks(userLinks);
         assertEquals(url, user.getSelfLinkUrl());
     }
