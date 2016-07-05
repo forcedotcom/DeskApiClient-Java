@@ -26,51 +26,29 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
 
 /**
  * Created by Matt Kranzler on 12/29/15.
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public enum EventType {
+public class OpportunitySystemEventChange implements Serializable {
 
-    @SerializedName("opportunity_created")
-    OPPORTUNITY_CREATED,
+    private static final long serialVersionUID = 128629638975329761L;
 
-    @SerializedName("opportunity_updated")
-    OPPORTUNITY_UPDATED,
+    private String field;
+    private Object from;
+    private Object to;
 
-    @SerializedName("opportunity_closed")
-    OPPORTUNITY_CLOSED,
+    public String getField() {
+        return field;
+    }
 
-    @SerializedName("opportunity_time_rule")
-    OPPORTUNITY_TIME_RULE,
+    public Object getFrom() {
+        return from;
+    }
 
-    @SerializedName("opportunity_note_created")
-    OPPORTUNITY_NOTE_CREATED,
-
-    @SerializedName("opportunity_call_created")
-    OPPORTUNITY_CALL_CREATED,
-
-    @SerializedName("opportunity_task_created")
-    OPPORTUNITY_TASK_CREATED,
-
-    @SerializedName("opportunity_event_created")
-    OPPORTUNITY_EVENT_CREATED,
-
-    @SerializedName("opportunity_email_created")
-    OPPORTUNITY_EMAIL_CREATED,
-
-    @SerializedName("opportunity_attachment_created")
-    OPPORTUNITY_ATTACHMENT_CREATED,
-
-    @SerializedName("opportunity_rule_applied")
-    OPPORTUNITY_RULE_APPLIED,
-
-    @SerializedName("opportunity_item_active")
-    OPPORTUNITY_ITEM_ACTIVE,
-
-    @SerializedName("opportunity_item_available")
-    OPPORTUNITY_ITEM_AVAILABLE
-
+    public Object getTo() {
+        return to;
+    }
 }

@@ -26,13 +26,7 @@
 
 package com.desk.java.apiclient.util;
 
-import com.desk.java.apiclient.model.IOpportunityActivity;
-import com.desk.java.apiclient.model.OpportunityAttachment;
-import com.desk.java.apiclient.model.OpportunityCall;
-import com.desk.java.apiclient.model.OpportunityEmail;
-import com.desk.java.apiclient.model.OpportunityNote;
-import com.desk.java.apiclient.model.OpportunitySystemEvent;
-import com.desk.java.apiclient.model.OpportunityTask;
+import com.desk.java.apiclient.model.*;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 

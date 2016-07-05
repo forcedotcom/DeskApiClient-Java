@@ -26,10 +26,63 @@
 
 package com.desk.java.apiclient.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
 /**
  * Created by Matt Kranzler on 12/29/15.
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public class OpportunitySystemEvent extends SystemEvent implements IOpportunityActivity {
-    private static final long serialVersionUID = -2854148088867234142L;
+public class OpportunitySystemEvent implements Serializable, IOpportunityActivity {
+
+    private static final long serialVersionUID = -5702874530149282279L;
+
+    private long id;
+    private OpportunitySystemEventType type;
+    private String context;
+    private Date createdAt;
+    private List<OpportunitySystemEventChange> changes;
+    @SerializedName("_links")
+    private OpportunitySystemEventLinks links;
+
+    public long getId() {
+        return id;
+    }
+
+    public OpportunitySystemEventType getType() {
+        return type;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public List<OpportunitySystemEventChange> getChanges() {
+        return changes;
+    }
+
+    public OpportunitySystemEventLinks getLinks() {
+        return links;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OpportunitySystemEvent systemEvent = (OpportunitySystemEvent) o;
+
+        return id == systemEvent.id;
+
+    }
+
+    @Override public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
 }

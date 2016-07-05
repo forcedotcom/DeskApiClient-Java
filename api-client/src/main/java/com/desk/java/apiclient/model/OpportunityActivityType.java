@@ -32,7 +32,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Jerrell Mardis
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public enum OpportunityEventType {
+public enum OpportunityActivityType {
 
     @SerializedName("note")
     NOTE,
