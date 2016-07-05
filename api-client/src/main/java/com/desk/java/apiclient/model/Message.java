@@ -40,7 +40,7 @@ public class Message implements Serializable {
 
     public static final int NO_ID = 0;
 
-    private static final long serialVersionUID = 7987793767800204017L;
+    private static final long serialVersionUID = -5356300171602080000L;
 
     private int id;
     private String subject;
@@ -64,6 +64,7 @@ public class Message implements Serializable {
     private Date enteredAt;
     private Date createdAt;
     private Date updatedAt;
+    private MessageEventType eventType;
     private MessageEmbedded _embedded;
     private MessageLinks _links;
 
@@ -241,6 +242,14 @@ public class Message implements Serializable {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public MessageEventType getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(MessageEventType eventType) {
+        this.eventType = eventType;
     }
 
     @NotNull
