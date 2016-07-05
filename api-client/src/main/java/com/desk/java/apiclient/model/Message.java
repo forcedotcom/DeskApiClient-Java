@@ -323,6 +323,11 @@ public class Message implements Serializable {
     }
 
     @NotNull
+    public Link getCreatedByLink() {
+        return getLinks().getCreatedBy();
+    }
+
+    @NotNull
     public Link getUserLink() {
         return getLinks().getUser();
     }
