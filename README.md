@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.desk:api-client:1.3.2-SNAPSHOT'
+  compile 'com.desk:api-client:1.4.0-SNAPSHOT'
 }
 ```
 
