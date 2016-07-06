@@ -29,48 +29,35 @@ package com.desk.java.apiclient.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Matt Kranzler on 12/29/15.
+ * Created by Jerrell Mardis
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public enum EventType {
+public enum OpportunityActivityType {
 
-    @SerializedName("opportunity_created")
-    OPPORTUNITY_CREATED,
+    @SerializedName("note")
+    NOTE,
 
-    @SerializedName("opportunity_updated")
-    OPPORTUNITY_UPDATED,
+    @SerializedName("email")
+    EMAIL,
 
-    @SerializedName("opportunity_closed")
-    OPPORTUNITY_CLOSED,
+    @SerializedName("task")
+    TASK,
 
-    @SerializedName("opportunity_time_rule")
-    OPPORTUNITY_TIME_RULE,
+    @SerializedName("event")
+    EVENT,
 
-    @SerializedName("opportunity_note_created")
-    OPPORTUNITY_NOTE_CREATED,
+    @SerializedName("call")
+    CALL,
 
-    @SerializedName("opportunity_call_created")
-    OPPORTUNITY_CALL_CREATED,
+    @SerializedName("opportunity_attachment")
+    ATTACHMENT;
 
-    @SerializedName("opportunity_task_created")
-    OPPORTUNITY_TASK_CREATED,
-
-    @SerializedName("opportunity_event_created")
-    OPPORTUNITY_EVENT_CREATED,
-
-    @SerializedName("opportunity_email_created")
-    OPPORTUNITY_EMAIL_CREATED,
-
-    @SerializedName("opportunity_attachment_created")
-    OPPORTUNITY_ATTACHMENT_CREATED,
-
-    @SerializedName("opportunity_rule_applied")
-    OPPORTUNITY_RULE_APPLIED,
-
-    @SerializedName("opportunity_item_active")
-    OPPORTUNITY_ITEM_ACTIVE,
-
-    @SerializedName("opportunity_item_available")
-    OPPORTUNITY_ITEM_AVAILABLE
-
+    /**
+     * Returns a lowercase toString() value
+     * @return the lowercase value
+     */
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
+    }
 }

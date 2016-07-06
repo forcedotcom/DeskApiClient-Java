@@ -46,6 +46,7 @@ public class MessageLinks extends Links implements Serializable {
     @SerializedName("case")
     private Link caseLink;
     private Link twitterAccount;
+    private Link createdBy;
 
     @NotNull
     public Link getHiddenBy() {
@@ -113,5 +114,14 @@ public class MessageLinks extends Links implements Serializable {
 
     public void setTwitterAccount(Link twitterAccount) {
         this.twitterAccount = twitterAccount;
+    }
+
+    @NotNull
+    public Link getCreatedBy() {
+        return createdBy == null ? new Link() : createdBy;
+    }
+
+    public void setCreatedBy(@Nullable Link createdBy) {
+        this.createdBy = createdBy;
     }
 }

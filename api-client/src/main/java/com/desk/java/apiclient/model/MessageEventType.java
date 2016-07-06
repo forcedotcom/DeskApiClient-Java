@@ -29,35 +29,38 @@ package com.desk.java.apiclient.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Jerrell Mardis
+ * Created by Matt Kranzler on 7/5/16.
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public enum OpportunityEventType {
+public enum MessageEventType {
 
-    @SerializedName("note")
-    NOTE,
+    @SerializedName("chat_customer_end")
+    CHAT_CUSTOMER_END,
 
-    @SerializedName("email")
-    EMAIL,
+    @SerializedName("chat_customer_exit")
+    CHAT_CUSTOMER_EXIT,
 
-    @SerializedName("task")
-    TASK,
+    @SerializedName("chat_customer_timeout")
+    CHAT_CUSTOMER_TIMEOUT,
 
-    @SerializedName("event")
-    EVENT,
+    @SerializedName("chat_agent_enter")
+    CHAT_AGENT_ENTER,
 
-    @SerializedName("call")
-    CALL,
+    @SerializedName("chat_agent_end")
+    CHAT_AGENT_END,
 
-    @SerializedName("opportunity_attachment")
-    ATTACHMENT;
+    @SerializedName("chat_agent_exit")
+    CHAT_AGENT_EXIT,
 
-    /**
-     * Returns a lowercase toString() value
-     * @return the lowercase value
-     */
-    @Override
-    public String toString() {
-        return super.toString().toLowerCase();
-    }
+    @SerializedName("chat_content_erased")
+    CHAT_CONTENT_ERASED,
+
+    @SerializedName("queue_item_added")
+    QUEUE_ITEM_ADDED,
+
+    @SerializedName("queue_item_available")
+    QUEUE_ITEM_AVAILABLE,
+
+    @SerializedName("queue_item_pulled")
+    QUEUE_ITEM_PULLED
 }

@@ -33,7 +33,7 @@
 
     <groupId>com.desk</groupId>
     <artifactId>api-client-parent</artifactId>
-    <version>1.3.2-SNAPSHOT</version>
+    <version>1.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Desk Java API Client Parent</name>

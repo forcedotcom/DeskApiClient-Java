@@ -37,11 +37,11 @@ import java.util.Date;
  */
 public class OpportunityActivity implements Serializable, IOpportunityActivity {
 
-    private static final long serialVersionUID = -3707695292397393657L;
+    private static final long serialVersionUID = -1072226344650951253L;
 
     private long id;
     private int siteId;
-    private OpportunityEventType type;
+    private OpportunityActivityType type;
     private Date createdAt;
     private Date updatedAt;
     @SerializedName("_links")
@@ -63,11 +63,11 @@ public class OpportunityActivity implements Serializable, IOpportunityActivity {
         this.siteId = siteId;
     }
 
-    public OpportunityEventType getType() {
+    public OpportunityActivityType getType() {
         return type;
     }
 
-    public void setType(OpportunityEventType type) {
+    public void setType(OpportunityActivityType type) {
         this.type = type;
     }
 

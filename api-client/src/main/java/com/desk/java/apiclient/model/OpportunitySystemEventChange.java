@@ -26,23 +26,29 @@
 
 package com.desk.java.apiclient.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Matt Kranzler on 12/29/15.
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public class SystemEventLinks extends Links {
+public class OpportunitySystemEventChange implements Serializable {
 
-    private static final long serialVersionUID = 5750581577751068354L;
+    private static final long serialVersionUID = 128629638975329761L;
 
-    private Link invoker;
+    private String field;
+    private Object from;
+    private Object to;
 
-    public Link getInvoker() {
-        return invoker;
+    public String getField() {
+        return field;
     }
 
-    public void setInvoker(Link invoker) {
-        this.invoker = invoker;
+    public Object getFrom() {
+        return from;
     }
 
-
+    public Object getTo() {
+        return to;
+    }
 }
