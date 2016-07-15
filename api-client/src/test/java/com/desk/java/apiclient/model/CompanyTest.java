@@ -26,52 +26,46 @@
 
 package com.desk.java.apiclient.model;
 
+import org.junit.Before;
+import org.junit.Test;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import java.util.HashMap;
 
-public class FilterLinks extends Links {
+import static org.junit.Assert.*;
 
-    private static final long serialVersionUID = 5628595002692756311L;
+/**
+ * <p> Unit tests for {@link Company} </p>
+ *
+ * Created by Matt Kranzler on 6/24/16.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
+ */
+public class CompanyTest {
 
-    private Link cases;
-    private Link companies;
-    private Link customers;
-    private Link opportunities;
+    private Company company;
 
-    @NotNull
-    public Link getCases() {
-        return cases == null ? new Link() : cases;
+    @Before
+    public void setUp() throws Exception {
+        company = new Company();
     }
 
-    @NotNull
-    public Link getCompanies() {
-        return companies == null ? new Link() : companies;
+    @Test
+    public void getDomainsDoesNotReturnNull() throws Exception {
+        assertNotNull(company.getDomains());
+        company.setDomains(null);
+        assertNotNull(company.getDomains());
     }
 
-    @NotNull
-    public Link getCustomers() {
-        return customers == null ? new Link() : customers;
+    @Test
+    public void getLinksDoesNotReturnNull() throws Exception {
+        assertNotNull(company.getLinks());
+        company.setLinks(null);
+        assertNotNull(company.getLinks());
     }
 
-    @NotNull
-    public Link getOpportunities() {
-        return opportunities == null ? new Link() : opportunities;
-    }
-
-    public void setCases(@Nullable Link cases) {
-        this.cases = cases;
-    }
-
-    public void setCompanies(@Nullable Link companies) {
-        this.companies = companies;
-    }
-
-    public void setCustomers(@Nullable Link customers) {
-        this.customers = customers;
-    }
-
-    public void setOpportunities(@Nullable Link opportunities) {
-        this.opportunities = opportunities;
+    @Test
+    public void getCustomFieldsDoesNotReturnNull() throws Exception {
+        assertNotNull(company.getCustomFields());
+        company.setCustomFields(null);
+        assertNotNull(company.getCustomFields());
     }
 }

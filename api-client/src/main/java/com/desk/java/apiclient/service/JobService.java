@@ -24,65 +24,61 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.desk.java.apiclient.model;
+package com.desk.java.apiclient.service;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import com.desk.java.apiclient.model.ApiResponse;
+import com.desk.java.apiclient.model.BulkCaseUpdateRequest;
+import com.desk.java.apiclient.model.Job;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
- * Created by Matt Kranzler on 12/29/15.
+ * <p>
+ *   Service interfacing with the Desk Jobs endpoint.
+ * </p>
+ *
+ * Created by Matt Kranzler on 6/14/16.
  * Copyright (c) 2016 Desk.com. All rights reserved.
+ *
+ * @see <a href="http://dev.desk.com/API/jobs/">http://dev.desk.com/API/jobs/</a>
  */
-public class OpportunitySystemEvent implements Serializable, IOpportunityActivity {
 
-    private static final long serialVersionUID = -5702874530149282279L;
+public interface JobService {
 
-    private long id;
-    private OpportunitySystemEventType type;
-    private String context;
-    private Date createdAt;
-    private List<OpportunitySystemEventChange> changes;
-    @SerializedName("_links")
-    private OpportunitySystemEventLinks links;
+  String JOBS_URI = "jobs";
 
-    public long getId() {
-        return id;
-    }
+  /**
+   * Retrieve a single job
+   * @see <a href="http://dev.desk.com/API/jobs/#show">http://dev.desk.com/API/jobs/#show</a>
+   *
+   * @param jobId the id of the job
+   * @return the job
+   */
+  @GET(JOBS_URI + "/{id}")
+  Call<Job> getJobById(@Path("id") int jobId);
 
-    public OpportunitySystemEventType getType() {
-        return type;
-    }
+  /**
+   * Retrieves a paginated list of all jobs
+   * @see <a href="http://dev.desk.com/API/jobs/#list">http://dev.desk.com/API/jobs/#list</a>
+   *
+   * @param perPage the total jobs per page
+   * @param page the page requested
+   * @return a job api response
+   */
+  @GET(JOBS_URI)
+  Call<ApiResponse<Job>> getJobs(@Query("per_page") int perPage, @Query("page") int page);
 
-    public String getContext() {
-        return context;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public List<OpportunitySystemEventChange> getChanges() {
-        return changes;
-    }
-
-    public OpportunitySystemEventLinks getLinks() {
-        return links;
-    }
-
-    @Override public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        OpportunitySystemEvent systemEvent = (OpportunitySystemEvent) o;
-
-        return id == systemEvent.id;
-
-    }
-
-    @Override public int hashCode() {
-        return (int) (id ^ (id >>> 32));
-    }
+  /**
+   * Create a bulk case update background job
+   * @see <a href="http://dev.desk.com/API/jobs/#create">http://dev.desk.com/API/jobs/#create</a>
+   *
+   * @param request the bulk case update request
+   * @return the job
+   */
+  @POST(JOBS_URI)
+  Call<Job> createBulkCaseUpdateJob(@Body BulkCaseUpdateRequest request);
 }

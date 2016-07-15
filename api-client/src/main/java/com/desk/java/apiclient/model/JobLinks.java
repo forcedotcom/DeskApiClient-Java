@@ -26,52 +26,26 @@
 
 package com.desk.java.apiclient.model;
 
-
-import org.jetbrains.annotations.NotNull;
+import java.io.Serializable;
 import org.jetbrains.annotations.Nullable;
 
-public class FilterLinks extends Links {
+/**
+ * <p>
+ *   Represents the links available for a background {@link Job}.
+ * </p>
+ *
+ * Created by Matt Kranzler on 6/14/16.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
+ */
 
-    private static final long serialVersionUID = 5628595002692756311L;
+public class JobLinks extends Links implements Serializable {
 
-    private Link cases;
-    private Link companies;
-    private Link customers;
-    private Link opportunities;
+  private static final long serialVersionUID = 2735628309798048409L;
 
-    @NotNull
-    public Link getCases() {
-        return cases == null ? new Link() : cases;
-    }
+  private Link user;
 
-    @NotNull
-    public Link getCompanies() {
-        return companies == null ? new Link() : companies;
-    }
-
-    @NotNull
-    public Link getCustomers() {
-        return customers == null ? new Link() : customers;
-    }
-
-    @NotNull
-    public Link getOpportunities() {
-        return opportunities == null ? new Link() : opportunities;
-    }
-
-    public void setCases(@Nullable Link cases) {
-        this.cases = cases;
-    }
-
-    public void setCompanies(@Nullable Link companies) {
-        this.companies = companies;
-    }
-
-    public void setCustomers(@Nullable Link customers) {
-        this.customers = customers;
-    }
-
-    public void setOpportunities(@Nullable Link opportunities) {
-        this.opportunities = opportunities;
-    }
+  @Nullable
+  public Link getUser() {
+    return user;
+  }
 }

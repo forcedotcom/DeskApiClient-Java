@@ -26,6 +26,7 @@
 
 package com.desk.java.apiclient.model;
 
+import com.desk.java.apiclient.util.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,7 +37,7 @@ import java.util.List;
 
 public class ApiResponse<T extends Serializable> implements Serializable {
 
-    private static final long serialVersionUID = -2252937250041149579L;
+    private static final long serialVersionUID = 916547674914954714L;
 
     private int totalEntries;
     private int page;
@@ -102,7 +103,7 @@ public class ApiResponse<T extends Serializable> implements Serializable {
     }
 
     public boolean hasNextPage() {
-        return getLinks().getNext() != null;
+        return !StringUtils.isEmpty(getLinks().getNext().getUrl());
     }
 
     public boolean isFirstPage() {

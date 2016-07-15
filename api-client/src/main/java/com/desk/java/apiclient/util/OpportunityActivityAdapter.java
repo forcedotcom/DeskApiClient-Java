@@ -26,15 +26,7 @@
 
 package com.desk.java.apiclient.util;
 
-import com.desk.java.apiclient.model.IOpportunityActivity;
-import com.desk.java.apiclient.model.OpportunityAttachment;
-import com.desk.java.apiclient.model.OpportunityCall;
-import com.desk.java.apiclient.model.OpportunityEmail;
-import com.desk.java.apiclient.model.OpportunityEvent;
-import com.desk.java.apiclient.model.OpportunityEventType;
-import com.desk.java.apiclient.model.OpportunityNote;
-import com.desk.java.apiclient.model.OpportunitySystemEvent;
-import com.desk.java.apiclient.model.OpportunityTask;
+import com.desk.java.apiclient.model.*;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -93,15 +85,15 @@ public class OpportunityActivityAdapter implements JsonDeserializer<IOpportunity
                     } else {
                         JsonPrimitive activityType = element.getAsJsonPrimitive(TYPE);
 
-                        if (OpportunityEventType.CALL.name().equalsIgnoreCase(activityType.getAsString())) {
+                        if (OpportunityActivityType.CALL.name().equalsIgnoreCase(activityType.getAsString())) {
                             return gson.fromJson(jsonElement, OpportunityCall.class);
-                        } else if (OpportunityEventType.EMAIL.name().equalsIgnoreCase(activityType.getAsString())) {
+                        } else if (OpportunityActivityType.EMAIL.name().equalsIgnoreCase(activityType.getAsString())) {
                             return gson.fromJson(jsonElement, OpportunityEmail.class);
-                        } else if (OpportunityEventType.EVENT.name().equalsIgnoreCase(activityType.getAsString())) {
+                        } else if (OpportunityActivityType.EVENT.name().equalsIgnoreCase(activityType.getAsString())) {
                             return gson.fromJson(jsonElement, OpportunityEvent.class);
-                        } else if (OpportunityEventType.NOTE.name().equalsIgnoreCase(activityType.getAsString())) {
+                        } else if (OpportunityActivityType.NOTE.name().equalsIgnoreCase(activityType.getAsString())) {
                             return gson.fromJson(jsonElement, OpportunityNote.class);
-                        } else if (OpportunityEventType.TASK.name().equalsIgnoreCase(activityType.getAsString())) {
+                        } else if (OpportunityActivityType.TASK.name().equalsIgnoreCase(activityType.getAsString())) {
                             return gson.fromJson(jsonElement, OpportunityTask.class);
                         } else if (OPPORTUNITY_ATTACHMENT.equalsIgnoreCase(activityType.getAsString())) {
                             return gson.fromJson(jsonElement, OpportunityAttachment.class);

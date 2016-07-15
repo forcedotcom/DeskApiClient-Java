@@ -26,51 +26,35 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
- * Created by Matt Kranzler on 12/29/15.
+ * <p>
+ *     Unit tests for {@link Link}
+ * </p>
+ *
+ * Created by Matt Kranzler on 6/27/16.
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public enum EventType {
+public class LinkTest {
 
-    @SerializedName("opportunity_created")
-    OPPORTUNITY_CREATED,
+    @Test
+    public void getLinkIdDoesReturn0WithEmptyHref() throws Exception {
+        Link link = new Link("");
+        assertEquals(0, link.getLinkId());
+    }
 
-    @SerializedName("opportunity_updated")
-    OPPORTUNITY_UPDATED,
+    @Test
+    public void getLinkIdDoesReturn0WithNonDigitLastSegment() throws Exception {
+        Link link = new Link("/link/l");
+        assertEquals(0, link.getLinkId());
+    }
 
-    @SerializedName("opportunity_closed")
-    OPPORTUNITY_CLOSED,
-
-    @SerializedName("opportunity_time_rule")
-    OPPORTUNITY_TIME_RULE,
-
-    @SerializedName("opportunity_note_created")
-    OPPORTUNITY_NOTE_CREATED,
-
-    @SerializedName("opportunity_call_created")
-    OPPORTUNITY_CALL_CREATED,
-
-    @SerializedName("opportunity_task_created")
-    OPPORTUNITY_TASK_CREATED,
-
-    @SerializedName("opportunity_event_created")
-    OPPORTUNITY_EVENT_CREATED,
-
-    @SerializedName("opportunity_email_created")
-    OPPORTUNITY_EMAIL_CREATED,
-
-    @SerializedName("opportunity_attachment_created")
-    OPPORTUNITY_ATTACHMENT_CREATED,
-
-    @SerializedName("opportunity_rule_applied")
-    OPPORTUNITY_RULE_APPLIED,
-
-    @SerializedName("opportunity_item_active")
-    OPPORTUNITY_ITEM_ACTIVE,
-
-    @SerializedName("opportunity_item_available")
-    OPPORTUNITY_ITEM_AVAILABLE
-
+    @Test
+    public void getLinkIdDoesReturnLinkId() throws Exception {
+        Link link = new Link("/link/10");
+        assertEquals(10, link.getLinkId());
+    }
 }

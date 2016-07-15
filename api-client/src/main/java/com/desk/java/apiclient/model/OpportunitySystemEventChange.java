@@ -26,52 +26,29 @@
 
 package com.desk.java.apiclient.model;
 
+import java.io.Serializable;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+/**
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
+ */
+public class OpportunitySystemEventChange implements Serializable {
 
-public class FilterLinks extends Links {
+    private static final long serialVersionUID = 128629638975329761L;
 
-    private static final long serialVersionUID = 5628595002692756311L;
+    private String field;
+    private Object from;
+    private Object to;
 
-    private Link cases;
-    private Link companies;
-    private Link customers;
-    private Link opportunities;
-
-    @NotNull
-    public Link getCases() {
-        return cases == null ? new Link() : cases;
+    public String getField() {
+        return field;
     }
 
-    @NotNull
-    public Link getCompanies() {
-        return companies == null ? new Link() : companies;
+    public Object getFrom() {
+        return from;
     }
 
-    @NotNull
-    public Link getCustomers() {
-        return customers == null ? new Link() : customers;
-    }
-
-    @NotNull
-    public Link getOpportunities() {
-        return opportunities == null ? new Link() : opportunities;
-    }
-
-    public void setCases(@Nullable Link cases) {
-        this.cases = cases;
-    }
-
-    public void setCompanies(@Nullable Link companies) {
-        this.companies = companies;
-    }
-
-    public void setCustomers(@Nullable Link customers) {
-        this.customers = customers;
-    }
-
-    public void setOpportunities(@Nullable Link opportunities) {
-        this.opportunities = opportunities;
+    public Object getTo() {
+        return to;
     }
 }

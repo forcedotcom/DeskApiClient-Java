@@ -26,52 +26,41 @@
 
 package com.desk.java.apiclient.model;
 
+import com.google.gson.annotations.SerializedName;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+/**
+ * Created by Matt Kranzler on 7/5/16.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
+ */
+public enum MessageEventType {
 
-public class FilterLinks extends Links {
+    @SerializedName("chat_customer_end")
+    CHAT_CUSTOMER_END,
 
-    private static final long serialVersionUID = 5628595002692756311L;
+    @SerializedName("chat_customer_exit")
+    CHAT_CUSTOMER_EXIT,
 
-    private Link cases;
-    private Link companies;
-    private Link customers;
-    private Link opportunities;
+    @SerializedName("chat_customer_timeout")
+    CHAT_CUSTOMER_TIMEOUT,
 
-    @NotNull
-    public Link getCases() {
-        return cases == null ? new Link() : cases;
-    }
+    @SerializedName("chat_agent_enter")
+    CHAT_AGENT_ENTER,
 
-    @NotNull
-    public Link getCompanies() {
-        return companies == null ? new Link() : companies;
-    }
+    @SerializedName("chat_agent_end")
+    CHAT_AGENT_END,
 
-    @NotNull
-    public Link getCustomers() {
-        return customers == null ? new Link() : customers;
-    }
+    @SerializedName("chat_agent_exit")
+    CHAT_AGENT_EXIT,
 
-    @NotNull
-    public Link getOpportunities() {
-        return opportunities == null ? new Link() : opportunities;
-    }
+    @SerializedName("chat_content_erased")
+    CHAT_CONTENT_ERASED,
 
-    public void setCases(@Nullable Link cases) {
-        this.cases = cases;
-    }
+    @SerializedName("queue_item_added")
+    QUEUE_ITEM_ADDED,
 
-    public void setCompanies(@Nullable Link companies) {
-        this.companies = companies;
-    }
+    @SerializedName("queue_item_available")
+    QUEUE_ITEM_AVAILABLE,
 
-    public void setCustomers(@Nullable Link customers) {
-        this.customers = customers;
-    }
-
-    public void setOpportunities(@Nullable Link opportunities) {
-        this.opportunities = opportunities;
-    }
+    @SerializedName("queue_item_pulled")
+    QUEUE_ITEM_PULLED
 }

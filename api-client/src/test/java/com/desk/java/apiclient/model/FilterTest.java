@@ -26,23 +26,53 @@
 
 package com.desk.java.apiclient.model;
 
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
 /**
- * Created by Matt Kranzler on 12/29/15.
+ * <p>
+ * Unit tests for {@link Filter};
+ * </p>
+ * <p>
+ * Created by Matt Kranzler on 6/27/16.
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public class SystemEventLinks extends Links {
+public class FilterTest {
 
-    private static final long serialVersionUID = 5750581577751068354L;
+    private Filter filter;
 
-    private Link invoker;
-
-    public Link getInvoker() {
-        return invoker;
+    @Before
+    public void setUp() throws Exception {
+        filter = new Filter();
     }
 
-    public void setInvoker(Link invoker) {
-        this.invoker = invoker;
+    @Test
+    public void getLinksDoesNotReturnNull() throws Exception {
+        assertNotNull(filter.getLinks());
+        filter.setLinks(null);
+        assertNotNull(filter.getLinks());
     }
 
+    @Test
+    public void getCasesLinkDoesNotReturnNull() throws Exception {
+        assertNotNull(filter.getCasesLink());
+    }
+
+    @Test
+    public void getCompaniesLinkDoesNotReturnNull() throws Exception {
+        assertNotNull(filter.getCompaniesLink());
+    }
+
+    @Test
+    public void getCustomersLinkDoesNotReturnNull() throws Exception {
+        assertNotNull(filter.getCustomersLink());
+    }
+
+    @Test
+    public void getOpportunitiesLinkDoesNotReturnNull() throws Exception {
+        assertNotNull(filter.getOpportunitiesLink());
+    }
 
 }

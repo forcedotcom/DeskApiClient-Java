@@ -24,31 +24,52 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+
 package com.desk.java.apiclient.model;
+
+import com.google.gson.annotations.SerializedName;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
 
 /**
- * Created by Matt Kranzler on 12/29/15.
+ * <p>
+ *   A request object encapsulating the necessary parameters to create a {@link JobType#BULK_CASE_UPDATE} job.
+ * </p>
+ *
+ * Created by Matt Kranzler on 6/14/16.
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public class SystemEventChange implements Serializable {
+public class BulkCaseUpdateRequest implements Serializable {
 
-    private static final long serialVersionUID = -5700667957391850469L;
+  private static final long serialVersionUID = 5093696937464464025L;
 
-    private String field;
-    private Object from;
-    private Object to;
+  private JobType type = JobType.BULK_CASE_UPDATE;
+  @SerializedName("case")
+  private Case deskCase;
+  private int[] caseIds;
+  private Integer filterId;
 
-    public String getField() {
-        return field;
-    }
+  /**
+   * Creates a bulk case update job for an array of case ids
+   *
+   * @param deskCase the shallow case containing the updates
+   * @param caseIds the case ids to update
+   */
+  public BulkCaseUpdateRequest(@NotNull Case deskCase, @NotNull int[] caseIds) {
+    this.deskCase = deskCase;
+    this.caseIds = caseIds;
+  }
 
-    public Object getFrom() {
-        return from;
-    }
+  /**
+   * Creates a bulk case update job for cases matching a filter id
+   *
+   * @param deskCase the shallow case containing the updates
+   * @param filterId the filter id to find cases
+   */
+  public BulkCaseUpdateRequest(@NotNull Case deskCase, @NotNull Integer filterId) {
+    this.deskCase = deskCase;
+    this.filterId = filterId;
+  }
 
-    public Object getTo() {
-        return to;
-    }
 }

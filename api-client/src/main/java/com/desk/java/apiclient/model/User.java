@@ -52,14 +52,16 @@ public class User implements Serializable {
         this.id = i;
     }
 
+    @Nullable
     public String getName() {
-        return (name == null) ? "" : name;
+        return name;
     }
 
     public void setName(String n) {
         this.name = n;
     }
 
+    @Nullable
     public String getPublicName() {
         return publicName;
     }
@@ -68,6 +70,7 @@ public class User implements Serializable {
         this.publicName = pn;
     }
 
+    @Nullable
     public String getEmail() {
         return email;
     }
@@ -76,6 +79,7 @@ public class User implements Serializable {
         this.email = e;
     }
 
+    @Nullable
     public String getLevel() {
         return level;
     }
@@ -84,8 +88,9 @@ public class User implements Serializable {
         this.level = l;
     }
 
+    @Nullable
     public String getAvatar() {
-        return (avatar == null) ? "" : avatar;
+        return avatar;
     }
 
     public void setAvatar(String a) {
@@ -114,6 +119,7 @@ public class User implements Serializable {
         return getLinks().getSelf();
     }
 
+    @Nullable
     public String getSelfLinkUrl() {
         return getSelfLink().getUrl();
     }
