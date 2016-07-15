@@ -26,52 +26,54 @@
 
 package com.desk.java.apiclient.model;
 
+import org.junit.Before;
+import org.junit.Test;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import static org.junit.Assert.*;
 
-public class FilterLinks extends Links {
+/**
+ * <p>
+ * Unit tests for {@link FilterLinks}
+ * </p>
+ * <p>
+ * Created by Matt Kranzler on 6/27/16.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
+ */
+public class FilterLinksTest {
 
-    private static final long serialVersionUID = 5628595002692756311L;
+    private FilterLinks filterLinks;
 
-    private Link cases;
-    private Link companies;
-    private Link customers;
-    private Link opportunities;
-
-    @NotNull
-    public Link getCases() {
-        return cases == null ? new Link() : cases;
+    @Before
+    public void setUp() throws Exception {
+        filterLinks = new FilterLinks();
     }
 
-    @NotNull
-    public Link getCompanies() {
-        return companies == null ? new Link() : companies;
+    @Test
+    public void getCasesDoesNotReturnNull() throws Exception {
+        assertNotNull(filterLinks.getCases());
+        filterLinks.setCases(null);
+        assertNotNull(filterLinks.getCases());
     }
 
-    @NotNull
-    public Link getCustomers() {
-        return customers == null ? new Link() : customers;
+    @Test
+    public void getCompaniesDoesNotReturnNull() throws Exception {
+        assertNotNull(filterLinks.getCompanies());
+        filterLinks.setCompanies(null);
+        assertNotNull(filterLinks.getCompanies());
     }
 
-    @NotNull
-    public Link getOpportunities() {
-        return opportunities == null ? new Link() : opportunities;
+    @Test
+    public void getCustomersDoesNotReturnNull() throws Exception {
+        assertNotNull(filterLinks.getCustomers());
+        filterLinks.setCustomers(null);
+        assertNotNull(filterLinks.getCustomers());
     }
 
-    public void setCases(@Nullable Link cases) {
-        this.cases = cases;
+    @Test
+    public void getOpportunitiesDoesNotReturnNull() throws Exception {
+        assertNotNull(filterLinks.getOpportunities());
+        filterLinks.setOpportunities(null);
+        assertNotNull(filterLinks.getOpportunities());
     }
 
-    public void setCompanies(@Nullable Link companies) {
-        this.companies = companies;
-    }
-
-    public void setCustomers(@Nullable Link customers) {
-        this.customers = customers;
-    }
-
-    public void setOpportunities(@Nullable Link opportunities) {
-        this.opportunities = opportunities;
-    }
 }

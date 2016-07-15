@@ -40,7 +40,7 @@ public class Message implements Serializable {
 
     public static final int NO_ID = 0;
 
-    private static final long serialVersionUID = 7987793767800204017L;
+    private static final long serialVersionUID = -5356300171602080000L;
 
     private int id;
     private String subject;
@@ -64,6 +64,7 @@ public class Message implements Serializable {
     private Date enteredAt;
     private Date createdAt;
     private Date updatedAt;
+    private MessageEventType eventType;
     private MessageEmbedded _embedded;
     private MessageLinks _links;
 
@@ -71,179 +72,184 @@ public class Message implements Serializable {
         return this.id;
     }
 
-    public void setId(int i) {
-        this.id = i;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getSubject() {
-        return (this.subject == null) ? "" : this.subject;
+        return subject;
     }
 
-    public void setSubject(String s) {
-        this.subject = s;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
     public String getBody() {
-        return (this.body == null) ? "" : this.body;
+        return body;
     }
 
-    public void setBody(String b) {
-        this.body = b;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public MessageDirection getDirection() {
         return this.direction;
     }
 
-    public void setDirection(MessageDirection d) {
-        this.direction = d;
+    public void setDirection(MessageDirection direction) {
+        this.direction = direction;
     }
 
     public MessageStatus getStatus() {
         return this.status;
     }
 
-    public void setStatus(MessageStatus s) {
-        this.status = s;
+    public void setStatus(MessageStatus status) {
+        this.status = status;
     }
 
     public String getTo() {
         return this.to;
     }
 
-    public void setTo(String t) {
-        this.to = t;
+    public void setTo(String to) {
+        this.to = to;
     }
 
     public String getFrom() {
         return this.from;
     }
 
-    public void setFrom(String f) {
-        this.from = f;
+    public void setFrom(String from) {
+        this.from = from;
     }
 
     public String getCc() {
         return this.cc;
     }
 
-    public void setCc(String c) {
-        this.cc = c;
+    public void setCc(String cc) {
+        this.cc = cc;
     }
 
     public String getBcc() {
         return this.bcc;
     }
 
-    public void setBcc(String b) {
-        this.bcc = b;
+    public void setBcc(String bcc) {
+        this.bcc = bcc;
     }
 
     public String getType() {
         return this.type;
     }
 
-    public void setType(String t) {
-        this.type = t;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getIsBestAnswer() {
         return this.isBestAnswer;
     }
 
-    public void setIsBestAnswer(String iba) {
-        this.isBestAnswer = iba;
+    public void setIsBestAnswer(String isBestAnswer) {
+        this.isBestAnswer = isBestAnswer;
     }
 
     public boolean getIsBestAnswerBoolean() {
-        return (StringUtils.isEmpty(this.isBestAnswer)) ?
-                false : Boolean.parseBoolean(this.isBestAnswer);
-
+        return !StringUtils.isEmpty(this.isBestAnswer) && Boolean.parseBoolean(this.isBestAnswer);
     }
 
     public String getHidden() {
         return this.hidden;
     }
 
-    public void setHidden(String h) {
-        this.hidden = h;
+    public void setHidden(String hidden) {
+        this.hidden = hidden;
     }
 
     public boolean getHiddenBoolean() {
-        return (StringUtils.isEmpty(this.hidden)) ?
-                false : Boolean.parseBoolean(this.hidden);
+        return !StringUtils.isEmpty(this.hidden) && Boolean.parseBoolean(this.hidden);
     }
 
     public String getHiddenAt() {
         return this.hiddenAt;
     }
 
-    public void setHiddenAt(String ha) {
-        this.hiddenAt = ha;
+    public void setHiddenAt(String hiddenAt) {
+        this.hiddenAt = hiddenAt;
     }
 
     public String getAnswersDisallowedAt() {
         return this.answersDisallowedAt;
     }
 
-    public void setAnswersDisallowedAt(String ad) {
-        this.answersDisallowedAt = ad;
+    public void setAnswersDisallowedAt(String answersDisallowedAt) {
+        this.answersDisallowedAt = answersDisallowedAt;
     }
 
     public String getDisallowCommunityAnswers() {
         return this.disallowCommunityAnswers;
     }
 
-    public void setDisallowCommunityAnswers(String dca) {
-        this.disallowCommunityAnswers = dca;
+    public void setDisallowCommunityAnswers(String disallowCommunityAnswers) {
+        this.disallowCommunityAnswers = disallowCommunityAnswers;
     }
 
     public String getAreAnswersDisallowed() {
         return this.areAnswersDisallowed;
     }
 
-    public void setAreAnswersDisallowed(String dca) {
-        this.areAnswersDisallowed = dca;
+    public void setAreAnswersDisallowed(String areAnswersDisallowed) {
+        this.areAnswersDisallowed = areAnswersDisallowed;
     }
 
     public String getFromFacebookName() {
         return this.fromFacebookName;
     }
 
-    public void setFromFacebookName(String f) {
-        this.fromFacebookName = f;
+    public void setFromFacebookName(String fromFacebookName) {
+        this.fromFacebookName = fromFacebookName;
     }
 
     public String getClientType() {
         return this.clientType;
     }
 
-    public void setClientType(String ct) {
-        this.clientType = ct;
+    public void setClientType(String clientType) {
+        this.clientType = clientType;
     }
 
     public Date getEnteredAt() {
         return this.enteredAt;
     }
 
-    public void setEnteredAt(Date ea) {
-        this.enteredAt = ea;
+    public void setEnteredAt(Date enteredAt) {
+        this.enteredAt = enteredAt;
     }
 
     public Date getCreatedAt() {
         return this.createdAt;
     }
 
-    public void setCreatedAt(Date ca) {
-        this.createdAt = ca;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Date getUpdatedAt() {
         return this.updatedAt;
     }
 
-    public void setUpdatedAt(Date ua) {
-        this.updatedAt = ua;
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public MessageEventType getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(MessageEventType eventType) {
+        this.eventType = eventType;
     }
 
     @NotNull
@@ -251,8 +257,8 @@ public class Message implements Serializable {
         return _embedded == null ? _embedded = new MessageEmbedded() : _embedded;
     }
 
-    public void setEmbedded(MessageEmbedded m) {
-        this._embedded = m;
+    public void setEmbedded(MessageEmbedded embedded) {
+        this._embedded = embedded;
     }
 
     @NotNull
@@ -260,8 +266,8 @@ public class Message implements Serializable {
         return _links == null ? _links = new MessageLinks() : _links;
     }
 
-    public void setLinks(MessageLinks l) {
-        this._links = l;
+    public void setLinks(MessageLinks links) {
+        this._links = links;
     }
 
     public void setOutgoingStatus(CaseType caseType) {
@@ -273,24 +279,6 @@ public class Message implements Serializable {
         }
     }
 
-    /**
-     * Tries to find a user link url for the message first by looking at the sent by link,
-     * then the entered by link and finally the user link
-     * @return the user link if one is found, an empty string if none found
-     */
-    @NotNull
-    public String findUserLinkUrl() {
-        String userLink = "";
-        if (getSentByLink() != null) {
-            userLink = getSentByLink().getUrl();
-        } else if (getEnteredByLink() != null) {
-            userLink = getEnteredByLink().getUrl();
-        } else if (getUserLink() != null) {
-            userLink = getUserLink().getUrl();
-        }
-        return userLink;
-    }
-
     public String getClassName() {
         return getSelfLink().getClassName();
     }
@@ -300,6 +288,18 @@ public class Message implements Serializable {
             return MessageType.NOTE;
         }
         return MessageType.REPLY;
+    }
+
+    public CaseStatus getTicketStatus() {
+        return ticketStatus;
+    }
+
+    public void setTicketStatus(CaseStatus ticketStatus) {
+        this.ticketStatus = ticketStatus;
+    }
+
+    public boolean isReply() {
+        return getSelfLinkUrl().contains(CaseService.REPLIES_URI);
     }
 
     @Nullable
@@ -321,32 +321,29 @@ public class Message implements Serializable {
         return getLinks().getSelfId();
     }
 
-    @Nullable
+    @NotNull
     public Link getSentByLink() {
         return getLinks().getSentBy();
     }
 
-    @Nullable
+    @NotNull
     public Link getEnteredByLink() {
         return getLinks().getEnteredBy();
     }
 
-    @Nullable
+    @NotNull
+    public Link getCreatedByLink() {
+        return getLinks().getCreatedBy();
+    }
+
+    @NotNull
     public Link getUserLink() {
         return getLinks().getUser();
     }
 
-    @Nullable
+    @NotNull
     public Link getOutboundMailboxLink() {
         return getLinks().getOutboundMailbox();
-    }
-
-    public CaseStatus getTicketStatus() {
-        return ticketStatus;
-    }
-
-    public void setTicketStatus(CaseStatus ticketStatus) {
-        this.ticketStatus = ticketStatus;
     }
 
     /**
@@ -354,13 +351,10 @@ public class Message implements Serializable {
      * @return the id or {@link #NO_ID}
      */
     public int getOutboundMailboxId() {
-        if (getOutboundMailboxLink() == null) {
-            return NO_ID;
-        }
         return getOutboundMailboxLink().getLinkId();
     }
 
-    @Nullable
+    @NotNull
     public Link getCaseLink() {
         return getLinks().getCaseLink();
     }
@@ -370,9 +364,6 @@ public class Message implements Serializable {
      * @return the id or {@link #NO_ID}
      */
     public int getCaseId() {
-        if (getCaseLink() == null) {
-            return NO_ID;
-        }
         return getCaseLink().getLinkId();
     }
 
@@ -385,10 +376,6 @@ public class Message implements Serializable {
 
         return id == that.id;
 
-    }
-
-    public boolean isReply() {
-        return getSelfLinkUrl().contains(CaseService.REPLIES_URI);
     }
 
     @Override

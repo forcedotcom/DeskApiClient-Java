@@ -34,25 +34,7 @@ import java.io.Serializable;
 
 public class CaseLinks extends Links implements Serializable {
 
-    private static final long serialVersionUID = 56094253911864534L;
-
-    public static CaseLinks withAssignedUserLink(Link assignedUser) {
-        CaseLinks caseLinks = new CaseLinks();
-        caseLinks.setAssignedUser(assignedUser);
-        return caseLinks;
-    }
-
-    public static CaseLinks withAssignedGroupLink(Link assignedGroup) {
-        CaseLinks caseLinks = new CaseLinks();
-        caseLinks.setAssignedGroup(assignedGroup);
-        return caseLinks;
-    }
-
-    public static CaseLinks withAssignedGroupLinkUnassignedUser(Link assignedGroup) {
-        CaseLinks caseLinks = withAssignedGroupLink(assignedGroup);
-        caseLinks.setAssignedUser(new Link());
-        return caseLinks;
-    }
+    private static final long serialVersionUID = 6289826179576172039L;
 
     private Link replies;
     private Link message;
@@ -66,85 +48,85 @@ public class CaseLinks extends Links implements Serializable {
     private Link customer;
     private Link[] macros;
 
-    @Nullable
+    @NotNull
     public Link getReplies() {
-        return replies;
+        return replies == null ? new Link() : replies;
     }
 
-    public void setReplies(@Nullable Link r) {
-        this.replies = r;
+    public void setReplies(@Nullable Link replies) {
+        this.replies = replies;
     }
 
-    @Nullable
+    @NotNull
     public Link getMessage() {
-        return (message == null) ? new Link() : message;
+        return message == null ? new Link() : message;
     }
 
-    public void setMessage(@Nullable Link m) {
-        this.message = m;
+    public void setMessage(@Nullable Link message) {
+        this.message = message;
     }
 
-    @Nullable
+    @NotNull
     public Link getDraft() {
-        return draft;
+        return draft == null ? new Link() : draft;
     }
 
-    public void setDraft(@Nullable Link d) {
-        this.draft = d;
+    public void setDraft(@Nullable Link draft) {
+        this.draft = draft;
     }
 
-    @Nullable
+    @NotNull
     public Link getNotes() {
-        return notes;
+        return notes == null ? new Link() : notes;
     }
 
-    public void setNotes(@Nullable Link n) {
-        this.notes = n;
+    public void setNotes(@Nullable Link notes) {
+        this.notes = notes;
     }
 
-    @Nullable
+    @NotNull
     public Link getLockedBy() {
-        return lockedBy;
+        return lockedBy == null ? new Link() : lockedBy;
     }
 
-    public void setLockedBy(@Nullable Link u) {
-        this.lockedBy = u;
+    public void setLockedBy(@Nullable Link lockedBy) {
+        this.lockedBy = lockedBy;
     }
 
-    @Nullable
+    @NotNull
     public Link getCustomer() {
-        return customer;
+        return customer == null ? new Link() : customer;
     }
 
     public void setCustomer(@Nullable Link customer) {
         this.customer = customer;
     }
 
-    @Nullable
+    @NotNull
     public Link getAssignedGroup() {
-        return assignedGroup;
+        return assignedGroup == null ? new Link() : assignedGroup;
     }
 
-    public void setAssignedGroup(@Nullable Link g) {
-        this.assignedGroup = g;
+    public void setAssignedGroup(@Nullable Link assignedGroup) {
+        this.assignedGroup = assignedGroup;
     }
 
-    @Nullable
+    @NotNull
     public Link getAssignedUser() {
-        return assignedUser;
+        return assignedUser == null ? new Link() : assignedUser;
     }
 
-    public void setAssignedUser(@Nullable Link u) {
-        this.assignedUser = u;
+    public void setAssignedUser(@Nullable Link assignedUser) {
+        this.assignedUser = assignedUser;
     }
 
-    @Nullable
+    @NotNull
     public Link getMacroPreview() {
-        return macroPreview;
+        return macroPreview == null ? new Link() : macroPreview;
     }
 
-    public void setMacroPreview(@Nullable Link mp) {
-        this.macroPreview = mp;
+    public void setMacroPreview(@Nullable Link macroPreview) {
+        this.macroPreview = macroPreview;
     }
 
     @NotNull
@@ -152,17 +134,17 @@ public class CaseLinks extends Links implements Serializable {
         return macros != null ? macros : new Link[0];
     }
 
-    public void setMacros(@Nullable Link[] m) {
-        this.macros = m;
+    public void setMacros(@Nullable Link[] macros) {
+        this.macros = macros;
     }
 
-    @Nullable
+    @NotNull
     public Link getAttachments() {
-        return attachments;
+        return attachments == null ? new Link() : attachments;
     }
 
-    public void setAttachments(@Nullable Link a) {
-        this.attachments = a;
+    public void setAttachments(@Nullable Link attachments) {
+        this.attachments = attachments;
     }
 
 }

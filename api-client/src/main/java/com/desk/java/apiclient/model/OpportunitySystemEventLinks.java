@@ -26,52 +26,23 @@
 
 package com.desk.java.apiclient.model;
 
+/**
+ * Created by Matt Kranzler on 12/29/15.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
+ */
+public class OpportunitySystemEventLinks extends Links {
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+    private static final long serialVersionUID = -5896452677054862846L;
 
-public class FilterLinks extends Links {
+    private Link invoker;
 
-    private static final long serialVersionUID = 5628595002692756311L;
-
-    private Link cases;
-    private Link companies;
-    private Link customers;
-    private Link opportunities;
-
-    @NotNull
-    public Link getCases() {
-        return cases == null ? new Link() : cases;
+    public Link getInvoker() {
+        return invoker;
     }
 
-    @NotNull
-    public Link getCompanies() {
-        return companies == null ? new Link() : companies;
+    public void setInvoker(Link invoker) {
+        this.invoker = invoker;
     }
 
-    @NotNull
-    public Link getCustomers() {
-        return customers == null ? new Link() : customers;
-    }
 
-    @NotNull
-    public Link getOpportunities() {
-        return opportunities == null ? new Link() : opportunities;
-    }
-
-    public void setCases(@Nullable Link cases) {
-        this.cases = cases;
-    }
-
-    public void setCompanies(@Nullable Link companies) {
-        this.companies = companies;
-    }
-
-    public void setCustomers(@Nullable Link customers) {
-        this.customers = customers;
-    }
-
-    public void setOpportunities(@Nullable Link opportunities) {
-        this.opportunities = opportunities;
-    }
 }

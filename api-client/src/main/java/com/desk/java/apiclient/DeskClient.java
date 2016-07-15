@@ -37,6 +37,7 @@ import com.desk.java.apiclient.service.CustomerService;
 import com.desk.java.apiclient.service.FilterService;
 import com.desk.java.apiclient.service.GroupService;
 import com.desk.java.apiclient.service.InboundMailboxService;
+import com.desk.java.apiclient.service.JobService;
 import com.desk.java.apiclient.service.LabelService;
 import com.desk.java.apiclient.service.MacroService;
 import com.desk.java.apiclient.service.OpportunityService;
@@ -122,6 +123,7 @@ public class DeskClient {
     private OpportunityStageService opportunityStageService;
     private OpportunityService opportunityService;
     private TwitterAccountService twitterAccountService;
+    private JobService jobService;
 
     /**
      * Creates a {@link DeskClient} using the provided {@link DeskClientBuilder}.
@@ -453,6 +455,19 @@ public class DeskClient {
             twitterAccountService = restAdapter.create(TwitterAccountService.class);
         }
         return twitterAccountService;
+    }
+
+  /**
+   * Get the Desk Jobs service
+   *
+   * @return the default Desk Jobs service
+   */
+  @NotNull
+    public JobService jobs() {
+        if (jobService == null) {
+            jobService = restAdapter.create(JobService.class);
+        }
+        return jobService;
     }
 
     protected Retrofit getRestAdapter() {

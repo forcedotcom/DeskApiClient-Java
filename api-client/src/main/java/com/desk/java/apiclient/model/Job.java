@@ -26,52 +26,60 @@
 
 package com.desk.java.apiclient.model;
 
+import java.io.Serializable;
+import java.util.Date;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+/**
+ * <p>
+ *   Represents a background job in the Desk api.
+ * </p>
+ *
+ * Created by Matt Kranzler on 6/14/16.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
+ */
 
-public class FilterLinks extends Links {
+public class Job implements Serializable {
 
-    private static final long serialVersionUID = 5628595002692756311L;
+  private static final long serialVersionUID = -5174794408357928187L;
 
-    private Link cases;
-    private Link companies;
-    private Link customers;
-    private Link opportunities;
+  private Integer id;
+  private JobType type;
+  private String statusMessage;
+  private Integer progress;
+  private Date createdAt;
+  private Date completedAt;
+  private String lastError;
+  private JobLinks _links;
 
-    @NotNull
-    public Link getCases() {
-        return cases == null ? new Link() : cases;
-    }
+  public int getId() {
+    return id;
+  }
 
-    @NotNull
-    public Link getCompanies() {
-        return companies == null ? new Link() : companies;
-    }
+  public JobType getType() {
+    return type;
+  }
 
-    @NotNull
-    public Link getCustomers() {
-        return customers == null ? new Link() : customers;
-    }
+  public String getStatusMessage() {
+    return statusMessage;
+  }
 
-    @NotNull
-    public Link getOpportunities() {
-        return opportunities == null ? new Link() : opportunities;
-    }
+  public int getProgress() {
+    return progress;
+  }
 
-    public void setCases(@Nullable Link cases) {
-        this.cases = cases;
-    }
+  public Date getCreatedAt() {
+    return createdAt;
+  }
 
-    public void setCompanies(@Nullable Link companies) {
-        this.companies = companies;
-    }
+  public Date getCompletedAt() {
+    return completedAt;
+  }
 
-    public void setCustomers(@Nullable Link customers) {
-        this.customers = customers;
-    }
+  public String getLastError() {
+    return lastError;
+  }
 
-    public void setOpportunities(@Nullable Link opportunities) {
-        this.opportunities = opportunities;
-    }
+  public JobLinks getLinks() {
+    return _links;
+  }
 }

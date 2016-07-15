@@ -26,52 +26,31 @@
 
 package com.desk.java.apiclient.model;
 
+import com.google.gson.annotations.SerializedName;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+/**
+ * <p>
+ *   Represents a background job type in the Desk api.
+ * </p>
+ *
+ * Created by Matt Kranzler on 6/14/16.
+ * Copyright (c) 2016 Desk.com. All rights reserved.
+ */
 
-public class FilterLinks extends Links {
+public enum JobType {
 
-    private static final long serialVersionUID = 5628595002692756311L;
+  @SerializedName("bulk_case_update")
+  BULK_CASE_UPDATE,
 
-    private Link cases;
-    private Link companies;
-    private Link customers;
-    private Link opportunities;
+  @SerializedName("customer_merge")
+  CUSTOMER_MERGE;
 
-    @NotNull
-    public Link getCases() {
-        return cases == null ? new Link() : cases;
-    }
-
-    @NotNull
-    public Link getCompanies() {
-        return companies == null ? new Link() : companies;
-    }
-
-    @NotNull
-    public Link getCustomers() {
-        return customers == null ? new Link() : customers;
-    }
-
-    @NotNull
-    public Link getOpportunities() {
-        return opportunities == null ? new Link() : opportunities;
-    }
-
-    public void setCases(@Nullable Link cases) {
-        this.cases = cases;
-    }
-
-    public void setCompanies(@Nullable Link companies) {
-        this.companies = companies;
-    }
-
-    public void setCustomers(@Nullable Link customers) {
-        this.customers = customers;
-    }
-
-    public void setOpportunities(@Nullable Link opportunities) {
-        this.opportunities = opportunities;
-    }
+  /**
+   * Returns a lowercase toString() value
+   * @return the lowercase value
+   */
+  @Override
+  public String toString() {
+    return super.toString().toLowerCase();
+  }
 }

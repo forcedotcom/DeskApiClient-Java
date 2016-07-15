@@ -26,38 +26,68 @@
 
 package com.desk.java.apiclient.model;
 
-import com.google.gson.annotations.SerializedName;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
+ * <p>
+ *     Unit tests for {@link User}
+ * </p>
+ *
  * Created by Jerrell Mardis
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
-public enum OpportunityEventType {
+public class UserTest {
 
-    @SerializedName("note")
-    NOTE,
+    private User user;
 
-    @SerializedName("email")
-    EMAIL,
+    @Before
+    public void setUp() throws Exception {
+        user = new User();
+    }
 
-    @SerializedName("task")
-    TASK,
+    @Test
+    public void getLinksDoesNotReturnNull() {
+        assertNotNull(user.getLinks());
+        user.setLinks(null);
+        assertNotNull(user.getLinks());
+    }
 
-    @SerializedName("event")
-    EVENT,
+    @Test
+    public void getFiltersUrlReturnsUrlWhenSet() {
+        UserLinks userLinks = new UserLinks();
+        String url = "foo.com";
+        Link filters = new Link(url);
+        userLinks.setFilters(filters);
+        user.setLinks(userLinks);
+        assertEquals(url, user.getFiltersUrl());
+    }
 
-    @SerializedName("call")
-    CALL,
+    @Test
+    public void getFiltersUrlReturnsNullWhenNotSet() {
+        user.setLinks(null);
+        assertNull(user.getFiltersUrl());
+    }
 
-    @SerializedName("opportunity_attachment")
-    ATTACHMENT;
+    @Test
+    public void getSelfLinkUrlDoesNotReturnNull() {
+        user.setLinks(null);
+        assertNotNull(user.getSelfLink());
+    }
 
-    /**
-     * Returns a lowercase toString() value
-     * @return the lowercase value
-     */
-    @Override
-    public String toString() {
-        return super.toString().toLowerCase();
+    @Test
+    public void getSelfLinkUrlDoesReturnSelfUrlWhenSet() {
+        String url = "foo.com";
+        UserLinks userLinks = mock(UserLinks.class);
+        when(userLinks.getSelf()).thenReturn(new Link(url));
+        user.setLinks(userLinks);
+        assertEquals(url, user.getSelfLinkUrl());
     }
 }

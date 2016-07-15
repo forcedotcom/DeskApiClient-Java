@@ -38,7 +38,7 @@ public class StringUtils {
      * @return true if str is null or zero length
      */
     public static boolean isEmpty(String str) {
-        return str == null || str.length() == 0;
+        return str == null || str.trim().length() == 0;
     }
 
     /**

@@ -51,7 +51,6 @@ public class Link implements Serializable {
         this.href = h;
     }
 
-    @NotNull
     public String getUrl() {
         return href;
     }

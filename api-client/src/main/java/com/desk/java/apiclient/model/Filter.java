@@ -28,7 +28,6 @@ package com.desk.java.apiclient.model;
 
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.Serializable;
 
@@ -104,17 +103,14 @@ public class Filter implements Serializable {
      * @return the cases count or {#NONE}
      */
     public int getCaseCount() {
-        if (getCasesLink() == null) {
-            return NONE;
-        }
         return getCasesLink().getCount();
     }
 
     /**
      * Gets the cases link
-     * @return the cases link or null
+     * @return the cases link
      */
-    @Nullable
+    @NotNull
     public Link getCasesLink() {
         return getLinks().getCases();
     }
@@ -124,17 +120,14 @@ public class Filter implements Serializable {
      * @return the companies count or {#NONE}
      */
     public int getCompanyCount() {
-        if (getCompaniesLink() == null) {
-            return NONE;
-        }
         return getCompaniesLink().getCount();
     }
 
     /**
      * Gets the companies link
-     * @return the companies link or null
+     * @return the companies link
      */
-    @Nullable
+    @NotNull
     public Link getCompaniesLink() {
         return getLinks().getCompanies();
     }
@@ -144,26 +137,23 @@ public class Filter implements Serializable {
      * @return the customer count or {#NONE}
      */
     public int getCustomerCount() {
-        if (getCustomersLink() == null) {
-            return NONE;
-        }
         return getCustomersLink().getCount();
     }
 
     /**
      * Gets the customers link
-     * @return the customers link or null
+     * @return the customers link
      */
-    @Nullable
+    @NotNull
     public Link getCustomersLink() {
         return getLinks().getCustomers();
     }
 
     /**
      * Gets the opportunities link
-     * @return the opportunities link or null
+     * @return the opportunities link
      */
-    @Nullable
+    @NotNull
     public Link getOpportunitiesLink() {
         return getLinks().getOpportunities();
     }
@@ -173,9 +163,6 @@ public class Filter implements Serializable {
      * @return the opportunity count or {#NONE}
      */
     public int getOpportunityCount() {
-        if (getOpportunitiesLink() == null) {
-            return NONE;
-        }
         return getOpportunitiesLink().getCount();
     }
 
