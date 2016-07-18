@@ -144,7 +144,7 @@ public interface RxUserService {
                                                             @Path("settingId") int settingId, @Body SettingUpdate update);
 
     /**
-     * Retrieves case filters.
+     * Retrieves case filters for the current user.
      *
      * @param perPage the total filters per page
      * @param page    the page requested
@@ -157,7 +157,7 @@ public interface RxUserService {
 
 
     /**
-     * Retrieves company filters.
+     * Retrieves company filters for the current user.
      *
      * @param perPage the total filters per page
      * @param page    the page requested
@@ -168,7 +168,7 @@ public interface RxUserService {
     Observable<ApiResponse<Filter>> getCompanyFiltersObservable(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
 
     /**
-     * Retrieves customer filters.
+     * Retrieves customer filters for the current user.
      *
      * @param perPage the total filters per page
      * @param page    the page requested
@@ -179,7 +179,7 @@ public interface RxUserService {
     Observable<ApiResponse<Filter>> getCustomerFiltersObservable(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
 
     /**
-     * Retrieves opportunity filters.
+     * Retrieves opportunity filters for the current user.
      *
      * @param perPage the total filters per page
      * @param page    the page requested

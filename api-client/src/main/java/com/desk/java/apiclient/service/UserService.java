@@ -39,9 +39,9 @@ import retrofit2.http.Query;
 
 /**
  * <p>
- * Service interfacing with the Desk Users endpoint
+ *     Service interfacing with the Desk Users endpoint
  * </p>
- * <p>
+ *
  * Created by Matt Kranzler on 4/28/15.
  * Copyright (c) 2016 Desk.com. All rights reserved.
  *
@@ -152,7 +152,7 @@ public interface UserService {
                                             @Path("settingId") int settingId, @Body SettingUpdate update);
 
     /**
-     * Retrieves case filters.
+     * Retrieves case filters for the current user.
      *
      * @param perPage the total filters per page
      * @param page    the page requested
@@ -165,7 +165,7 @@ public interface UserService {
 
 
     /**
-     * Retrieves company filters.
+     * Retrieves company filters for the current user.
      *
      * @param perPage the total filters per page
      * @param page    the page requested
@@ -176,7 +176,7 @@ public interface UserService {
     Call<ApiResponse<Filter>> getCompanyFilters(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
 
     /**
-     * Retrieves customer filters.
+     * Retrieves customer filters for the current user.
      *
      * @param perPage the total filters per page
      * @param page    the page requested
@@ -187,7 +187,7 @@ public interface UserService {
     Call<ApiResponse<Filter>> getCustomerFilters(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
 
     /**
-     * Retrieves opportunity filters.
+     * Retrieves opportunity filters for the current user.
      *
      * @param perPage the total filters per page
      * @param page    the page requested
