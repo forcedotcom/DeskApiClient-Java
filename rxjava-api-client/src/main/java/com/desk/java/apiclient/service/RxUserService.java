@@ -26,12 +26,9 @@
 
 package com.desk.java.apiclient.service;
 
-import com.desk.java.apiclient.model.ApiResponse;
-import com.desk.java.apiclient.model.MobileDevice;
-import com.desk.java.apiclient.model.Setting;
-import com.desk.java.apiclient.model.SettingUpdate;
-import com.desk.java.apiclient.model.User;
+import com.desk.java.apiclient.model.*;
 
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -41,17 +38,15 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
-import static com.desk.java.apiclient.service.UserService.MOBILE_DEVICES_URI;
-import static com.desk.java.apiclient.service.UserService.SETTINGS_URI;
-import static com.desk.java.apiclient.service.UserService.USERS_URI;
+import static com.desk.java.apiclient.service.UserService.*;
 
 /**
  * <p>
- *     Service interfacing with the Desk Users endpoint
+ * Service interfacing with the Desk Users endpoint
  * </p>
  *
  * @see <a href="http://dev.desk.com/API/users/">http://dev.desk.com/API/users/</a>
- *
+ * <p>
  * Created by Jerrell Mardis
  * Copyright (c) 2016 Desk.com. All rights reserved.
  */
@@ -147,4 +142,50 @@ public interface RxUserService {
     @PATCH(USERS_URI + "/{userId}/" + MOBILE_DEVICES_URI + "/{deviceId}/" + SETTINGS_URI + "/{settingId}")
     Observable<Setting> updateMobileDeviceSettingObservable(@Path("userId") int userId, @Path("deviceId") int deviceId,
                                                             @Path("settingId") int settingId, @Body SettingUpdate update);
+
+    /**
+     * Retrieves case filters for the current user.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @param fields  the fields requested
+     * @return a filter api response
+     * @see <a href="http://dev.desk.com/API/filters/#list">http://dev.desk.com/API/filters/#list</a>
+     */
+    @GET(USERS_URI + "/current/" + FILTERS_URI)
+    Observable<ApiResponse<Filter>> getCaseFiltersObservable(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
+
+
+    /**
+     * Retrieves company filters for the current user.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @param fields  the fields requested
+     * @return a filter api response
+     */
+    @GET(USERS_URI + "/current/" + COMPANY_FILTERS_URI)
+    Observable<ApiResponse<Filter>> getCompanyFiltersObservable(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
+
+    /**
+     * Retrieves customer filters for the current user.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @param fields  the fields requested
+     * @return a filter api response
+     */
+    @GET(USERS_URI + "/current/" + CUSTOMER_FILTERS_URI)
+    Observable<ApiResponse<Filter>> getCustomerFiltersObservable(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
+
+    /**
+     * Retrieves opportunity filters for the current user.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @param fields  the fields requested
+     * @return a filter api response
+     */
+    @GET(USERS_URI + "/current/" + OPPORTUNITY_FILTERS_URI)
+    Observable<ApiResponse<Filter>> getOpportunityFiltersObservable(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
 }

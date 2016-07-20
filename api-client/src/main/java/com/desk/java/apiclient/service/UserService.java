@@ -26,11 +26,7 @@
 
 package com.desk.java.apiclient.service;
 
-import com.desk.java.apiclient.model.ApiResponse;
-import com.desk.java.apiclient.model.MobileDevice;
-import com.desk.java.apiclient.model.Setting;
-import com.desk.java.apiclient.model.SettingUpdate;
-import com.desk.java.apiclient.model.User;
+import com.desk.java.apiclient.model.*;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -57,24 +53,29 @@ public interface UserService {
     String MOBILE_DEVICES_URI = "mobile_devices";
     String SETTINGS_URI = "settings";
 
+    String FILTERS_URI = "filters";
+    String COMPANY_FILTERS_URI = "company_filters";
+    String CUSTOMER_FILTERS_URI = "customer_filters";
+    String OPPORTUNITY_FILTERS_URI = "opportunity_filters";
+
     int MAX_PER_PAGE = 100;
 
     /**
      * Retrieve a paginated list of all users
-     * @see <a href="http://dev.desk.com/API/users/#list">http://dev.desk.com/API/users/#list</a>
      *
      * @param perPage the amount of labels per page
-     * @param page the page
+     * @param page    the page
      * @return a user api response
+     * @see <a href="http://dev.desk.com/API/users/#list">http://dev.desk.com/API/users/#list</a>
      */
     @GET(USERS_URI)
     Call<ApiResponse<User>> getUsers(@Query("per_page") int perPage, @Query("page") int page);
 
     /**
      * Retrieves the current user (API authentication must be present)
-     * @see <a href="http://dev.desk.com/API/users/#show">http://dev.desk.com/API/users/#show</a>
      *
      * @return a user
+     * @see <a href="http://dev.desk.com/API/users/#show">http://dev.desk.com/API/users/#show</a>
      */
     @GET(USERS_URI + "/current")
     Call<User> getCurrentUser();
@@ -89,20 +90,20 @@ public interface UserService {
 
     /**
      * Retrieve a single user
-     * @see <a href="http://dev.desk.com/API/users/#show">http://dev.desk.com/API/users/#show</a>
      *
      * @param userId the user id
      * @return a user
+     * @see <a href="http://dev.desk.com/API/users/#show">http://dev.desk.com/API/users/#show</a>
      */
     @GET(USERS_URI + "/{id}")
     Call<User> getUser(@Path("id") int userId);
 
     /**
      * List all of the user's mobile devices.
-     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-list">http://dev.desk.com/API/users/#mobile-devices-list</a>
      *
      * @param userId the user id
      * @return a mobile device api response
+     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-list">http://dev.desk.com/API/users/#mobile-devices-list</a>
      */
     @GET(USERS_URI + "/{id}/" + MOBILE_DEVICES_URI)
     Call<ApiResponse<MobileDevice>> getMobileDevicesForUser(@Path("id") int userId);
@@ -127,26 +128,72 @@ public interface UserService {
 
     /**
      * Retrieve a list of mobile device settings.
-     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-list">http://dev.desk.com/API/users/#mobile-devices-settings-list</a>
      *
-     * @param userId the user id
+     * @param userId   the user id
      * @param deviceId the device id
      * @return a setting api response
+     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-list">http://dev.desk.com/API/users/#mobile-devices-settings-list</a>
      */
     @GET(USERS_URI + "/{userId}/" + MOBILE_DEVICES_URI + "/{deviceId}/" + SETTINGS_URI)
     Call<ApiResponse<Setting>> getMobileDevicesSettings(@Path("userId") int userId, @Path("deviceId") int deviceId);
 
     /**
      * Update a mobile device setting
-     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-update">http://dev.desk.com/API/users/#mobile-devices-settings-update</a>
      *
-     * @param userId the user id
-     * @param deviceId the device id
+     * @param userId    the user id
+     * @param deviceId  the device id
      * @param settingId the setting id
-     * @param update the setting update body
+     * @param update    the setting update body
      * @return a setting
+     * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-update">http://dev.desk.com/API/users/#mobile-devices-settings-update</a>
      */
     @PATCH(USERS_URI + "/{userId}/" + MOBILE_DEVICES_URI + "/{deviceId}/" + SETTINGS_URI + "/{settingId}")
     Call<Setting> updateMobileDeviceSetting(@Path("userId") int userId, @Path("deviceId") int deviceId,
-                                   @Path("settingId") int settingId, @Body SettingUpdate update);
+                                            @Path("settingId") int settingId, @Body SettingUpdate update);
+
+    /**
+     * Retrieves case filters for the current user.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @param fields  the fields requested
+     * @return a filter api response
+     * @see <a href="http://dev.desk.com/API/filters/#list">http://dev.desk.com/API/filters/#list</a>
+     */
+    @GET(USERS_URI + "/current/" + FILTERS_URI)
+    Call<ApiResponse<Filter>> getCaseFilters(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
+
+
+    /**
+     * Retrieves company filters for the current user.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @param fields  the fields requested
+     * @return a filter api response
+     */
+    @GET(USERS_URI + "/current/" + COMPANY_FILTERS_URI)
+    Call<ApiResponse<Filter>> getCompanyFilters(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
+
+    /**
+     * Retrieves customer filters for the current user.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @param fields  the fields requested
+     * @return a filter api response
+     */
+    @GET(USERS_URI + "/current/" + CUSTOMER_FILTERS_URI)
+    Call<ApiResponse<Filter>> getCustomerFilters(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
+
+    /**
+     * Retrieves opportunity filters for the current user.
+     *
+     * @param perPage the total filters per page
+     * @param page    the page requested
+     * @param fields  the fields requested
+     * @return a filter api response
+     */
+    @GET(USERS_URI + "/current/" + OPPORTUNITY_FILTERS_URI)
+    Call<ApiResponse<Filter>> getOpportunityFilters(@Query("per_page") int perPage, @Query("page") int page, @Query("fields") Fields fields);
 }
