@@ -37,6 +37,7 @@ import com.desk.java.apiclient.model.MacroResponse;
 import com.desk.java.apiclient.model.Message;
 import com.desk.java.apiclient.model.SortDirection;
 
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
@@ -80,10 +81,46 @@ public interface RxCaseService {
      * @return a case api response
      * @see <a href="http://dev.desk.com/API/cases/#list">http://dev.desk.com/API/cases/#list</a>
      */
-    @GET(FILTERS_URI + "/{id}/" + CASES_URI)
-    Observable<ApiResponse<Case>> getCasesByFilterObservable(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
-                                                             @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
-                                                             @Query("embed") Embed embed, @Query("fields") Fields fields);
+    @GET(CASES_URI)
+    Observable<ApiResponse<Case>> getCasesByFilterObservable(@Query("filter_id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+                                             @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
+                                             @Query("embed") Embed embed, @Query("fields") Fields fields);
+
+    /**
+     * Retrieves cases for a given customer
+     * @see <a href="http://dev.desk.com/API/cases/#list">http://dev.desk.com/API/cases/#list</a>
+     *
+     * @param customerId the id of the customer
+     * @param perPage the total filters per page
+     * @param page the page requested
+     * @param sortField the field to sort on
+     * @param sortDirection the direction to sort
+     * @param embed what to embed
+     * @param fields the fields requested
+     * @return a case api response
+     */
+    @GET(CASES_URI)
+    Observable<ApiResponse<Case>> getCasesByCustomerObservable(@Query("customer_id") int customerId, @Query("per_page") int perPage, @Query("page") int page,
+                                               @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
+                                               @Query("embed") Embed embed, @Query("fields") Fields fields);
+
+    /**
+     * Retrieves cases for a given company
+     * @see <a href="http://dev.desk.com/API/cases/#list">http://dev.desk.com/API/cases/#list</a>
+     *
+     * @param companyId the id of the company
+     * @param perPage the total filters per page
+     * @param page the page requested
+     * @param sortField the field to sort on
+     * @param sortDirection the direction to sort
+     * @param embed what to embed
+     * @param fields the fields requested
+     * @return a case api response
+     */
+    @GET(CASES_URI)
+    Observable<ApiResponse<Case>> getCasesByCompanyObservable(@Query("company_id") int companyId, @Query("per_page") int perPage, @Query("page") int page,
+                                              @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
+                                              @Query("embed") Embed embed, @Query("fields") Fields fields);
 
     /**
      * Searches for cases provided a query
