@@ -104,10 +104,10 @@ public interface CaseService {
      * @param fields the fields requested
      * @return a case api response
      */
-    @GET(CASES_URI)
-    Call<ApiResponse<Case>> getCasesByFilter(@Query("filter_id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
-                                                              @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
-                                                              @Query("embed") Embed embed, @Query("fields") Fields fields);
+    @GET(FILTERS_URI + "/{id}/" + CASES_URI)
+    Call<ApiResponse<Case>> getCasesByFilter(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+                                             @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
+                                             @Query("embed") Embed embed, @Query("fields") Fields fields);
 
     /**
      * Retrieves cases for a given customer
