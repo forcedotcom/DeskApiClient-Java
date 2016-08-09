@@ -81,8 +81,8 @@ public interface RxCaseService {
      * @return a case api response
      * @see <a href="http://dev.desk.com/API/cases/#list">http://dev.desk.com/API/cases/#list</a>
      */
-    @GET(CASES_URI)
-    Observable<ApiResponse<Case>> getCasesByFilterObservable(@Query("filter_id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+    @GET(FILTERS_URI + "/{id}/" + CASES_URI)
+    Observable<ApiResponse<Case>> getCasesByFilterObservable(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
                                              @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                              @Query("embed") Embed embed, @Query("fields") Fields fields);
 
