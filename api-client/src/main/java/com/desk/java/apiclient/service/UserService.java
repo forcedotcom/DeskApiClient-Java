@@ -102,11 +102,13 @@ public interface UserService {
      * List all of the user's mobile devices.
      *
      * @param userId the user id
+     * @param perPage the total per page
+     * @param page the page to retrieve
      * @return a mobile device api response
      * @see <a href="http://dev.desk.com/API/users/#mobile-devices-list">http://dev.desk.com/API/users/#mobile-devices-list</a>
      */
     @GET(USERS_URI + "/{id}/" + MOBILE_DEVICES_URI)
-    Call<ApiResponse<MobileDevice>> getMobileDevicesForUser(@Path("id") int userId);
+    Call<ApiResponse<MobileDevice>> getMobileDevicesForUser(@Path("id") int userId, @Query("per_page") int perPage, @Query("page") int page);
 
     /**
      * Creates a mobile device for the current user
