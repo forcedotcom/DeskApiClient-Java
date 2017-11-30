@@ -33,15 +33,15 @@ import java.io.Serializable;
 
 public class OutboundMailbox implements Serializable {
 
-    private static final long serialVersionUID = -5908829481620433364L;
+    private static final long serialVersionUID = -1231673965023345439L;
 
-    private int id;
+    private long id;
     private String fromName;
     private String fromEmail;
     private boolean enabled;
     private Links _links;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

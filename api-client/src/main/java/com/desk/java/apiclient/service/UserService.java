@@ -96,7 +96,7 @@ public interface UserService {
      * @see <a href="http://dev.desk.com/API/users/#show">http://dev.desk.com/API/users/#show</a>
      */
     @GET(USERS_URI + "/{id}")
-    Call<User> getUser(@Path("id") int userId);
+    Call<User> getUser(@Path("id") long userId);
 
     /**
      * List all of the user's mobile devices.
@@ -108,7 +108,7 @@ public interface UserService {
      * @see <a href="http://dev.desk.com/API/users/#mobile-devices-list">http://dev.desk.com/API/users/#mobile-devices-list</a>
      */
     @GET(USERS_URI + "/{id}/" + MOBILE_DEVICES_URI)
-    Call<ApiResponse<MobileDevice>> getMobileDevicesForUser(@Path("id") int userId, @Query("per_page") int perPage, @Query("page") int page);
+    Call<ApiResponse<MobileDevice>> getMobileDevicesForUser(@Path("id") long userId, @Query("per_page") int perPage, @Query("page") int page);
 
     /**
      * Creates a mobile device for the current user
@@ -126,7 +126,7 @@ public interface UserService {
      * @return nothing
      */
     @DELETE(USERS_URI + "/current/" + MOBILE_DEVICES_URI + "/{id}")
-    Call<Void> deleteMobileDevice(@Path("id") int id);
+    Call<Void> deleteMobileDevice(@Path("id") long id);
 
     /**
      * Retrieve a list of mobile device settings.
@@ -137,7 +137,7 @@ public interface UserService {
      * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-list">http://dev.desk.com/API/users/#mobile-devices-settings-list</a>
      */
     @GET(USERS_URI + "/{userId}/" + MOBILE_DEVICES_URI + "/{deviceId}/" + SETTINGS_URI)
-    Call<ApiResponse<Setting>> getMobileDevicesSettings(@Path("userId") int userId, @Path("deviceId") int deviceId);
+    Call<ApiResponse<Setting>> getMobileDevicesSettings(@Path("userId") long userId, @Path("deviceId") int deviceId);
 
     /**
      * Update a mobile device setting
@@ -150,8 +150,8 @@ public interface UserService {
      * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-update">http://dev.desk.com/API/users/#mobile-devices-settings-update</a>
      */
     @PATCH(USERS_URI + "/{userId}/" + MOBILE_DEVICES_URI + "/{deviceId}/" + SETTINGS_URI + "/{settingId}")
-    Call<Setting> updateMobileDeviceSetting(@Path("userId") int userId, @Path("deviceId") int deviceId,
-                                            @Path("settingId") int settingId, @Body SettingUpdate update);
+    Call<Setting> updateMobileDeviceSetting(@Path("userId") long userId, @Path("deviceId") long deviceId,
+                                            @Path("settingId") long settingId, @Body SettingUpdate update);
 
     /**
      * Retrieves case filters for the current user.

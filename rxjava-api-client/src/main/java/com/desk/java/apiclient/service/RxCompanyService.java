@@ -67,7 +67,7 @@ public interface RxCompanyService {
      * @see <a href="http://dev.desk.com/API/companies/#show">http://dev.desk.com/API/companies/#show</a>
      */
     @GET(COMPANY_URI + "/{id}")
-    Observable<Company> getCompanyObservable(@Path("id") int companyId);
+    Observable<Company> getCompanyObservable(@Path("id") long companyId);
 
     /**
      * Search for companies using the search parameter 'q' to specify search terms.
@@ -98,6 +98,6 @@ public interface RxCompanyService {
      * @return a company api response
      */
     @GET(FILTERS_URI + "/{id}/" + COMPANY_URI)
-    Observable<ApiResponse<Company>> getCompaniesByFilterObservable(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+    Observable<ApiResponse<Company>> getCompaniesByFilterObservable(@Path("id") long filterId, @Query("per_page") int perPage, @Query("page") int page,
                                                     @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection);
 }

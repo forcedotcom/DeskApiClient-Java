@@ -51,7 +51,7 @@ public class Links implements Serializable {
         return self == null ? "" : self.getUrl();
     }
 
-    public int getSelfId() {
+    public long getSelfId() {
         return self == null ? 0 : self.getLinkId();
     }
 

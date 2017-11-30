@@ -69,7 +69,7 @@ public interface RxGroupService {
      * @see <a href="http://dev.desk.com/API/groups/#list-users">http://dev.desk.com/API/groups/#list-users</a>
      */
     @GET(GROUPS_URI + "/{id}/users")
-    Observable<ApiResponse<User>> getUsersForGroupObservable(@Path("id") int groupId, @Query("per_page") int perPage);
+    Observable<ApiResponse<User>> getUsersForGroupObservable(@Path("id") long groupId, @Query("per_page") int perPage);
 
     /**
      * Retrieve a single group
@@ -79,5 +79,5 @@ public interface RxGroupService {
      * @see <a href="http://dev.desk.com/API/groups/#show">http://dev.desk.com/API/groups/#show</a>
      */
     @GET(GROUPS_URI + "/{id}")
-    Observable<Group> getGroupObservable(@Path("id") int groupId);
+    Observable<Group> getGroupObservable(@Path("id") long groupId);
 }

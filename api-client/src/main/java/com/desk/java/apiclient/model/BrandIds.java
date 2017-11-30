@@ -34,11 +34,11 @@ public class BrandIds extends QueryFields {
 
     private BrandIds() {}
 
-    private BrandIds(Integer... fields) {
+    private BrandIds(Long... fields) {
         super((Object[])fields);
     }
 
-    public static BrandIds ids(Integer... ids) {
+    public static BrandIds ids(Long... ids) {
         return new BrandIds(ids);
     }
 }

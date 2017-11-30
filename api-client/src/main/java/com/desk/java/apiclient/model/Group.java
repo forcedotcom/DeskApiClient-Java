@@ -33,17 +33,17 @@ import java.io.Serializable;
 
 public class Group implements Serializable {
 
-    private static final long serialVersionUID = 8175288028443797923L;
+    private static final long serialVersionUID = 7676477269971022200L;
 
-    private int id;
+    private long id;
     private String name;
     private Links _links;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int i) {
+    public void setId(long i) {
         this.id = i;
     }
 
@@ -79,13 +79,13 @@ public class Group implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Group that = (Group) o;
+        Group group = (Group) o;
 
-        return id == that.id;
+        return id == group.id;
     }
 
     @Override
     public int hashCode() {
-        return id;
+        return (int) (id ^ (id >>> 32));
     }
 }

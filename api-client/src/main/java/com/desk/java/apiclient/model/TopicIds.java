@@ -34,11 +34,11 @@ public class TopicIds extends QueryFields {
 
     private TopicIds() {}
 
-    private TopicIds(Integer... fields) {
+    private TopicIds(Long... fields) {
         super((Object[])fields);
     }
 
-    public static TopicIds ids(Integer... ids) {
+    public static TopicIds ids(Long... ids) {
         return new TopicIds(ids);
     }
 }

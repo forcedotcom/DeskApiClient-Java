@@ -137,7 +137,7 @@ public class CaseTest {
 
     @Test
     public void setLabelIdsDoesSetLabeIds() throws Exception {
-        int[] labelIds = new int[] {1, 2, 3};
+        long[] labelIds = new long[] {1, 2, 3};
         assertEquals(0, c.getLabelIds().length);
         c.setLabelIds(labelIds);
         assertEquals(3, c.getLabelIds().length);

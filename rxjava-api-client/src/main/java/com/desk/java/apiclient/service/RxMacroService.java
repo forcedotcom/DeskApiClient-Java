@@ -59,5 +59,5 @@ public interface RxMacroService {
      * @see <a href="http://dev.desk.com/API/macros/#list">http://dev.desk.com/API/macros/#list</a>
      */
     @GET(USERS_URI + "/{id}/" + MACRO_URI)
-    Observable<ApiResponse<Macro>> getMacrosByUserObservable(@Path("id") int userId, @Query("per_page") int perPage, @Query("page") int page);
+    Observable<ApiResponse<Macro>> getMacrosByUserObservable(@Path("id") long userId, @Query("per_page") int perPage, @Query("page") int page);
 }

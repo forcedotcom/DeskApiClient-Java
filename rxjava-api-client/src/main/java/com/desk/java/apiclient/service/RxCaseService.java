@@ -82,7 +82,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#list">http://dev.desk.com/API/cases/#list</a>
      */
     @GET(FILTERS_URI + "/{id}/" + CASES_URI)
-    Observable<ApiResponse<Case>> getCasesByFilterObservable(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+    Observable<ApiResponse<Case>> getCasesByFilterObservable(@Path("id") long filterId, @Query("per_page") int perPage, @Query("page") int page,
                                              @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                              @Query("embed") Embed embed, @Query("fields") Fields fields);
 
@@ -100,7 +100,7 @@ public interface RxCaseService {
      * @return a case api response
      */
     @GET(CASES_URI)
-    Observable<ApiResponse<Case>> getCasesByCustomerObservable(@Query("customer_id") int customerId, @Query("per_page") int perPage, @Query("page") int page,
+    Observable<ApiResponse<Case>> getCasesByCustomerObservable(@Query("customer_id") long customerId, @Query("per_page") int perPage, @Query("page") int page,
                                                @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                                @Query("embed") Embed embed, @Query("fields") Fields fields);
 
@@ -118,7 +118,7 @@ public interface RxCaseService {
      * @return a case api response
      */
     @GET(CASES_URI)
-    Observable<ApiResponse<Case>> getCasesByCompanyObservable(@Query("company_id") int companyId, @Query("per_page") int perPage, @Query("page") int page,
+    Observable<ApiResponse<Case>> getCasesByCompanyObservable(@Query("company_id") long companyId, @Query("per_page") int perPage, @Query("page") int page,
                                               @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                               @Query("embed") Embed embed, @Query("fields") Fields fields);
 
@@ -150,7 +150,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#show">http://dev.desk.com/API/cases/#show</a>
      */
     @GET(CASES_URI + "/{id}")
-    Observable<Case> getCaseByIdObservable(@Path("id") int caseId, @Query("embed") Embed embed, @Query("fields") Fields fields);
+    Observable<Case> getCaseByIdObservable(@Path("id") long caseId, @Query("embed") Embed embed, @Query("fields") Fields fields);
 
     /**
      * Locks or unlocks a case
@@ -161,7 +161,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#update">http://dev.desk.com/API/cases/#update</a>
      */
     @PATCH(CASES_URI + "/{id}")
-    Observable<Case> updateCaseLockObservable(@Path("id") int caseId, @Body CaseLock caseLock);
+    Observable<Case> updateCaseLockObservable(@Path("id") long caseId, @Body CaseLock caseLock);
 
     /**
      * Locks or unlocks a case
@@ -174,7 +174,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#update">http://dev.desk.com/API/cases/#update</a>
      */
     @PATCH(CASES_URI + "/{id}")
-    Observable<Case> updateCaseLockObservable(@Path("id") int caseId, @Body CaseLock caseLock,
+    Observable<Case> updateCaseLockObservable(@Path("id") long caseId, @Body CaseLock caseLock,
                                               @Query("embed") Embed embed, @Query("fields") Fields fields);
 
     /**
@@ -186,7 +186,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#update">http://dev.desk.com/API/cases/#update</a>
      */
     @PATCH(CASES_URI + "/{id}")
-    Observable<Case> updateCaseObservable(@Path("id") int caseId, @Body Case updatedCase);
+    Observable<Case> updateCaseObservable(@Path("id") long caseId, @Body Case updatedCase);
 
     /**
      * Updates a case
@@ -199,7 +199,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#update">http://dev.desk.com/API/cases/#update</a>
      */
     @PATCH(CASES_URI + "/{id}")
-    Observable<Case> updateCaseObservable(@Path("id") int caseId, @Body Case updatedCase, @Query("embed") Embed embed,
+    Observable<Case> updateCaseObservable(@Path("id") long caseId, @Body Case updatedCase, @Query("embed") Embed embed,
                                           @Query("fields") Fields fields);
 
     /**
@@ -222,7 +222,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#message-update">http://dev.desk.com/API/cases/#message-update</a>
      */
     @PATCH(CASES_URI + "/{id}/message")
-    Observable<Message> updateCaseMessageObservable(@Path("id") int caseId, @Body Message updatedMessage);
+    Observable<Message> updateCaseMessageObservable(@Path("id") long caseId, @Body Message updatedMessage);
 
     /**
      * Updates a case reply
@@ -234,7 +234,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#replies-update">http://dev.desk.com/API/cases/#replies-update</a>
      */
     @PATCH(CASES_URI + "/{caseId}/" + REPLIES_URI + "/{replyId}")
-    Observable<Message> updateCaseReplyObservable(@Path("caseId") int caseId, @Path("replyId") int replyId, @Body Message updatedReply);
+    Observable<Message> updateCaseReplyObservable(@Path("caseId") long caseId, @Path("replyId") long replyId, @Body Message updatedReply);
 
     /**
      * Retrieves a case's feed
@@ -247,7 +247,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#feed">http://dev.desk.com/API/cases/#feed</a>
      */
     @GET(CASES_URI + "/{id}/feed")
-    Observable<ApiResponse<Message>> getCaseFeedObservable(@Path("id") int caseId, @Query("per_page") int perPage, @Query("page") int page,
+    Observable<ApiResponse<Message>> getCaseFeedObservable(@Path("id") long caseId, @Query("per_page") int perPage, @Query("page") int page,
                                                            @Query("sort_direction") SortDirection sortDirection);
 
     /**
@@ -259,7 +259,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#drafts-show">http://dev.desk.com/API/cases/#drafts-show</a>
      */
     @GET(CASES_URI + "/{id}/" + DRAFT_URI)
-    Observable<Message> getDraftObservable(@Path("id") int caseId, @Query("embed") Embed embed);
+    Observable<Message> getDraftObservable(@Path("id") long caseId, @Query("embed") Embed embed);
 
     /**
      * Creates a draft
@@ -269,7 +269,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#drafts-create">http://dev.desk.com/API/cases/#drafts-create</a>
      */
     @POST(CASES_URI + "/{id}/" + DRAFT_URI)
-    Observable<Message> createDraftObservable(@Path("id") int caseId);
+    Observable<Message> createDraftObservable(@Path("id") long caseId);
 
     /**
      * Updates a draft
@@ -280,7 +280,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#drafts-update">http://dev.desk.com/API/cases/#drafts-update</a>
      */
     @PATCH(CASES_URI + "/{id}/" + DRAFT_URI)
-    Observable<Message> updateDraftObservable(@Path("id") int caseId, @Body Message draft);
+    Observable<Message> updateDraftObservable(@Path("id") long caseId, @Body Message draft);
 
     /**
      * Creates a note
@@ -291,7 +291,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#notes-create">http://dev.desk.com/API/cases/#notes-create</a>
      */
     @POST(CASES_URI + "/{id}/" + NOTE_URI)
-    Observable<Message> createNoteObservable(@Path("id") int caseId, @Body Message note);
+    Observable<Message> createNoteObservable(@Path("id") long caseId, @Body Message note);
 
     /**
      * Retrieves a preview for applying a set of macros to a case
@@ -302,7 +302,7 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#macros-preview">http://dev.desk.com/API/cases/#macros-preview</a>
      */
     @POST(CASES_URI + "/{id}/" + MACROS_URI + "/preview")
-    Observable<MacroResponse> previewMacroObservable(@Path("id") int caseId, @Body Case body);
+    Observable<MacroResponse> previewMacroObservable(@Path("id") long caseId, @Body Case body);
 
     /**
      * Retrieves a paginated list of all attachments for a case
@@ -314,5 +314,5 @@ public interface RxCaseService {
      * @see <a href="http://dev.desk.com/API/cases/#attachments-list">http://dev.desk.com/API/cases/#attachments-list</a>
      */
     @GET(CASES_URI + "/{id}/" + ATTACHMENTS_URI)
-    Observable<ApiResponse<Attachment>> getAttachmentsObservable(@Path("id") int caseId, @Query("per_page") int perPage, @Query("page") int page);
+    Observable<ApiResponse<Attachment>> getAttachmentsObservable(@Path("id") long caseId, @Query("per_page") int perPage, @Query("page") int page);
 }

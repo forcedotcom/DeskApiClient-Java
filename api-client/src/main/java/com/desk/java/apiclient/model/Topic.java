@@ -35,9 +35,9 @@ import java.util.Date;
  */
 public class Topic implements Serializable {
 
-    private static final long serialVersionUID = 6754682995113092903L;
+    private static final long serialVersionUID = 7607352131738936862L;
 
-    private int id;
+    private long id;
     private int position;
     private boolean allowQuestions;
     private Date createdAt;
@@ -48,7 +48,7 @@ public class Topic implements Serializable {
     private String locale;
     private TopicLinks _links;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

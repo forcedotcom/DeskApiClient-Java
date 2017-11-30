@@ -41,9 +41,9 @@ import java.util.Map;
  */
 public class Opportunity implements Serializable {
 
-    private static final long serialVersionUID = -6465935225027203799L;
+    private static final long serialVersionUID = 2521014312723860728L;
 
-    private int id;
+    private long id;
     private String name;
     private int probability;
     private Date createdAt;
@@ -63,7 +63,7 @@ public class Opportunity implements Serializable {
     @SerializedName("_embedded")
     private OpportunityEmbedded embedded;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -146,45 +146,46 @@ public class Opportunity implements Serializable {
         this.closedAt = closedAt;
     }
 
-    public int getCompanyId() {
+    public long getCompanyId() {
         if (links != null && links.getCompany() != null) {
             return links.getCompany().getLinkId();
         }
         return 0;
     }
 
-    public int getOpportunityStageId() {
+    public long getOpportunityStageId() {
         if (links != null && links.getOpportunityStage() != null) {
             return links.getOpportunityStage().getLinkId();
         }
         return 0;
     }
 
-    public int getLockedById() {
+    public long getLockedById() {
         if (links != null && links.getLockedBy() != null) {
             return links.getLockedBy().getLinkId();
         }
         return 0;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         if (links != null && links.getUser() != null) {
             return links.getUser().getLinkId();
         }
         return 0;
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Opportunity that = (Opportunity) o;
 
         return id == that.id;
-
     }
 
-    @Override public int hashCode() {
-        return id;
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 }

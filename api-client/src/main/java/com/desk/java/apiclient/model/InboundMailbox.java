@@ -35,9 +35,9 @@ import java.util.Date;
  */
 public class InboundMailbox implements Serializable {
 
-    private static final long serialVersionUID = 1315846440421238455L;
+    private static final long serialVersionUID = 4867906842880442804L;
 
-    private int id;
+    private long id;
     private String name;
     private String hostname;
     private String email;
@@ -52,7 +52,7 @@ public class InboundMailbox implements Serializable {
     private String type;
     private Links _links;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

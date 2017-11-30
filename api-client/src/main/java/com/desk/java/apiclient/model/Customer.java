@@ -39,9 +39,9 @@ import java.util.Map;
 
 public class Customer implements Serializable {
 
-    private static final long serialVersionUID = 6378489591680023162L;
+    private static final long serialVersionUID = 5362546629837209181L;
 
-    private int id;
+    private long id;
     private String firstName;
     private String lastName;
     private String avatar;
@@ -57,11 +57,11 @@ public class Customer implements Serializable {
     private HashMap<String, String> customFields;
     private CustomerEmbedded _embedded;
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

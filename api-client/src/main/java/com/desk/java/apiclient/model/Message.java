@@ -38,11 +38,11 @@ import java.util.Date;
 
 public class Message implements Serializable {
 
-    public static final int NO_ID = 0;
+    public static final long NO_ID = 0L;
 
-    private static final long serialVersionUID = -5356300171602080000L;
+    private static final long serialVersionUID = -6186413612833980054L;
 
-    private int id;
+    private long id;
     private String subject;
     private String body;
     private MessageDirection direction;
@@ -68,11 +68,11 @@ public class Message implements Serializable {
     private MessageEmbedded _embedded;
     private MessageLinks _links;
 
-    public int getId() {
+    public long getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -317,7 +317,7 @@ public class Message implements Serializable {
         return getLinks().getSelf();
     }
 
-    public int getSelfLinkId() {
+    public long getSelfLinkId() {
         return getLinks().getSelfId();
     }
 
@@ -350,7 +350,7 @@ public class Message implements Serializable {
      * Gets the id of the outbound mailbox or {@link #NO_ID} if there is no outbound mailbox
      * @return the id or {@link #NO_ID}
      */
-    public int getOutboundMailboxId() {
+    public long getOutboundMailboxId() {
         return getOutboundMailboxLink().getLinkId();
     }
 
@@ -363,7 +363,7 @@ public class Message implements Serializable {
      * Gets the id of the case or {@link #NO_ID} if there is no case
      * @return the id or {@link #NO_ID}
      */
-    public int getCaseId() {
+    public long getCaseId() {
         return getCaseLink().getLinkId();
     }
 
@@ -372,15 +372,14 @@ public class Message implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Message that = (Message) o;
+        Message message = (Message) o;
 
-        return id == that.id;
-
+        return id == message.id;
     }
 
     @Override
     public int hashCode() {
-        return id;
+        return (int) (id ^ (id >>> 32));
     }
 
     public enum MessageType {REPLY, NOTE, DRAFT, MESSAGE}

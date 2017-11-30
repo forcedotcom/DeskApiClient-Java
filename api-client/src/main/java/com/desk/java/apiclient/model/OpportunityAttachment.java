@@ -43,15 +43,15 @@ public class OpportunityAttachment extends Attachment implements IOpportunityAct
         return links;
     }
 
-    public int getUploadedById() {
+    public long getUploadedById() {
         return (links != null && links.getUploadedBy() != null) ? links.getUploadedBy().getLinkId() : 0;
     }
 
-    public int getActivityId() {
+    public long getActivityId() {
         return (links != null && links.getActivity() != null) ? links.getActivity().getLinkId() : 0;
     }
 
-    public int getOpportunityId() {
+    public long getOpportunityId() {
         return (links != null && links.getOpportunity() != null) ? links.getOpportunity().getLinkId() : 0;
     }
 }
