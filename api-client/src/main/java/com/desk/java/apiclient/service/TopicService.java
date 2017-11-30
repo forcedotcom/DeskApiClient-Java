@@ -88,6 +88,6 @@ public interface TopicService {
      */
     @GET(TOPICS_URI + "/{topicId}/articles")
     Call<ApiResponse<Article>> getArticlesOfTopic(@Nullable @Header("Accept-Language") String language,
-                                                        @Path("topicId") int topicId,
+                                                        @Path("topicId") long topicId,
                                                         @Nullable @Query("in_support_center") Boolean inSupportCenter);
 }

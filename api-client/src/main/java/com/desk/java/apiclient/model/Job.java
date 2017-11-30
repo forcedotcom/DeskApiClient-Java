@@ -40,9 +40,9 @@ import java.util.Date;
 
 public class Job implements Serializable {
 
-  private static final long serialVersionUID = -5174794408357928187L;
+  private static final long serialVersionUID = 7728023032281505600L;
 
-  private Integer id;
+  private long id;
   private JobType type;
   private String statusMessage;
   private Integer progress;
@@ -51,7 +51,7 @@ public class Job implements Serializable {
   private String lastError;
   private JobLinks _links;
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 

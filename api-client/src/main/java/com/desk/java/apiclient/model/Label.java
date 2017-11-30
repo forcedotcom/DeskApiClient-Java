@@ -35,9 +35,9 @@ import java.util.List;
 
 public class Label implements Serializable {
 
-    private static final long serialVersionUID = -8007794917930181081L;
+    private static final long serialVersionUID = 6276755911187956015L;
 
-    private int id;
+    private long id;
     private String name;
     private String description;
     private boolean enabled;
@@ -45,11 +45,11 @@ public class Label implements Serializable {
     private List<LabelType> types;
     private LabelColor color;
 
-    public int getId() {
+    public long getId() {
         return this.id;
     }
 
-    public void setId(int i) {
+    public void setId(long i) {
         this.id = i;
     }
 

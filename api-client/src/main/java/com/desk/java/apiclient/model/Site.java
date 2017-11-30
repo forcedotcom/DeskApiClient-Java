@@ -35,12 +35,12 @@ import java.io.Serializable;
  */
 public class Site implements Serializable {
 
-    private static final long serialVersionUID = 7020217831140615320L;
+    private static final long serialVersionUID = 8760810129207182685L;
 
-    private int id;
+    private long id;
     private String subdomain;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

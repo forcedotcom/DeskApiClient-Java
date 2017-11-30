@@ -81,7 +81,7 @@ public interface OpportunityService {
      * @return an opportunity api response
      */
     @GET(FILTERS_URI + "/{id}/" + OPPORTUNITIES_URI)
-    Call<ApiResponse<Opportunity>> getOpportunitiesByFilter(@Path("id") int filterId,
+    Call<ApiResponse<Opportunity>> getOpportunitiesByFilter(@Path("id") long filterId,
                                                             @Query("per_page") int perPage,
                                                             @Query("page") int page,
                                                             @Query("embed") Embed embed);
@@ -94,7 +94,7 @@ public interface OpportunityService {
      * @return the opportunity
      */
     @GET(OPPORTUNITIES_URI + "/{id}")
-    Call<Opportunity> getOpportunity(@Path("id") int id, @Query("embed") Embed embed);
+    Call<Opportunity> getOpportunity(@Path("id") long id, @Query("embed") Embed embed);
 
     /**
      * Retrieve the opportunity timeline (history)
@@ -103,7 +103,7 @@ public interface OpportunityService {
      * @return the opportunity timeline
      */
     @GET(OPPORTUNITIES_URI + "/{id}/" + HISTORY_URI)
-    Call<OpportunityTimeline> getOpportunityTimeline(@Path("id") int opportunityId);
+    Call<OpportunityTimeline> getOpportunityTimeline(@Path("id") long opportunityId);
 
     /**
      * Retrieve opportunity activities and events.
@@ -114,7 +114,7 @@ public interface OpportunityService {
      * @return the activities and events api response
      */
     @GET(OPPORTUNITIES_URI + "/{id}/" + ACTIVITIES_URI)
-    Call<ApiResponse<IOpportunityActivity>> getOpportunityActivities(@Path("id") int opportunityId,
+    Call<ApiResponse<IOpportunityActivity>> getOpportunityActivities(@Path("id") long opportunityId,
                                                                      @Query("per_page") int perPage,
                                                                      @Query("page") int page);
 
@@ -144,5 +144,5 @@ public interface OpportunityService {
      * @return an attachment api response
      */
     @GET(OPPORTUNITIES_URI + "/{id}/" + ATTACHMENTS_URI)
-    Call<ApiResponse<OpportunityAttachment>> getAttachments(@Path("id") int opportunityId, @Query("per_page") int perPage, @Query("page") int page);
+    Call<ApiResponse<OpportunityAttachment>> getAttachments(@Path("id") long opportunityId, @Query("per_page") int perPage, @Query("page") int page);
 }

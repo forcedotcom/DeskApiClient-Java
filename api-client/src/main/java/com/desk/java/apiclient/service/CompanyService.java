@@ -72,7 +72,7 @@ public interface CompanyService {
      * @return a company
      */
     @GET(COMPANY_URI + "/{id}")
-    Call<Company> getCompany(@Path("id") int companyId);
+    Call<Company> getCompany(@Path("id") long companyId);
 
     /**
      * Search for companies using the search parameter 'q' to specify search terms.
@@ -103,6 +103,6 @@ public interface CompanyService {
      * @return a company api response
      */
     @GET(FILTERS_URI + "/{id}/" + COMPANY_URI)
-    Call<ApiResponse<Company>> getCompaniesByFilter(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+    Call<ApiResponse<Company>> getCompaniesByFilter(@Path("id") long filterId, @Query("per_page") int perPage, @Query("page") int page,
                                              @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection);
 }

@@ -26,18 +26,18 @@
 
 package com.desk.java.apiclient.util;
 
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by Matt Kranzler on 6/19/15.
@@ -56,15 +56,17 @@ public class ApiTokenSigningInterceptorTest {
         apiTokenSigningInterceptor = new ApiTokenSigningInterceptor(API_TOKEN);
     }
 
+    @SuppressWarnings("Duplicates")
     @Test
     public void authorizeRequestDoesAddAuthorizationHeader() throws Exception {
-        Request unauthorizedRequest = new Request.Builder().url("https://test.desk.com").build();
-        assertFalse(doesHaveAuthorizationHeader(unauthorizedRequest));
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.interceptors().add(apiTokenSigningInterceptor);
-        Call call = builder.build().newCall(unauthorizedRequest);
-        Response response = call.execute();
-        assertTrue(doesHaveAuthorizationHeader(response.request()));
+        Interceptor.Chain chain = mock(Interceptor.Chain.class);
+        Request request = new Request.Builder().url("https://test.desk.com").build();
+        when(chain.request()).thenReturn(request);
+        ArgumentCaptor<Request> captor = ArgumentCaptor.forClass(Request.class);
+        when(chain.proceed(captor.capture())).thenReturn(new Response.Builder().
+                request(request).code(200).protocol(Protocol.HTTP_2).build());
+        apiTokenSigningInterceptor.intercept(chain);
+        assertTrue(doesHaveAuthorizationHeader(captor.getValue()));
     }
 
     private boolean doesHaveAuthorizationHeader(Request request) {

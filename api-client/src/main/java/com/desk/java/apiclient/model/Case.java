@@ -35,11 +35,11 @@ import java.util.HashMap;
 
 public class Case implements Serializable {
 
-    public static final int NO_ID = 0;
+    public static final long NO_ID = 0L;
 
-    private static final long serialVersionUID = -1269898807733793629L;
+    private static final long serialVersionUID = 1402935802936985307L;
 
-    private int id;
+    private long id;
     private String subject;
     private String priority;
     private String description;
@@ -48,7 +48,7 @@ public class Case implements Serializable {
     private String blurb;
     private CaseStatus status;
     private String[] labels;
-    private int[] labelIds;
+    private long[] labelIds;
     private LabelAction labelAction;
     private HashMap<String, String> customFields;
     private CaseEmbedded _embedded;
@@ -59,11 +59,11 @@ public class Case implements Serializable {
     private Message message;
     private Message reply;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -149,11 +149,11 @@ public class Case implements Serializable {
     }
 
     @NotNull
-    public int[] getLabelIds() {
-        return labelIds != null ? labelIds : new int[0];
+    public long[] getLabelIds() {
+        return labelIds != null ? labelIds : new long[0];
     }
 
-    public void setLabelIds(int[] labelIds) {
+    public void setLabelIds(long[] labelIds) {
         this.labelIds = labelIds;
     }
 
@@ -328,7 +328,7 @@ public class Case implements Serializable {
      * Returns the user id of the assigned user
      * @return the user id if assigned, {@link #NO_ID} if unassigned
      */
-    public int getAssignedUserId() {
+    public long getAssignedUserId() {
         return getAssignedUserLink().getLinkId();
     }
 
@@ -362,7 +362,7 @@ public class Case implements Serializable {
      * Returns the user id of the assigned user
      * @return the user id if assigned, {@link #NO_ID} if unassigned
      */
-    public int getAssignedGroupId() {
+    public long getAssignedGroupId() {
         return getAssignedGroupLink().getLinkId();
     }
 
@@ -379,7 +379,7 @@ public class Case implements Serializable {
      * Gets the embedded customer id or {@link #NO_ID} if there is no embedded customer
      * @return the customer id or {@link #NO_ID}
      */
-    public int getCustomerId() {
+    public long getCustomerId() {
         return getCustomerLink().getLinkId();
     }
 
@@ -397,8 +397,8 @@ public class Case implements Serializable {
      * is no embedded customer or company for the embedded customer
      * @return the company id or {@link #NO_ID}
      */
-    public int getCustomerCompanyId() {
-        int id = NO_ID;
+    public long getCustomerCompanyId() {
+        long id = NO_ID;
         Customer customer = getCustomer();
         if (customer != null) {
             Link companyLink = customer.getCompanyLink();
@@ -469,17 +469,18 @@ public class Case implements Serializable {
         getLinks().setLockedBy(lockedBy);
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Case aCase = (Case) o;
 
         return id == aCase.id;
-
     }
 
-    @Override public int hashCode() {
-        return id;
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 }

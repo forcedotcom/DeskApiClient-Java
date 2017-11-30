@@ -59,7 +59,7 @@ public interface RxJobService {
    * @return the job
    */
   @GET(JOBS_URI + "/{id}")
-  Observable<Job> getJobByIdObservable(@Path("id") int jobId);
+  Observable<Job> getJobByIdObservable(@Path("id") long jobId);
 
   /**
    * Retrieves a paginated list of all jobs

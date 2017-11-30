@@ -35,19 +35,19 @@ import java.util.HashMap;
 
 public class Company implements Serializable {
 
-    private static final long serialVersionUID = 7792122326436126562L;
+    private static final long serialVersionUID = 7602329212842218003L;
 
-    private int id;
+    private long id;
     private String name;
     private String[] domains;
     private CompanyLinks _links;
     private HashMap<String, String> customFields;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

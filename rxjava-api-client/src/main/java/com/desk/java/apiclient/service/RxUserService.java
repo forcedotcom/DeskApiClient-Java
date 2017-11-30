@@ -88,7 +88,7 @@ public interface RxUserService {
      * @see <a href="http://dev.desk.com/API/users/#show">http://dev.desk.com/API/users/#show</a>
      */
     @GET(USERS_URI + "/{id}")
-    Observable<User> getUserObservable(@Path("id") int userId);
+    Observable<User> getUserObservable(@Path("id") long userId);
 
     /**
      * List all of the user's mobile devices.
@@ -100,7 +100,7 @@ public interface RxUserService {
      * @see <a href="http://dev.desk.com/API/users/#mobile-devices-list">http://dev.desk.com/API/users/#mobile-devices-list</a>
      */
     @GET(USERS_URI + "/{id}/" + MOBILE_DEVICES_URI)
-    Observable<ApiResponse<MobileDevice>> getMobileDevicesForUserObservable(@Path("id") int userId, @Query("per_page") int perPage, @Query("page") int page);
+    Observable<ApiResponse<MobileDevice>> getMobileDevicesForUserObservable(@Path("id") long userId, @Query("per_page") int perPage, @Query("page") int page);
 
     /**
      * Creates a mobile device for the current user
@@ -118,7 +118,7 @@ public interface RxUserService {
      * @return nothing
      */
     @DELETE(USERS_URI + "/current/" + MOBILE_DEVICES_URI + "/{id}")
-    Observable<Void> deleteMobileDeviceObservable(@Path("id") int id);
+    Observable<Void> deleteMobileDeviceObservable(@Path("id") long id);
 
     /**
      * Retrieve a list of mobile device settings.
@@ -129,7 +129,7 @@ public interface RxUserService {
      * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-list">http://dev.desk.com/API/users/#mobile-devices-settings-list</a>
      */
     @GET(USERS_URI + "/{userId}/" + MOBILE_DEVICES_URI + "/{deviceId}/" + SETTINGS_URI)
-    Observable<ApiResponse<Setting>> getMobileDevicesSettingsObservable(@Path("userId") int userId, @Path("deviceId") int deviceId);
+    Observable<ApiResponse<Setting>> getMobileDevicesSettingsObservable(@Path("userId") long userId, @Path("deviceId") long deviceId);
 
     /**
      * Update a mobile device setting
@@ -142,8 +142,8 @@ public interface RxUserService {
      * @see <a href="http://dev.desk.com/API/users/#mobile-devices-settings-update">http://dev.desk.com/API/users/#mobile-devices-settings-update</a>
      */
     @PATCH(USERS_URI + "/{userId}/" + MOBILE_DEVICES_URI + "/{deviceId}/" + SETTINGS_URI + "/{settingId}")
-    Observable<Setting> updateMobileDeviceSettingObservable(@Path("userId") int userId, @Path("deviceId") int deviceId,
-                                                            @Path("settingId") int settingId, @Body SettingUpdate update);
+    Observable<Setting> updateMobileDeviceSettingObservable(@Path("userId") long userId, @Path("deviceId") long deviceId,
+                                                            @Path("settingId") long settingId, @Body SettingUpdate update);
 
     /**
      * Retrieves case filters for the current user.

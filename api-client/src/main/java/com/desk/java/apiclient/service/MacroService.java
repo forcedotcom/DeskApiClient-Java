@@ -61,5 +61,5 @@ public interface MacroService {
      * @return a macro api response
      */
     @GET(USERS_URI + "/{id}/" + MACRO_URI)
-    Call<ApiResponse<Macro>> getMacrosByUser(@Path("id") int userId, @Query("per_page") int perPage, @Query("page") int page);
+    Call<ApiResponse<Macro>> getMacrosByUser(@Path("id") long userId, @Query("per_page") int perPage, @Query("page") int page);
 }

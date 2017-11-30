@@ -35,9 +35,9 @@ import java.util.Date;
  */
 public class Article implements Serializable {
 
-    private static final long serialVersionUID = 8365691800164879822L;
+    private static final long serialVersionUID = 530764642092575583L;
 
-    private int id;
+    private long id;
     private String locale;
     private String subject;
     private String body;
@@ -73,7 +73,7 @@ public class Article implements Serializable {
         return serialVersionUID;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
