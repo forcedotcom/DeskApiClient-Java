@@ -105,7 +105,7 @@ public interface CaseService {
      * @return a case api response
      */
     @GET(FILTERS_URI + "/{id}/" + CASES_URI)
-    Call<ApiResponse<Case>> getCasesByFilter(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+    Call<ApiResponse<Case>> getCasesByFilter(@Path("id") long filterId, @Query("per_page") int perPage, @Query("page") int page,
                                              @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                              @Query("embed") Embed embed, @Query("fields") Fields fields);
 
@@ -123,7 +123,7 @@ public interface CaseService {
      * @return a case api response
      */
     @GET(CASES_URI)
-    Call<ApiResponse<Case>> getCasesByCustomer(@Query("customer_id") int customerId, @Query("per_page") int perPage, @Query("page") int page,
+    Call<ApiResponse<Case>> getCasesByCustomer(@Query("customer_id") long customerId, @Query("per_page") int perPage, @Query("page") int page,
                                              @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                              @Query("embed") Embed embed, @Query("fields") Fields fields);
 
@@ -141,7 +141,7 @@ public interface CaseService {
      * @return a case api response
      */
     @GET(CASES_URI)
-    Call<ApiResponse<Case>> getCasesByCompany(@Query("company_id") int companyId, @Query("per_page") int perPage, @Query("page") int page,
+    Call<ApiResponse<Case>> getCasesByCompany(@Query("company_id") long companyId, @Query("per_page") int perPage, @Query("page") int page,
                                              @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                              @Query("embed") Embed embed, @Query("fields") Fields fields);
 
@@ -173,7 +173,7 @@ public interface CaseService {
      * @return a case
      */
     @GET(CASES_URI + "/{id}")
-    Call<Case> getCaseById(@Path("id") int caseId, @Query("embed") Embed embed, @Query("fields") Fields fields);
+    Call<Case> getCaseById(@Path("id") long caseId, @Query("embed") Embed embed, @Query("fields") Fields fields);
 
     /**
      * Locks or unlocks a case
@@ -184,7 +184,7 @@ public interface CaseService {
      * @return a case
      */
     @PATCH(CASES_URI + "/{id}")
-    Call<Case> updateCaseLock(@Path("id") int caseId, @Body CaseLock caseLock);
+    Call<Case> updateCaseLock(@Path("id") long caseId, @Body CaseLock caseLock);
 
     /**
      * Locks or unlocks a case
@@ -197,7 +197,7 @@ public interface CaseService {
      * @return a case
      */
     @PATCH(CASES_URI + "/{id}")
-    Call<Case> updateCaseLock(@Path("id") int caseId, @Body CaseLock caseLock, @Query("embed") Embed embed, @Query("fields") Fields fields);
+    Call<Case> updateCaseLock(@Path("id") long caseId, @Body CaseLock caseLock, @Query("embed") Embed embed, @Query("fields") Fields fields);
 
     /**
      * Updates a case
@@ -208,7 +208,7 @@ public interface CaseService {
      * @return a case
      */
     @PATCH(CASES_URI + "/{id}")
-    Call<Case> updateCase(@Path("id") int caseId, @Body Case updatedCase);
+    Call<Case> updateCase(@Path("id") long caseId, @Body Case updatedCase);
 
     /**
      * Updates a case
@@ -221,7 +221,7 @@ public interface CaseService {
      * @return a case
      */
     @PATCH(CASES_URI + "/{id}")
-    Call<Case> updateCase(@Path("id") int caseId, @Body Case updatedCase, @Query("embed") Embed embed,
+    Call<Case> updateCase(@Path("id") long caseId, @Body Case updatedCase, @Query("embed") Embed embed,
                     @Query("fields") Fields fields);
 
     /**
@@ -243,7 +243,7 @@ public interface CaseService {
      * @return a message
      */
     @PATCH(CASES_URI + "/{id}/message")
-    Call<Message> updateCaseMessage(@Path("id") int caseId, @Body Message updatedMessage);
+    Call<Message> updateCaseMessage(@Path("id") long caseId, @Body Message updatedMessage);
 
     /**
      * Updates a case reply
@@ -255,7 +255,7 @@ public interface CaseService {
      * @return a message
      */
     @PATCH(CASES_URI + "/{caseId}/" + REPLIES_URI + "/{replyId}")
-    Call<Message> updateCaseReply(@Path("caseId") int caseId, @Path("replyId") int replyId, @Body Message updatedReply);
+    Call<Message> updateCaseReply(@Path("caseId") long caseId, @Path("replyId") long replyId, @Body Message updatedReply);
 
     /**
      * Retrieves a case's feed
@@ -268,7 +268,7 @@ public interface CaseService {
      * @return a response
      */
     @GET(CASES_URI + "/{id}/feed")
-    Call<ApiResponse<Message>> getCaseFeed(@Path("id") int caseId, @Query("per_page") int perPage, @Query("page") int page,
+    Call<ApiResponse<Message>> getCaseFeed(@Path("id") long caseId, @Query("per_page") int perPage, @Query("page") int page,
                      @Query("sort_direction") SortDirection sortDirection);
 
     /**
@@ -280,7 +280,7 @@ public interface CaseService {
      * @return a message
      */
     @GET(CASES_URI + "/{id}/" + DRAFT_URI)
-    Call<Message> getDraft(@Path("id") int caseId, @Query("embed") Embed embed);
+    Call<Message> getDraft(@Path("id") long caseId, @Query("embed") Embed embed);
 
     /**
      * Creates a draft
@@ -290,7 +290,7 @@ public interface CaseService {
      * @return a message
      */
     @POST(CASES_URI + "/{id}/" + DRAFT_URI)
-    Call<Message> createDraft(@Path("id") int caseId);
+    Call<Message> createDraft(@Path("id") long caseId);
 
     /**
      * Updates a draft
@@ -301,7 +301,7 @@ public interface CaseService {
      * @return a message
      */
     @PATCH(CASES_URI + "/{id}/" + DRAFT_URI)
-    Call<Message> updateDraft(@Path("id") int caseId, @Body Message draft);
+    Call<Message> updateDraft(@Path("id") long caseId, @Body Message draft);
 
     /**
      * Creates a note
@@ -312,7 +312,7 @@ public interface CaseService {
      * @return a message
      */
     @POST(CASES_URI + "/{id}/" + NOTE_URI)
-    Call<Message> createNote(@Path("id") int caseId, @Body Message note);
+    Call<Message> createNote(@Path("id") long caseId, @Body Message note);
 
     /**
      * Retrieves a preview for applying a set of macros to a case
@@ -323,7 +323,7 @@ public interface CaseService {
      * @return a macro response
      */
     @POST(CASES_URI + "/{id}/" + MACROS_URI + "/preview")
-    Call<MacroResponse> previewMacro(@Path("id") int caseId, @Body Case body);
+    Call<MacroResponse> previewMacro(@Path("id") long caseId, @Body Case body);
 
     /**
      * Retrieves a paginated list of all attachments for a case
@@ -335,5 +335,5 @@ public interface CaseService {
      * @return an attachment api response
      */
     @GET(CASES_URI + "/{id}/" + ATTACHMENTS_URI)
-    Call<ApiResponse<Attachment>> getAttachments(@Path("id") int caseId, @Query("per_page") int perPage, @Query("page") int page);
+    Call<ApiResponse<Attachment>> getAttachments(@Path("id") long caseId, @Query("per_page") int perPage, @Query("page") int page);
 }

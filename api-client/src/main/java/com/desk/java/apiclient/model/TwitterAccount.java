@@ -36,9 +36,9 @@ import java.util.Date;
  */
 public class TwitterAccount implements Serializable {
 
-  private static final long serialVersionUID = 8501351454459361905L;
+  private static final long serialVersionUID = -3032895687067045327L;
 
-  private int id;
+  private long id;
   private Date createdAt;
   private Date updatedAt;
   @SerializedName("can_dm") private boolean canDirectMessage;
@@ -53,11 +53,11 @@ public class TwitterAccount implements Serializable {
   public TwitterAccount() {
   }
 
-  public int getId() {
+  public long getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(long id) {
     this.id = id;
   }
 

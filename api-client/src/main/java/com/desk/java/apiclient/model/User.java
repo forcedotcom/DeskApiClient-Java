@@ -36,7 +36,7 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 752919141528370641L;
 
-    private int id;
+    private long id;
     private String name;
     private String publicName;
     private String email;
@@ -44,11 +44,11 @@ public class User implements Serializable {
     private String avatar;
     private UserLinks _links;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int i) {
+    public void setId(long i) {
         this.id = i;
     }
 
@@ -129,15 +129,13 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User that = (User) o;
+        User user = (User) o;
 
-        return id == that.id;
-
+        return id == user.id;
     }
 
     @Override
     public int hashCode() {
-        return id;
+        return (int) (id ^ (id >>> 32));
     }
-
 }

@@ -69,7 +69,7 @@ public interface RxTopicService {
     @GET(TOPICS_URI)
     Observable<ApiResponse<Topic>> getTopicsObservable(@Nullable @Header("Accept-Language") String language,
                                                        @Nullable @Query("in_support_center") Boolean inSupportCenter,
-                                                       @Nullable @Query("brand_id") Integer brandId,
+                                                       @Nullable @Query("brand_id") long brandId,
                                                        @Nullable @Query("sort_field") String sortField,
                                                        @Nullable @Query("sort_direction") SortDirection sortDirection);
 
@@ -83,6 +83,6 @@ public interface RxTopicService {
      */
     @GET(TOPICS_URI + "/{topicId}/articles")
     Observable<ApiResponse<Article>> getArticlesOfTopicObservable(@Nullable @Header("Accept-Language") String language,
-                                                                  @Path("topicId") int topicId,
+                                                                  @Path("topicId") long topicId,
                                                                   @Nullable @Query("in_support_center") Boolean inSupportCenter);
 }

@@ -36,9 +36,9 @@ import java.io.Serializable;
  */
 public class OpportunityStage implements Serializable {
 
-    private static final long serialVersionUID = 8122722623798786167L;
+    private static final long serialVersionUID = 1891306656749441299L;
 
-    private int id;
+    private long id;
     private String name;
     private int probability;
     private OpportunityStageType opportunityStageType;
@@ -47,7 +47,7 @@ public class OpportunityStage implements Serializable {
     private String description;
     private int position;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -75,7 +75,8 @@ public class OpportunityStage implements Serializable {
         return position;
     }
 
-    @Override public boolean equals(Object o) {
+    @Override
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -84,7 +85,8 @@ public class OpportunityStage implements Serializable {
         return id == that.id;
     }
 
-    @Override public int hashCode() {
-        return id;
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 }

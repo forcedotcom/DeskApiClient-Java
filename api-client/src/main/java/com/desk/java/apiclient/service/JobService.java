@@ -59,7 +59,7 @@ public interface JobService {
    * @return the job
    */
   @GET(JOBS_URI + "/{id}")
-  Call<Job> getJobById(@Path("id") int jobId);
+  Call<Job> getJobById(@Path("id") long jobId);
 
   /**
    * Retrieves a paginated list of all jobs

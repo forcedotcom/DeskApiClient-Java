@@ -33,11 +33,11 @@ import java.io.Serializable;
 
 public class Filter implements Serializable {
 
-    public static final int NONE = 0;
+    public static final long NONE = 0L;
 
-    private static final long serialVersionUID = 92239016721005170L;
+    private static final long serialVersionUID = -4742966447517756571L;
 
-    private int id;
+    private long id;
     private String name;
     private int position;
     private boolean active;
@@ -45,7 +45,7 @@ public class Filter implements Serializable {
     private String sortDirection;
     private FilterLinks _links;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

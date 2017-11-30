@@ -35,9 +35,9 @@ import java.io.Serializable;
  */
 public class Permission implements Serializable {
 
-    private static final long serialVersionUID = -910142865744924325L;
+    private static final long serialVersionUID = -780520632667276182L;
 
-    private int id;
+    private long id;
     private String name;
     private String action;
     private String area;
@@ -50,7 +50,7 @@ public class Permission implements Serializable {
         this.name = name;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

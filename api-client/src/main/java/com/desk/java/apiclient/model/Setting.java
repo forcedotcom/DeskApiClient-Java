@@ -38,17 +38,17 @@ public class Setting implements Serializable {
     public static final int NEW_CASE_RESPONSE = 400;
     public static final int CASE_NOTE_CREATED = 500;
 
-    private static final long serialVersionUID = 5735989852626996972L;
+    private static final long serialVersionUID = -518531160488900730L;
 
-    private int id;
+    private long id;
     private String name;
     private boolean value;
 
-    public int getId() {
+    public long getId() {
         return this.id;
     }
 
-    public void setId(int i) {
+    public void setId(long i) {
         this.id = i;
     }
 

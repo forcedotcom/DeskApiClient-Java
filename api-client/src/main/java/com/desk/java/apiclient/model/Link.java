@@ -88,14 +88,14 @@ public class Link implements Serializable {
      *
      * @return the integer value if exists and is numeric, 0 if it doesn't exist or is not numeric
      */
-    public int getLinkId() {
+    public long getLinkId() {
         if (StringUtils.isEmpty(href)) {
-            return 0;
+            return 0L;
         }
         String segment = StringUtils.getLastPathSegment(href);
         if (StringUtils.isEmpty(segment)
                 || !StringUtils.isDigitsOnly(segment)) {
-            return 0;
+            return 0L;
         }
         return Integer.valueOf(segment);
     }

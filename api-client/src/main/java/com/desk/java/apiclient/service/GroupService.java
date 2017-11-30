@@ -71,7 +71,7 @@ public interface GroupService {
      * @return a user api response
      */
     @GET(GROUPS_URI + "/{id}/users")
-    Call<ApiResponse<User>> getUsersForGroup(@Path("id") int groupId, @Query("per_page") int perPage);
+    Call<ApiResponse<User>> getUsersForGroup(@Path("id") long groupId, @Query("per_page") int perPage);
 
     /**
      * Retrieve a single group
@@ -81,5 +81,5 @@ public interface GroupService {
      * @return a group
      */
     @GET(GROUPS_URI + "/{id}")
-    Call<Group> getGroup(@Path("id") int groupId);
+    Call<Group> getGroup(@Path("id") long groupId);
 }

@@ -80,7 +80,7 @@ public interface RxCustomerService {
      * @see <a href="http://dev.desk.com/API/customers/#list">http://dev.desk.com/API/customers/#list</a>
      */
     @GET(FILTERS_URI + "/{id}/" + CUSTOMERS_URI)
-    Observable<ApiResponse<Customer>> getCustomersByFilterObservable(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+    Observable<ApiResponse<Customer>> getCustomersByFilterObservable(@Path("id") long filterId, @Query("per_page") int perPage, @Query("page") int page,
                                                              @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                                              @Query("embed") Embed embed, @Query("fields") Fields fields);
 
@@ -93,7 +93,7 @@ public interface RxCustomerService {
      * @see <a href="http://dev.desk.com/API/customers/#show">http://dev.desk.com/API/customers/#show</a>
      */
     @GET(CUSTOMERS_URI + "/{id}")
-    Observable<Customer> getCustomerObservable(@Path("id") int customerId, @Query("embed") Embed embed);
+    Observable<Customer> getCustomerObservable(@Path("id") long customerId, @Query("embed") Embed embed);
 
     /**
      * Updates a customer
@@ -104,7 +104,7 @@ public interface RxCustomerService {
      * @see <a href="http://dev.desk.com/API/customers/#update">http://dev.desk.com/API/customers/#update</a>
      */
     @PATCH(CUSTOMERS_URI + "/{id}")
-    Observable<Customer> updateCustomerObservable(@Path("id") int customerId, @Body Customer updatedCustomer);
+    Observable<Customer> updateCustomerObservable(@Path("id") long customerId, @Body Customer updatedCustomer);
 
     /**
      * Creates a customer
@@ -125,7 +125,7 @@ public interface RxCustomerService {
      * @see <a href="http://dev.desk.com/API/cases/#create">http://dev.desk.com/API/cases/#create</a>
      */
     @POST(CUSTOMERS_URI + "/{id}/cases")
-    Observable<Case> createCaseForCustomerObservable(@Path("id") int customerId, @Body Case deskCase);
+    Observable<Case> createCaseForCustomerObservable(@Path("id") long customerId, @Body Case deskCase);
 
     /**
      * Searches for customers
@@ -154,5 +154,5 @@ public interface RxCustomerService {
      * @return a customer response
      */
     @GET(COMPANIES_URI + "/{id}/" + CUSTOMERS_URI)
-    Observable<ApiResponse<Customer>> getCustomersByCompany(@Path("id") int companyId, @Query("per_page") int perPage, @Query("page") int page);
+    Observable<ApiResponse<Customer>> getCustomersByCompany(@Path("id") long companyId, @Query("per_page") int perPage, @Query("page") int page);
 }

@@ -102,7 +102,7 @@ public interface CustomerService {
      * @see <a href="http://dev.desk.com/API/customers/#list">http://dev.desk.com/API/customers/#list</a>
      */
     @GET(FILTERS_URI + "/{id}/" + CUSTOMERS_URI)
-    Call<ApiResponse<Customer>> getCustomersByFilterObservable(@Path("id") int filterId, @Query("per_page") int perPage, @Query("page") int page,
+    Call<ApiResponse<Customer>> getCustomersByFilterObservable(@Path("id") long filterId, @Query("per_page") int perPage, @Query("page") int page,
                                                                  @Query("sort_field") String sortField, @Query("sort_direction") SortDirection sortDirection,
                                                                  @Query("embed") Embed embed, @Query("fields") Fields fields);
 
@@ -115,7 +115,7 @@ public interface CustomerService {
      * @return a customer
      */
     @GET(CUSTOMERS_URI + "/{id}")
-    Call<Customer> getCustomer(@Path("id") int customerId, @Query("embed") Embed embed);
+    Call<Customer> getCustomer(@Path("id") long customerId, @Query("embed") Embed embed);
 
     /**
      * Updates a customer
@@ -126,7 +126,7 @@ public interface CustomerService {
      * @return a customer
      */
     @PATCH(CUSTOMERS_URI + "/{id}")
-    Call<Customer> updateCustomer(@Path("id") int customerId, @Body Customer updatedCustomer);
+    Call<Customer> updateCustomer(@Path("id") long customerId, @Body Customer updatedCustomer);
 
     /**
      * Creates a customer
@@ -147,7 +147,7 @@ public interface CustomerService {
      * @return a case
      */
     @POST(CUSTOMERS_URI + "/{id}/cases")
-    Call<Case> createCaseForCustomer(@Path("id") int customerId, @Body Case deskCase);
+    Call<Case> createCaseForCustomer(@Path("id") long customerId, @Body Case deskCase);
 
     /**
      * Searches for customers
@@ -176,5 +176,5 @@ public interface CustomerService {
      * @return a customer response
      */
     @GET(COMPANIES_URI + "/{id}/" + CUSTOMERS_URI)
-    Call<ApiResponse<Customer>> getCustomersByCompany(@Path("id") int companyId, @Query("per_page") int perPage, @Query("page") int page);
+    Call<ApiResponse<Customer>> getCustomersByCompany(@Path("id") long companyId, @Query("per_page") int perPage, @Query("page") int page);
 }
