@@ -97,6 +97,6 @@ public class Link implements Serializable {
                 || !StringUtils.isDigitsOnly(segment)) {
             return 0L;
         }
-        return Integer.valueOf(segment);
+        return Long.valueOf(segment);
     }
 }
